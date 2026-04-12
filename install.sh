@@ -10,7 +10,10 @@ if [[ -d "$FLUX_DIR" ]]; then
 fi
 
 echo "Installing Flux..."
-git clone https://github.com/enchanted-plugins/flux "$FLUX_DIR"
+git clone --depth 1 https://github.com/enchanted-plugins/flux "$FLUX_DIR"
+
+# Reset prompts index (fresh install)
+echo '{"last_updated":"","prompts":[]}' > "$FLUX_DIR/prompts/index.json"
 
 echo ""
 echo "Done. Run in Claude Code:"
