@@ -5,8 +5,7 @@
 .claude/
 
 # User-generated prompts (cached locally, not committed)
-prompts/*/
-!prompts/index.json
+prompts/
 
 # OS files
 .DS_Store
