@@ -169,8 +169,7 @@ FIXERS = {
 # ─── Learnings Persistence ─────────────────────────────────────────────────────
 
 def load_learnings(prompt_dir):
-    """Load structured learnings from the prompt folder.
-    Returns accumulated knowledge: strategy success rates, patterns, recommendations."""
+    """Load the full learning history for this prompt."""
     path = os.path.join(prompt_dir, "learnings.json") if prompt_dir else None
     if path and os.path.isfile(path):
         try:
@@ -178,61 +177,124 @@ def load_learnings(prompt_dir):
                 return json.load(f)
         except (json.JSONDecodeError, KeyError):
             pass
-    return {"sessions": [], "strategy_stats": {}, "patterns": []}
+    return {
+        "sessions": [],
+        "strategy_stats": {},
+        "patterns": [],
+        "fix_history": [],      # what specific text changes were made
+        "weakness_profile": {},  # co-occurring weakness patterns
+        "recommendations": [],   # actionable advice for next session
+        "prompt_fingerprint": {},  # word count, section count, domain, model
+    }
 
 
-def save_learnings(prompt_dir, log_entries, prev_learnings=None):
-    """Save structured learnings with pattern detection and strategy stats.
+def save_learnings(prompt_dir, log_entries, prev_learnings=None, prompt_text="", metadata=None):
+    """Save rich learnings with fix details, weakness profiling, and recommendations.
 
-    Gauss Convergence Method: accumulate knowledge across sessions.
-    Each session adds to strategy success rates. Patterns emerge over
-    multiple sessions — which fixes work for which weakness profiles.
+    Gauss Convergence Method: accumulate deep knowledge across sessions.
+    Not just "Clarity was fixed" — but "removed 3 hedge words from edge_cases
+    section, which improved Clarity from 7 to 8 on a coding prompt for Claude Opus."
     """
-    if not prompt_dir or not log_entries:
+    if not prompt_dir:
         return
 
-    data = prev_learnings or {"sessions": [], "strategy_stats": {}, "patterns": []}
+    data = prev_learnings or {
+        "sessions": [], "strategy_stats": {}, "patterns": [],
+        "fix_history": [], "weakness_profile": {}, "recommendations": [],
+        "prompt_fingerprint": {},
+    }
 
-    # Add this session
+    # Prompt fingerprint — what kind of prompt is this?
+    if prompt_text:
+        data["prompt_fingerprint"] = {
+            "words": len(prompt_text.split()),
+            "lines": prompt_text.count("\n") + 1,
+            "sections": len(re.findall(r'(^#{1,3}\s|\n#{1,3}\s|<\w+>)', prompt_text)),
+            "has_examples": bool(re.search(r'<example|### Example', prompt_text, re.I)),
+            "has_xml": bool(re.search(r'<\w+>', prompt_text)),
+            "has_markdown": bool(re.search(r'^#{1,3}\s', prompt_text, re.M)),
+        }
+    if metadata:
+        data["prompt_fingerprint"]["domain"] = metadata.get("task_domain", "unknown")
+        data["prompt_fingerprint"]["model"] = metadata.get("target_model", "unknown")
+
+    # Session with rich entries
+    start = log_entries[0].get("start_score", 0) if log_entries else 0
+    end = log_entries[-1].get("end_score", start) if log_entries else start
     session = {
         "timestamp": datetime.now().isoformat(),
         "iterations": len(log_entries),
-        "start_score": log_entries[0].get("start_score", 0) if log_entries else 0,
-        "end_score": log_entries[-1].get("end_score", 0) if log_entries else 0,
+        "start_score": start,
+        "end_score": end,
+        "improved": end > start,
+        "delta": round(end - start, 1),
         "entries": log_entries,
     }
     data["sessions"].append(session)
 
-    # Update strategy success rates (Gauss accumulation)
+    # Strategy stats with per-fix detail
     for entry in log_entries:
         axis = entry.get("axis", "unknown")
         result = entry.get("result", "unknown")
         if axis not in data["strategy_stats"]:
-            data["strategy_stats"][axis] = {"applied": 0, "reverted": 0, "total_delta": 0.0}
+            data["strategy_stats"][axis] = {
+                "applied": 0, "reverted": 0, "total_delta": 0.0,
+                "best_delta": 0.0, "worst_delta": 0.0,
+                "last_result": "", "consecutive_failures": 0,
+            }
         stats = data["strategy_stats"][axis]
+        delta = entry.get("delta", 0)
         if result == "applied":
             stats["applied"] += 1
-            stats["total_delta"] += entry.get("delta", 0)
+            stats["total_delta"] += delta
+            stats["best_delta"] = max(stats["best_delta"], delta)
+            stats["consecutive_failures"] = 0
+            stats["last_result"] = "applied"
         elif result == "reverted":
             stats["reverted"] += 1
+            stats["worst_delta"] = min(stats["worst_delta"], delta)
+            stats["consecutive_failures"] += 1
+            stats["last_result"] = "reverted"
 
-    # Detect patterns across all sessions
+    # Fix history — what specific changes were made (last 20)
+    for entry in log_entries:
+        data["fix_history"].append({
+            "timestamp": datetime.now().isoformat()[:19],
+            "axis": entry.get("axis", "?"),
+            "hypothesis": entry.get("hypothesis", ""),
+            "result": entry.get("result", "?"),
+            "delta": entry.get("delta", 0),
+            "score_before": entry.get("start_score", 0),
+            "score_after": entry.get("end_score", 0),
+        })
+    data["fix_history"] = data["fix_history"][-20:]  # keep last 20
+
+    # Weakness profiling — which axes are consistently weak together?
+    if log_entries:
+        weak_axes = set()
+        for entry in log_entries:
+            if entry.get("start_score", 10) < 8:
+                weak_axes.add(entry.get("axis", "unknown"))
+        if len(weak_axes) >= 2:
+            key = "+".join(sorted(weak_axes))
+            data["weakness_profile"][key] = data["weakness_profile"].get(key, 0) + 1
+
+    # Detect patterns and generate recommendations
     data["patterns"] = _detect_patterns(data)
+    data["recommendations"] = _generate_recommendations(data)
 
-    # Save JSON (machine-readable, queryable)
+    # Save
     json_path = os.path.join(prompt_dir, "learnings.json")
     with open(json_path, "w", encoding="utf-8") as f:
         json.dump(data, f, indent=2)
 
-    # Also save human-readable summary
     md_path = os.path.join(prompt_dir, "learnings.md")
     with open(md_path, "w", encoding="utf-8") as f:
         f.write(_render_learnings_md(data))
 
 
 def _detect_patterns(data):
-    """Analyze accumulated learnings to find optimization patterns.
-    Returns list of actionable insights."""
+    """Deep pattern analysis across all sessions."""
     patterns = []
     stats = data.get("strategy_stats", {})
 
@@ -245,38 +307,96 @@ def _detect_patterns(data):
 
         if success_rate == 1.0 and total >= 2:
             patterns.append({
-                "type": "reliable_strategy",
+                "type": "reliable",
                 "axis": axis,
-                "message": f"Fixing {axis} has succeeded {total}/{total} times (avg improvement: +{avg_delta:.1f}). Prioritize this fix.",
+                "confidence": "high",
+                "message": f"{axis}: {total}/{total} succeeded, avg +{avg_delta:.1f}. Always try this first.",
             })
         elif success_rate < 0.5 and total >= 3:
             patterns.append({
-                "type": "unreliable_strategy",
+                "type": "unreliable",
                 "axis": axis,
-                "message": f"Fixing {axis} has been reverted {s['reverted']}/{total} times. Consider alternative approach.",
+                "confidence": "high",
+                "message": f"{axis}: reverted {s['reverted']}/{total} times. Skip automated fix — needs manual rewrite.",
             })
-        elif s["reverted"] > 0 and s["applied"] > 0:
+        elif s["consecutive_failures"] >= 2:
             patterns.append({
-                "type": "mixed_strategy",
+                "type": "currently_stuck",
                 "axis": axis,
-                "message": f"Fixing {axis}: {s['applied']} succeeded, {s['reverted']} reverted. Success rate: {success_rate:.0%}.",
+                "confidence": "medium",
+                "message": f"{axis}: {s['consecutive_failures']} consecutive failures. Automated fixer cannot solve this — escalate to orchestrator.",
             })
 
-    # Cross-session pattern: plateau detection
+    # Plateau detection
     sessions = data.get("sessions", [])
     if len(sessions) >= 2:
-        last_two = sessions[-2:]
-        if all(s["end_score"] == s["start_score"] for s in last_two):
+        recent = sessions[-3:] if len(sessions) >= 3 else sessions[-2:]
+        if all(not s.get("improved", False) for s in recent):
             patterns.append({
                 "type": "persistent_plateau",
-                "message": "Score unchanged across last 2 sessions. Prompt may need structural rewrite, not incremental fixes.",
+                "confidence": "high",
+                "message": f"No improvement in last {len(recent)} sessions. Structural rewrite needed — incremental fixes exhausted.",
+            })
+
+    # Weakness co-occurrence
+    wp = data.get("weakness_profile", {})
+    for combo, count in wp.items():
+        if count >= 2:
+            patterns.append({
+                "type": "co_occurring_weakness",
+                "confidence": "medium",
+                "message": f"{combo} appear weak together ({count} times). Fixing one may fix both — they share a root cause.",
             })
 
     return patterns
 
 
+def _generate_recommendations(data):
+    """Generate actionable advice for the next session based on all accumulated knowledge."""
+    recs = []
+    stats = data.get("strategy_stats", {})
+    patterns = data.get("patterns", [])
+    fp = data.get("prompt_fingerprint", {})
+
+    # Based on strategy stats
+    for axis, s in stats.items():
+        total = s["applied"] + s["reverted"]
+        if total == 0:
+            continue
+        if s["consecutive_failures"] >= 2:
+            recs.append(f"SKIP automated {axis} fixes — they've failed {s['consecutive_failures']} times in a row. Rewrite the {axis.lower()}-related sections manually.")
+        elif s["applied"] > 0 and s["total_delta"] / s["applied"] > 0.3:
+            recs.append(f"PRIORITIZE {axis} fixes — avg improvement of +{s['total_delta']/s['applied']:.1f} per application.")
+
+    # Based on patterns
+    for p in patterns:
+        if p["type"] == "persistent_plateau":
+            recs.append("RESTRUCTURE the prompt — tables instead of prose, shorter sentences, more imperative verbs. The current structure has reached its ceiling.")
+        if p["type"] == "co_occurring_weakness":
+            recs.append(f"FIX root cause for {p['message'].split(' appear')[0]} — they share a root cause, likely verbose descriptive writing style.")
+
+    # Based on prompt fingerprint
+    if fp.get("words", 0) > 1500 and not fp.get("has_examples"):
+        recs.append("ADD examples — prompts over 1500 words without examples score lower on Completeness and Model Fit.")
+    if fp.get("has_xml") and not fp.get("has_markdown"):
+        recs.append("VERIFY target model prefers XML — if targeting GPT, switch to Markdown headers.")
+    if fp.get("sections", 0) < 5 and fp.get("words", 0) > 500:
+        recs.append("ADD more section headers — long prompts without structure score lower on Efficiency.")
+
+    # Based on session trajectory
+    sessions = data.get("sessions", [])
+    if len(sessions) >= 3:
+        deltas = [s.get("delta", 0) for s in sessions[-3:]]
+        if all(d <= 0 for d in deltas):
+            recs.append("DIMINISHING RETURNS — 3 sessions with no improvement. Consider: different techniques, different model target, or accepting current score as ceiling.")
+        elif deltas[-1] > deltas[-2] > 0:
+            recs.append("MOMENTUM — improvement accelerating. Keep iterating with current strategy.")
+
+    return recs
+
+
 def _render_learnings_md(data):
-    """Render human-readable learnings summary."""
+    """Render human-readable learnings that actually help the next session."""
     lines = [
         "# Gauss Convergence Learnings",
         "",
@@ -284,18 +404,29 @@ def _render_learnings_md(data):
         "",
     ]
 
-    # Strategy stats table
+    # Recommendations FIRST — the most important section
+    recs = data.get("recommendations", [])
+    if recs:
+        lines.append("## Recommendations for Next Session")
+        lines.append("")
+        for r in recs:
+            lines.append(f"- {r}")
+        lines.append("")
+
+    # Strategy stats
     stats = data.get("strategy_stats", {})
     if stats:
-        lines.append("## Strategy Success Rates")
+        lines.append("## Strategy Performance")
         lines.append("")
-        lines.append("| Axis | Applied | Reverted | Success Rate | Avg Delta |")
-        lines.append("|------|---------|----------|-------------|-----------|")
+        lines.append("| Axis | Applied | Reverted | Rate | Avg Delta | Best | Streak |")
+        lines.append("|------|---------|----------|------|-----------|------|--------|")
         for axis, s in stats.items():
             total = s["applied"] + s["reverted"]
             rate = f"{s['applied']/total:.0%}" if total > 0 else "N/A"
             avg = f"+{s['total_delta']/s['applied']:.1f}" if s["applied"] > 0 else "N/A"
-            lines.append(f"| {axis} | {s['applied']} | {s['reverted']} | {rate} | {avg} |")
+            best = f"+{s['best_delta']:.1f}" if s["best_delta"] > 0 else "0"
+            streak = f"{s['consecutive_failures']} fails" if s["consecutive_failures"] > 0 else "OK"
+            lines.append(f"| {axis} | {s['applied']} | {s['reverted']} | {rate} | {avg} | {best} | {streak} |")
         lines.append("")
 
     # Patterns
@@ -304,17 +435,48 @@ def _render_learnings_md(data):
         lines.append("## Detected Patterns")
         lines.append("")
         for p in patterns:
-            icon = {"reliable_strategy": "+", "unreliable_strategy": "!", "mixed_strategy": "~", "persistent_plateau": "!!"}
-            lines.append(f"- [{icon.get(p['type'], '?')}] {p['message']}")
+            conf = p.get("confidence", "?")
+            lines.append(f"- [{conf}] {p['message']}")
         lines.append("")
 
-    # Session history
+    # Weakness co-occurrence
+    wp = data.get("weakness_profile", {})
+    if wp:
+        lines.append("## Weakness Co-occurrence")
+        lines.append("")
+        for combo, count in sorted(wp.items(), key=lambda x: -x[1]):
+            lines.append(f"- {combo}: seen {count} time(s)")
+        lines.append("")
+
+    # Recent fix history
+    fh = data.get("fix_history", [])
+    if fh:
+        lines.append("## Recent Fix History (last 10)")
+        lines.append("")
+        lines.append("| Axis | Hypothesis | Result | Delta | Score |")
+        lines.append("|------|-----------|--------|-------|-------|")
+        for f in fh[-10:]:
+            hyp = f.get("hypothesis", "")[:50]
+            lines.append(f"| {f.get('axis','?')} | {hyp} | {f.get('result','?')} | {f.get('delta',0):+.1f} | {f.get('score_before',0)}->{f.get('score_after',0)} |")
+        lines.append("")
+
+    # Prompt fingerprint
+    fp = data.get("prompt_fingerprint", {})
+    if fp:
+        lines.append("## Prompt Profile")
+        lines.append("")
+        lines.append(f"- Words: {fp.get('words', '?')} | Sections: {fp.get('sections', '?')} | Domain: {fp.get('domain', '?')} | Model: {fp.get('model', '?')}")
+        lines.append(f"- XML: {'yes' if fp.get('has_xml') else 'no'} | Markdown: {'yes' if fp.get('has_markdown') else 'no'} | Examples: {'yes' if fp.get('has_examples') else 'no'}")
+        lines.append("")
+
+    # Session trajectory
     sessions = data.get("sessions", [])
     if sessions:
-        lines.append("## Session History")
+        lines.append("## Session Trajectory")
         lines.append("")
-        for i, s in enumerate(sessions[-5:], 1):  # last 5 sessions
-            lines.append(f"- Session {len(sessions) - 5 + i}: {s.get('start_score', '?')} -> {s.get('end_score', '?')} in {s.get('iterations', '?')} iterations ({s.get('timestamp', '?')[:10]})")
+        for i, s in enumerate(sessions[-5:], 1):
+            arrow = "^" if s.get("improved") else "=" if s.get("delta", 0) == 0 else "v"
+            lines.append(f"- [{arrow}] {s.get('start_score', '?')} -> {s.get('end_score', '?')} ({s.get('delta', 0):+.1f}) in {s.get('iterations', '?')} iterations ({s.get('timestamp', '?')[:10]})")
         lines.append("")
 
     return "\n".join(lines)
@@ -378,7 +540,7 @@ def run(prompt_path, max_iterations=100, verbose=False):
             print(f"  Iteration {iteration}: {overall}/10 — DEPLOY ({len(passed)}/{len(assertions)} assertions pass)")
             _save(prompt_path, best_text)
             _print_final(scores, assertions, iteration)
-            save_learnings(prompt_dir, learnings, prev_learnings)
+            save_learnings(prompt_dir, learnings, prev_learnings, best_text)
             return scores
 
         # Check DEPLOY by scores only (assertions are bonus)
@@ -386,7 +548,7 @@ def run(prompt_path, max_iterations=100, verbose=False):
             print(f"  Iteration {iteration}: {overall}/10 — DEPLOY (scores OK, {len(failed)} assertion(s) remaining)")
             _save(prompt_path, best_text)
             _print_final(scores, assertions, iteration)
-            save_learnings(prompt_dir, learnings, prev_learnings)
+            save_learnings(prompt_dir, learnings, prev_learnings, best_text)
             return scores
 
         # Plateau detection
@@ -396,7 +558,7 @@ def run(prompt_path, max_iterations=100, verbose=False):
                 print(f"  Iteration {iteration}: {overall}/10 — PLATEAU")
                 _save(prompt_path, best_text)
                 _print_final(scores, assertions, iteration)
-                save_learnings(prompt_dir, learnings, prev_learnings)
+                save_learnings(prompt_dir, learnings, prev_learnings, best_text)
                 return scores
 
         # Form hypothesis — Gauss Method: target weakest axis, skip known-unreliable
@@ -455,7 +617,7 @@ def run(prompt_path, max_iterations=100, verbose=False):
     _save(prompt_path, best_text)
     scores = score_prompt(best_text)
     _print_final(scores, run_assertions(best_text), max_iterations)
-    save_learnings(prompt_dir, learnings, prev_learnings)
+    save_learnings(prompt_dir, learnings, prev_learnings, best_text)
     return scores
 
 
