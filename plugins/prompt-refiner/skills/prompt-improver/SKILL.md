@@ -220,14 +220,14 @@ Two modes based on domain. Check and execute the matching one.
 
 ### Mode A: Text Prompts (all domains except image-gen)
 
-**Fully autonomous.** Loop without user input. Up to 100 iterations.
+**Fully autonomous.** Run the Convergence Engine on the refined prompt:
 
-1. Score the refined prompt via self-eval.
-2. Check: overall ≥ 9, all axes ≥ 7, zero criticals → **DEPLOY. Exit.**
-3. Score unchanged 3 consecutive iterations → **Plateau. Exit.**
-4. Otherwise: read findings, apply fixes (see fix table in prompt-crafter SKILL.md), overwrite prompt, go to 1.
-5. Progress update every 10 iterations.
-6. On exit, save all artifacts (delivery steps 3-8) and generate report.pdf.
+```bash
+python ${CLAUDE_PLUGIN_ROOT}/../../shared/scripts/convergence.py <prompt-file>
+```
+
+Loops up to 100 iterations. Fixes weakest axis each round. Exits on DEPLOY or plateau.
+After convergence, save all artifacts (delivery steps 3-8) and generate report.pdf.
 
 ### Mode B: Image Prompts (image-gen)
 

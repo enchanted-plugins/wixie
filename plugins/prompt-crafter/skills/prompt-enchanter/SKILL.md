@@ -267,46 +267,20 @@ This phase has TWO modes depending on domain. Check the task domain and execute 
 
 ### Mode A: Text Prompts (coding, analysis, agent, conversational, data-extraction, decision-making, creative-writing)
 
-**Fully autonomous.** Loop without user input until the prompt is production-ready. Do NOT ask the user for permission to iterate — just do it.
+**Fully autonomous.** Run the Convergence Engine — it loops up to 100 times, fixing the weakest axis each iteration until DEPLOY or plateau.
 
-**Loop (up to 100 iterations):**
-
-1. **Score:**
 ```bash
-python ${CLAUDE_PLUGIN_ROOT}/../../shared/scripts/self-eval.py <prompt-file>
+python ${CLAUDE_PLUGIN_ROOT}/../../shared/scripts/convergence.py <prompt-file>
 ```
 
-2. **Check exit condition:**
-   - Overall ≥ 9 AND all axes ≥ 7 AND zero CRITICAL findings → **DEPLOY. Exit loop.**
-   - Score unchanged for 3 consecutive iterations → **Plateau reached. Exit loop.**
-   - User says "stop" or "good enough" → **Exit loop.**
+The engine will:
+- Score the prompt on all 5 axes
+- Automatically fix: hedge words, missing components, filler phrases, format mismatches, missing fallbacks
+- Re-score and loop until overall ≥ 9 with all axes ≥ 7, or plateau (3 identical scores)
+- Print progress every 10 iterations
+- Save the best version back to the prompt file
 
-3. **If not exiting, fix the prompt:**
-   - Read each finding from the scorer output.
-   - Apply the specific fix for each:
-
-   | Finding | Fix |
-   |---|---|
-   | Low Clarity | Rewrite with imperative verbs. Shorten sentences >40 words. Remove hedge words. |
-   | Low Completeness | Add missing: role, output format, constraints, examples. |
-   | Low Efficiency | Remove filler phrases. Deduplicate instructions. Strip examples of repeated boilerplate. |
-   | Low Model Fit | Restructure format for target model. Add/remove CoT. Fix few-shot. |
-   | Low Failure Resilience | Add fallback instructions, edge case handling, input validation. |
-   | Format mismatch | Switch to target model's preferred format (XML/Markdown/minimal). |
-   | Missing few-shot | Add 2-3 diverse examples. |
-   | CoT conflict | Remove CoT for reasoning-native models. Add for standard models. |
-   | Conflicting instructions | Identify the contradiction and remove one side. |
-   | Vague role | Replace "helpful assistant" with a specific domain expert. |
-   | No output format | Add explicit format specification section. |
-
-   - Overwrite `prompt.<format>` with the improved version.
-   - Go back to step 1.
-
-4. **Progress updates (every 10 iterations):**
-   Show: `"Iteration 30/100 — Overall: 8.2→8.7. Fixing: Efficiency (repeated 5-grams in constraints section)..."`
-   Do NOT show updates every single iteration — it clutters the output.
-
-5. **On exit, save all artifacts** (delivery steps 1-8) and generate report.pdf.
+After convergence completes, save all artifacts (delivery steps 1-8) and generate report.pdf.
 
 ---
 
