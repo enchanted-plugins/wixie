@@ -1,12 +1,12 @@
 # Prompt Anatomy
 
-Mandatory component checklist and fallback patterns for every enchanted prompt. Read this file during Phase 3B to ensure no critical component is missing.
+Mandatory component checklist and fallback patterns for every generated prompt. Read this file during Phase 3B to ensure no critical component is missing.
 
 ---
 
 ## Component Checklist
 
-Every enchanted prompt must include these components. Check each off before delivery. If the user opted out of a component in Phase 2, skip it — but note the omission in the Enchantment Report.
+Every generated prompt must include these components. Check each off before delivery. If the user opted out of a component in Phase 2, skip it — but note the omission in the Creation Report.
 
 | # | Component | Required For | Purpose | Skip When |
 |---|-----------|-------------|---------|-----------|
@@ -227,4 +227,4 @@ Phase 3: Generate recommendations based on synthesis
 
 ---
 
-*End of prompt anatomy reference. Return to the enchanting workflow after applying components.*
+*End of prompt anatomy reference. Return to the creation workflow after applying components.*

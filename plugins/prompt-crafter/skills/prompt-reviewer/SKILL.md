@@ -4,7 +4,7 @@ description: >
   Internal reviewer agent. Validates a completed prompt folder against
   metadata.json and models registry. Checks consistency, completeness,
   and production-readiness. Not user-invocable — triggered automatically
-  by the prompt-enchanter after convergence completes.
+  by the prompt-creator after convergence completes.
 user-invocable: false
 ---
 

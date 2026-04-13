@@ -30,7 +30,7 @@ Without these permissions, every tool call in the pipeline pauses for approval â
 
 | Command | Plugin | What it does |
 |---------|--------|-------------|
-| `/enchant` | prompt-crafter | Create a new prompt |
+| `/create` | prompt-crafter | Create a new prompt |
 | `/refine` | prompt-refiner | Improve an existing prompt |
 | `/converge` | convergence-engine | Optimize any prompt (100 iterations) |
 | `/test-prompt` | prompt-tester | Run tests.json assertions |

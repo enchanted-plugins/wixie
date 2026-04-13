@@ -11,7 +11,7 @@ User describes task
   → Phase 1: Context Scan (silent — reads CLAUDE.md, .cursorrules)
   → Phase 2: Interactive Profiling (3-8 targeted questions)
   → Phase 2.5: Model Fit Check (warns if wrong model for task)
-  → Phase 3: Enchanting (technique selection + prompt generation)
+  → Phase 3: Generation (technique selection + prompt generation)
   → Phase 4: Multi-Agent Pipeline
       → Convergence Agent (Opus, background, up to 100 iterations)
       → Reviewer Agent (Opus, validates against registry)
@@ -22,7 +22,7 @@ User describes task
 
 | Type | Name | What it does |
 |------|------|-------------|
-| Skill | prompt-enchanter | Main workflow — phases 1-4 |
+| Skill | prompt-creator | Main workflow — phases 1-4 |
 | Skill | prompt-reviewer | Internal validator (not user-invocable) |
 | Agent | convergence | Runs convergence.py in background (Opus) |
 | Agent | reviewer | Validates folder against registry (Opus) |
@@ -30,7 +30,7 @@ User describes task
 
 ## Triggers
 
-`/enchant`, "I need a prompt for...", "build me a prompt", "write a system prompt"
+`/create`, "I need a prompt for...", "build me a prompt", "write a system prompt"
 
 ## Output
 

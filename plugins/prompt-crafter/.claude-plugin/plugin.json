@@ -13,7 +13,7 @@
     "multi-agent"
   ],
   "skills": [
-    "./skills/prompt-enchanter/",
+    "./skills/prompt-creator/",
     "./skills/prompt-reviewer/"
   ],
   "agents": "./agents/"

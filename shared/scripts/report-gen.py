@@ -293,7 +293,7 @@ def build_html(meta, prompt_dir):
     registry = load_registry()
     name = os.path.basename(os.path.normpath(prompt_dir))
     mode = meta.get("mode", "create")
-    title = "Refinement Report" if mode == "refine" else "Enchantment Report"
+    title = "Refinement Report" if mode == "refine" else "Creation Report"
     model = meta.get("target_model", "unknown")
     model_info = registry.get("models", {}).get(model, {})
     domain = meta.get("task_domain", "unknown")
@@ -426,7 +426,7 @@ def build_html(meta, prompt_dir):
     elif verdict_label == "IMPROVE":
         next_steps = ["Focus on the lowest-scoring axes first.", "Add missing components flagged in warnings.", "Run /refine with specific improvement goals.", "Re-score after each iteration."]
     elif verdict_label in ("REWORK", "DO NOT DEPLOY"):
-        next_steps = ["Do not use this prompt in production.", "Address ALL critical findings before proceeding.", "Consider rewriting from scratch with /enchant for a fresh start.", "Verify technique and format match the target model."]
+        next_steps = ["Do not use this prompt in production.", "Address ALL critical findings before proceeding.", "Consider rewriting from scratch with /create for a fresh start.", "Verify technique and format match the target model."]
     ns_html = "".join(f'<div class="ns">{i+1}. {s}</div>' for i, s in enumerate(next_steps))
 
     return f"""<!DOCTYPE html>

@@ -23,8 +23,8 @@ Before submitting a PR, verify:
 flux/
 ├── .claude-plugin/marketplace.json    Marketplace (6 plugins)
 ├── plugins/
-│   ├── prompt-crafter/                Creates prompts (/enchant)
-│   │   ├── skills/ (enchanter + reviewer)
+│   ├── prompt-crafter/                Creates prompts (/create)
+│   │   ├── skills/ (creator + reviewer)
 │   │   ├── agents/ (reviewer)
 │   │   └── hooks/ (PostToolUse)
 │   ├── prompt-refiner/                Improves prompts (/refine)

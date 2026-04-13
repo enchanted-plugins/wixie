@@ -1,12 +1,12 @@
 ---
-name: prompt-enchanter
+name: prompt-creator
 description: >
-  Enchants raw prompts and task descriptions into optimized,
-  model-fitted prompts with technique selection and explained reasoning.
+  Creates optimized, model-fitted prompts from raw task descriptions
+  with technique selection and explained reasoning.
   Auto-triggers on: "I need a prompt for", "build me a prompt",
   "make this prompt better", "optimize this prompt", "help me prompt",
   "write a system prompt", "what prompting technique should I use",
-  "how should I structure this prompt", "/enchant".
+  "how should I structure this prompt", "/create".
 allowed-tools: Bash(python *) Bash(mkdir *) Read Write Edit Agent
 ---
 
@@ -128,7 +128,7 @@ Wait for the user's response. If they confirm the original model, proceed. If th
 
 ---
 
-## Phase 3: Enchanting
+## Phase 3: Generation
 
 Three sub-steps, executed in order.
 
@@ -142,7 +142,7 @@ Read [technique-engine.md](${CLAUDE_PLUGIN_ROOT}/../../shared/references/techniq
 4. Check the anti-patterns column — if a technique would HURT on the target model, do NOT use it. Note this for the report
 5. Check the priority rules for model-specific overrides
 
-### 3B: Generate the Enchanted Prompt
+### 3B: Generate the Prompt
 
 Read [model-profiles.md](${CLAUDE_PLUGIN_ROOT}/../../shared/references/model-profiles.md) for the target model's format requirements.
 Read [output-formats.md](${CLAUDE_PLUGIN_ROOT}/../../shared/references/output-formats.md) for the task type's optimal structure.
@@ -151,7 +151,7 @@ Read [output-formats.md](${CLAUDE_PLUGIN_ROOT}/../../shared/references/output-fo
 
 1. Check the `last_updated` field. If it's more than 3 months old, verify critical specs via web search or your own knowledge before relying on them.
 2. If the target model is not in the registry, check if a close match exists (same family). If not, flag it: "Model not in registry — specs are best-effort."
-3. If you know a registry value is outdated (e.g., a model's context window has expanded since the registry was last updated), use the current value, note the correction in the Enchantment Report, and update `${CLAUDE_PLUGIN_ROOT}/../../shared/models-registry.json` with the new value and today's date in `last_updated`.
+3. If you know a registry value is outdated (e.g., a model's context window has expanded since the registry was last updated), use the current value, note the correction in the Creation Report, and update `${CLAUDE_PLUGIN_ROOT}/../../shared/models-registry.json` with the new value and today's date in `last_updated`.
 
 Apply all three layers:
 
@@ -161,7 +161,7 @@ Apply all three layers:
 
 ### Mandatory Prompt Components
 
-Read [prompt-anatomy.md](${CLAUDE_PLUGIN_ROOT}/../../shared/references/prompt-anatomy.md) for the full checklist and fallback patterns. Every enchanted prompt MUST include these components (unless the user explicitly opted out in Phase 2):
+Read [prompt-anatomy.md](${CLAUDE_PLUGIN_ROOT}/../../shared/references/prompt-anatomy.md) for the full checklist and fallback patterns. Every generated prompt MUST include these components (unless the user explicitly opted out in Phase 2):
 
 1. **Fallback instructions** — What to do when input is ambiguous, data is missing, or the task cannot be completed as specified. Read `${CLAUDE_PLUGIN_ROOT}/../../shared/references/prompt-anatomy.md` section "Fallback Patterns" for domain-specific templates.
 2. **Expected output** — A concrete example or description of what correct output looks like. Even a brief one anchors the model's format and depth.

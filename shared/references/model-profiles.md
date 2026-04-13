@@ -2,7 +2,7 @@
 
 > **Single source of truth for model specs: [models-registry.json](../models-registry.json).** This file contains detailed prompting guidance per model, but context windows and capabilities come from the registry. If a spec here conflicts with the registry, the registry wins. If the registry's `last_updated` date is more than 3 months old, verify critical specs via web search before relying on them.
 
-Formatting and behavioral specifications for target models. Read this file during Phase 3B to adapt the enchanted prompt to the target model's requirements.
+Formatting and behavioral specifications for target models. Read this file during Phase 3B to adapt the generated prompt to the target model's requirements.
 
 Select the profile matching the user's target model. If the exact model is not listed, use the closest family match.
 

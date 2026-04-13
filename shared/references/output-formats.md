@@ -33,7 +33,7 @@ If the task crosses multiple types (e.g., "analyze this data and generate code t
 
 ### Rule 2: User Format Overrides
 
-If the user specifies a format explicitly, always honor it, even if it is suboptimal for the task type. Note the trade-off in the Enchantment Report under Format Decisions:
+If the user specifies a format explicitly, always honor it, even if it is suboptimal for the task type. Note the trade-off in the Creation Report under Format Decisions:
 
 > "The user requested [format]. This is non-standard for [task type] because [reason], but honoring the user's preference."
 
@@ -141,4 +141,4 @@ Present your analysis in this format:
 
 ---
 
-*End of output formats reference. Return to the enchanting workflow after selecting the output format.*
+*End of output formats reference. Return to the creation workflow after selecting the output format.*

@@ -1,8 +1,8 @@
 # Technique Engine
 
-> **Model specs are sourced from [models-registry.json](../models-registry.json).** If the registry's `last_updated` date is more than 3 months old, verify model-specific anti-patterns against current benchmarks before applying. Techniques that hurt today may help tomorrow as models evolve — override outdated recommendations and note the change in the Enchantment Report.
+> **Model specs are sourced from [models-registry.json](../models-registry.json).** If the registry's `last_updated` date is more than 3 months old, verify model-specific anti-patterns against current benchmarks before applying. Techniques that hurt today may help tomorrow as models evolve — override outdated recommendations and note the change in the Creation Report.
 
-Decision reference for selecting prompt engineering techniques. Read this file during Phase 3A of the enchanting workflow.
+Decision reference for selecting prompt engineering techniques. Read this file during Phase 3A of the creation workflow.
 
 ---
 
@@ -284,4 +284,4 @@ Move down one complexity tier when you observe any of these:
 
 ---
 
-*End of technique engine reference. Return to the enchanting workflow after selecting techniques.*
+*End of technique engine reference. Return to the creation workflow after selecting techniques.*
