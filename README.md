@@ -158,6 +158,135 @@ prompts/b2b-ticket-router/
 
 The **PDF audit report** includes: quality score bars, 8 binary assertion results, technique pills, model profile from the 64-model registry, prompt statistics, audit findings (CRITICAL/WARNING), cost estimate, and an honest verdict with next steps.
 
+## The Science Behind Flux
+
+Every Flux engine is built on a formal mathematical model. These aren't marketing abstractions — they're the actual algorithms running under the hood.
+
+### Engine 1: Convergence (סטיית תקן — Standard Deviation Minimization)
+
+The Convergence Engine treats prompt quality as a minimization problem. Given a prompt `P` and a scoring function `S: P → ℝ⁵` mapping to 5 quality axes, define the deviation from perfection:
+
+```
+σ(P) = √(Σᵢ (Sᵢ(P) - 10)² / 5)
+
+where Sᵢ ∈ {Clarity, Completeness, Efficiency, ModelFit, Resilience}
+```
+
+Each iteration applies a transformation `T_k` targeting the weakest axis `argmin(Sᵢ)`:
+
+```
+P_{n+1} = T_k(P_n)   where k = argmin_i(Sᵢ(P_n))
+
+Accept P_{n+1} only if σ(P_{n+1}) < σ(P_n)     — auto-revert on regression
+Converge when σ(P) < 0.45  (equivalent to all axes ≥ 9)
+Plateau when σ(P_n) = σ(P_{n-1}) = σ(P_{n-2})   — 3-step stagnation detection
+```
+
+The hypothesis log `H = {(k, ΔS, outcome)}` persists across sessions, enabling the engine to skip transformations that previously failed on similar prompts.
+
+**Novel contribution:** Hypothesis-driven prompt optimization with regression protection and cross-session learning.
+
+### Engine 2: Binary Assertion Framework (Boolean Satisfiability)
+
+Quality scoring alone is insufficient — a prompt can score 9/10 overall while missing a critical component. The assertion framework defines 8 boolean predicates that must ALL hold:
+
+```
+DEPLOY(P) ⟺ σ(P) < threshold ∧ ∀j ∈ {1..8}: Aⱼ(P) = TRUE
+
+where:
+  A₁(P) = has_role(P)         — prompt defines persona
+  A₂(P) = has_task(P)         — prompt defines objective
+  A₃(P) = has_format(P)       — prompt specifies output structure
+  A₄(P) = has_constraints(P)  — prompt has guardrails
+  A₅(P) = has_edge_cases(P)   — prompt handles failure modes
+  A₆(P) = ¬has_hedges(P)      — no uncertainty language
+  A₇(P) = ¬has_filler(P)      — no verbose padding
+  A₈(P) = has_structure(P)    — markup/formatting present
+```
+
+This is formally a conjunction of boolean satisfiability constraints overlaid on the continuous optimization. The engine resolves unsatisfied predicates first, then optimizes the continuous score.
+
+**Novel contribution:** Hybrid SAT + continuous optimization for prompt quality verification.
+
+### Engine 3: Model Fit (Cross-Domain Adaptation Function)
+
+Prompt translation between models is formalized as a structure-preserving transformation. Given source model `M_s` and target model `M_t`, define:
+
+```
+T: (P, M_s) → (P', M_t)
+
+subject to:
+  Semantic(P') = Semantic(P)          — intent preservation
+  Format(P') ∈ Preferred(M_t)        — format compliance
+  Techniques(P') ∩ AntiPatterns(M_t) = ∅   — no harmful techniques
+  ∀ examples ∈ P: Content(examples) preserved, Structure(examples) adapted
+```
+
+The 64-model registry `R` provides the constraint set per model: `R(M) = {format, reasoning, cot_approach, few_shot, key_constraint}`. Translation applies a sequence of format converters `F`, technique selectors `T`, and model-specific adapters `A`:
+
+```
+P' = A_{M_t} ∘ T_{M_t} ∘ F_{M_s→M_t}(P)
+```
+
+**Novel contribution:** Constraint-preserving prompt transformation across 64 model architectures with automatic anti-pattern avoidance.
+
+### Engine 4: Adversarial Robustness (Game-Theoretic Security)
+
+Prompt hardening is modeled as a two-player zero-sum game between an attacker `α` and the prompt's defense `δ`:
+
+```
+For each attack class cₖ ∈ {injection, override, extraction, ...}:
+
+  α(cₖ) → input_adversarial       — attacker crafts optimal input
+  δ(P, input_adversarial) → {RESIST, VULNERABLE}
+
+Security score:  Ω(P) = |{k : δ(P, α(cₖ)) = RESIST}| / |C|
+```
+
+The hardening function `H` adds defense instructions that maximize `Ω` without degrading the primary quality score:
+
+```
+P_hardened = argmax_{P'} Ω(P')  subject to  S(P') ≥ S(P) - ε
+```
+
+12 attack classes cover OWASP LLM Top 10 vectors. The red-team agent plays `α`, the prompt acts as `δ`.
+
+**Novel contribution:** Formal game-theoretic prompt security testing with quality-preserving defense injection.
+
+### Engine 5: Test Verification (Assertion-Based Runtime Validation)
+
+The tester formalizes prompt quality as observable behavior, not static analysis. For a prompt `P` and test suite `T = {(input_i, expected_i)}`:
+
+```
+PassRate(P, T) = |{i : ∀s ∈ expected_i, s ⊆ Output(P, input_i)}| / |T|
+
+VERIFIED(P) ⟺ PassRate(P, T) = 1.0
+```
+
+This closes the loop between static scoring (Engine 1) and runtime behavior — a prompt can score 9.4/10 on structure but fail 40% of test cases if the domain logic is wrong.
+
+**Novel contribution:** Static-dynamic dual verification bridging prompt structure analysis with behavioral testing.
+
+### Engine 6: Self-Learning Persistence (Knowledge Accumulation)
+
+The convergence engine accumulates knowledge across sessions via `learnings.md`:
+
+```
+K_n = K_{n-1} ∪ {(hypothesis_n, transformation_n, Δσ_n, outcome_n)}
+
+Strategy selection for iteration n+1:
+  Prioritize transformations where historical Δσ > 0
+  Skip transformations where historical outcome = "reverted" for similar σ profile
+```
+
+Over multiple sessions, the engine builds a prompt-specific optimization policy — it learns which fixes work for which types of prompts and avoids repeating failed strategies.
+
+**Novel contribution:** Cross-session prompt optimization policy learning with hypothesis-outcome persistence.
+
+---
+
+*These formal models are implemented in `shared/scripts/convergence.py`, `shared/scripts/self-eval.py`, and the agent definitions across all 6 plugins. The mathematics runs — it's not documentation-only.*
+
 ## vs Everything Else
 
 | | Flux | Promptfoo | AutoResearch | PromptLayer | Manual |
