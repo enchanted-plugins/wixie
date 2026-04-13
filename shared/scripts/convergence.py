@@ -169,24 +169,155 @@ FIXERS = {
 # ─── Learnings Persistence ─────────────────────────────────────────────────────
 
 def load_learnings(prompt_dir):
-    """Load learnings.md from the prompt folder if it exists."""
-    path = os.path.join(prompt_dir, "learnings.md") if prompt_dir else None
+    """Load structured learnings from the prompt folder.
+    Returns accumulated knowledge: strategy success rates, patterns, recommendations."""
+    path = os.path.join(prompt_dir, "learnings.json") if prompt_dir else None
     if path and os.path.isfile(path):
-        with open(path, "r", encoding="utf-8") as f:
-            return f.read()
-    return ""
+        try:
+            with open(path, "r", encoding="utf-8") as f:
+                return json.load(f)
+        except (json.JSONDecodeError, KeyError):
+            pass
+    return {"sessions": [], "strategy_stats": {}, "patterns": []}
 
 
-def save_learnings(prompt_dir, log_entries):
-    """Save accumulated learnings to the prompt folder."""
+def save_learnings(prompt_dir, log_entries, prev_learnings=None):
+    """Save structured learnings with pattern detection and strategy stats.
+
+    Gauss Convergence Method: accumulate knowledge across sessions.
+    Each session adds to strategy success rates. Patterns emerge over
+    multiple sessions — which fixes work for which weakness profiles.
+    """
     if not prompt_dir or not log_entries:
         return
-    path = os.path.join(prompt_dir, "learnings.md")
-    content = f"# Convergence Learnings\n\nGenerated: {datetime.now().isoformat()}\n\n"
+
+    data = prev_learnings or {"sessions": [], "strategy_stats": {}, "patterns": []}
+
+    # Add this session
+    session = {
+        "timestamp": datetime.now().isoformat(),
+        "iterations": len(log_entries),
+        "start_score": log_entries[0].get("start_score", 0) if log_entries else 0,
+        "end_score": log_entries[-1].get("end_score", 0) if log_entries else 0,
+        "entries": log_entries,
+    }
+    data["sessions"].append(session)
+
+    # Update strategy success rates (Gauss accumulation)
     for entry in log_entries:
-        content += f"- **Iteration {entry['iteration']}** [{entry['result']}]: {entry['hypothesis']} → {entry['outcome']}\n"
-    with open(path, "w", encoding="utf-8") as f:
-        f.write(content)
+        axis = entry.get("axis", "unknown")
+        result = entry.get("result", "unknown")
+        if axis not in data["strategy_stats"]:
+            data["strategy_stats"][axis] = {"applied": 0, "reverted": 0, "total_delta": 0.0}
+        stats = data["strategy_stats"][axis]
+        if result == "applied":
+            stats["applied"] += 1
+            stats["total_delta"] += entry.get("delta", 0)
+        elif result == "reverted":
+            stats["reverted"] += 1
+
+    # Detect patterns across all sessions
+    data["patterns"] = _detect_patterns(data)
+
+    # Save JSON (machine-readable, queryable)
+    json_path = os.path.join(prompt_dir, "learnings.json")
+    with open(json_path, "w", encoding="utf-8") as f:
+        json.dump(data, f, indent=2)
+
+    # Also save human-readable summary
+    md_path = os.path.join(prompt_dir, "learnings.md")
+    with open(md_path, "w", encoding="utf-8") as f:
+        f.write(_render_learnings_md(data))
+
+
+def _detect_patterns(data):
+    """Analyze accumulated learnings to find optimization patterns.
+    Returns list of actionable insights."""
+    patterns = []
+    stats = data.get("strategy_stats", {})
+
+    for axis, s in stats.items():
+        total = s["applied"] + s["reverted"]
+        if total == 0:
+            continue
+        success_rate = s["applied"] / total
+        avg_delta = s["total_delta"] / s["applied"] if s["applied"] > 0 else 0
+
+        if success_rate == 1.0 and total >= 2:
+            patterns.append({
+                "type": "reliable_strategy",
+                "axis": axis,
+                "message": f"Fixing {axis} has succeeded {total}/{total} times (avg improvement: +{avg_delta:.1f}). Prioritize this fix.",
+            })
+        elif success_rate < 0.5 and total >= 3:
+            patterns.append({
+                "type": "unreliable_strategy",
+                "axis": axis,
+                "message": f"Fixing {axis} has been reverted {s['reverted']}/{total} times. Consider alternative approach.",
+            })
+        elif s["reverted"] > 0 and s["applied"] > 0:
+            patterns.append({
+                "type": "mixed_strategy",
+                "axis": axis,
+                "message": f"Fixing {axis}: {s['applied']} succeeded, {s['reverted']} reverted. Success rate: {success_rate:.0%}.",
+            })
+
+    # Cross-session pattern: plateau detection
+    sessions = data.get("sessions", [])
+    if len(sessions) >= 2:
+        last_two = sessions[-2:]
+        if all(s["end_score"] == s["start_score"] for s in last_two):
+            patterns.append({
+                "type": "persistent_plateau",
+                "message": "Score unchanged across last 2 sessions. Prompt may need structural rewrite, not incremental fixes.",
+            })
+
+    return patterns
+
+
+def _render_learnings_md(data):
+    """Render human-readable learnings summary."""
+    lines = [
+        "# Gauss Convergence Learnings",
+        "",
+        f"Sessions: {len(data['sessions'])} | Last updated: {datetime.now().strftime('%Y-%m-%d %H:%M')}",
+        "",
+    ]
+
+    # Strategy stats table
+    stats = data.get("strategy_stats", {})
+    if stats:
+        lines.append("## Strategy Success Rates")
+        lines.append("")
+        lines.append("| Axis | Applied | Reverted | Success Rate | Avg Delta |")
+        lines.append("|------|---------|----------|-------------|-----------|")
+        for axis, s in stats.items():
+            total = s["applied"] + s["reverted"]
+            rate = f"{s['applied']/total:.0%}" if total > 0 else "N/A"
+            avg = f"+{s['total_delta']/s['applied']:.1f}" if s["applied"] > 0 else "N/A"
+            lines.append(f"| {axis} | {s['applied']} | {s['reverted']} | {rate} | {avg} |")
+        lines.append("")
+
+    # Patterns
+    patterns = data.get("patterns", [])
+    if patterns:
+        lines.append("## Detected Patterns")
+        lines.append("")
+        for p in patterns:
+            icon = {"reliable_strategy": "+", "unreliable_strategy": "!", "mixed_strategy": "~", "persistent_plateau": "!!"}
+            lines.append(f"- [{icon.get(p['type'], '?')}] {p['message']}")
+        lines.append("")
+
+    # Session history
+    sessions = data.get("sessions", [])
+    if sessions:
+        lines.append("## Session History")
+        lines.append("")
+        for i, s in enumerate(sessions[-5:], 1):  # last 5 sessions
+            lines.append(f"- Session {len(sessions) - 5 + i}: {s.get('start_score', '?')} -> {s.get('end_score', '?')} in {s.get('iterations', '?')} iterations ({s.get('timestamp', '?')[:10]})")
+        lines.append("")
+
+    return "\n".join(lines)
 
 
 # ─── Main Loop ─────────────────────────────────────────────────────────────────
@@ -209,11 +340,22 @@ def run(prompt_path, max_iterations=100, verbose=False):
     best_score = 0
     best_text = text
     learnings = []
+    prev_learnings = load_learnings(prompt_dir)
+
+    # Use prior learnings to identify unreliable strategies
+    skip_axes = set()
+    for p in prev_learnings.get("patterns", []):
+        if p.get("type") == "unreliable_strategy":
+            skip_axes.add(p.get("axis", ""))
 
     print(f"\n{'=' * 60}")
-    print(f"  FLUX CONVERGENCE ENGINE")
+    print(f"  FLUX CONVERGENCE ENGINE (Gauss Method)")
     print(f"  Target: DEPLOY (overall >= 9.0, all axes >= 7.0)")
     print(f"  Max iterations: {max_iterations}")
+    if prev_learnings.get("sessions"):
+        print(f"  Prior sessions: {len(prev_learnings['sessions'])} | Patterns: {len(prev_learnings.get('patterns', []))}")
+    if skip_axes:
+        print(f"  Skipping unreliable: {', '.join(skip_axes)}")
     print(f"{'=' * 60}\n")
 
     for iteration in range(1, max_iterations + 1):
@@ -236,7 +378,7 @@ def run(prompt_path, max_iterations=100, verbose=False):
             print(f"  Iteration {iteration}: {overall}/10 — DEPLOY ({len(passed)}/{len(assertions)} assertions pass)")
             _save(prompt_path, best_text)
             _print_final(scores, assertions, iteration)
-            save_learnings(prompt_dir, learnings)
+            save_learnings(prompt_dir, learnings, prev_learnings)
             return scores
 
         # Check DEPLOY by scores only (assertions are bonus)
@@ -244,7 +386,7 @@ def run(prompt_path, max_iterations=100, verbose=False):
             print(f"  Iteration {iteration}: {overall}/10 — DEPLOY (scores OK, {len(failed)} assertion(s) remaining)")
             _save(prompt_path, best_text)
             _print_final(scores, assertions, iteration)
-            save_learnings(prompt_dir, learnings)
+            save_learnings(prompt_dir, learnings, prev_learnings)
             return scores
 
         # Plateau detection
@@ -254,12 +396,14 @@ def run(prompt_path, max_iterations=100, verbose=False):
                 print(f"  Iteration {iteration}: {overall}/10 — PLATEAU")
                 _save(prompt_path, best_text)
                 _print_final(scores, assertions, iteration)
-                save_learnings(prompt_dir, learnings)
+                save_learnings(prompt_dir, learnings, prev_learnings)
                 return scores
 
-        # Form hypothesis — what's the weakest axis and what fix will help?
+        # Form hypothesis — Gauss Method: target weakest axis, skip known-unreliable
         axes_by_score = sorted(AXES, key=lambda a: scores[a])
-        weakest = axes_by_score[0]
+        # Skip axes that historically always revert (learned from prior sessions)
+        viable = [a for a in axes_by_score if a not in skip_axes or scores[a] < 5]
+        weakest = viable[0] if viable else axes_by_score[0]
         hypothesis = f"Fixing {weakest} (currently {scores[weakest]}/10) will improve overall from {overall}"
 
         # Progress update
@@ -286,23 +430,32 @@ def run(prompt_path, max_iterations=100, verbose=False):
             elif name == "no_filler":
                 text = fix_efficiency(text)
 
-        # Check for regression — auto-revert if worse
+        # Check for regression — Gauss revert: reject if deviation increased
         new_scores = score_prompt(text)
         if new_scores["overall"] < overall - 0.5:
             text = pre_fix_text
+            delta = new_scores["overall"] - overall
             outcome = f"REVERTED — regression from {overall} to {new_scores['overall']}"
-            learnings.append({"iteration": iteration, "hypothesis": hypothesis, "result": "reverted", "outcome": outcome})
+            learnings.append({
+                "iteration": iteration, "axis": weakest, "hypothesis": hypothesis,
+                "result": "reverted", "outcome": outcome, "delta": delta,
+                "start_score": overall, "end_score": overall,
+            })
         else:
             delta = new_scores["overall"] - overall
             outcome = f"{'improved' if delta > 0 else 'unchanged'} ({overall} → {new_scores['overall']})"
-            learnings.append({"iteration": iteration, "hypothesis": hypothesis, "result": "applied", "outcome": outcome})
+            learnings.append({
+                "iteration": iteration, "axis": weakest, "hypothesis": hypothesis,
+                "result": "applied", "outcome": outcome, "delta": delta,
+                "start_score": overall, "end_score": new_scores["overall"],
+            })
 
     # Max iterations
     print(f"\n  Max iterations ({max_iterations}) reached. Best: {best_score}/10")
     _save(prompt_path, best_text)
     scores = score_prompt(best_text)
     _print_final(scores, run_assertions(best_text), max_iterations)
-    save_learnings(prompt_dir, learnings)
+    save_learnings(prompt_dir, learnings, prev_learnings)
     return scores
 
 

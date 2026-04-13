@@ -17,7 +17,7 @@ The first prompt engineering platform that learns from itself.
 
 Flux doesn't generate prompts. It **engineers** them — then stress-tests, hardens, and translates them across 64 models.
 
-The core innovation is the **Convergence Engine** (סטיית תקן strategy): like gradient descent for prompts, each iteration measures the deviation from perfection, forms a hypothesis about which fix will reduce it, applies the fix, checks for regression, and auto-reverts if things got worse. It learns from every iteration and persists those learnings across sessions.
+The core innovation is the **Convergence Engine** powered by the **Gauss Convergence Method**: like gradient descent for prompts, each iteration measures the standard deviation from perfection, forms a hypothesis about which fix will reduce it, applies the fix, checks for regression, and auto-reverts if things got worse. It learns from every iteration and persists those learnings across sessions.
 
 ```
 You: "I need a prompt for Claude Opus to analyze stocks"
@@ -162,7 +162,7 @@ The **PDF audit report** includes: quality score bars, 8 binary assertion result
 
 Every Flux engine is built on a formal mathematical model. These aren't marketing abstractions — they're the actual algorithms running under the hood.
 
-### Engine 1: Convergence (סטיית תקן — Standard Deviation Minimization)
+### Engine 1: Gauss Convergence Method (Standard Deviation Minimization)
 
 The Convergence Engine treats prompt quality as a minimization problem. Given a prompt `P` and a scoring function `S: P → ℝ⁵` mapping to 5 quality axes, define the deviation from perfection:
 
