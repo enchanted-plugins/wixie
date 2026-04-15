@@ -21,26 +21,44 @@ Flux doesn't generate prompts. It **engineers** them — then stress-tests, hard
 
 The core innovation is the **Convergence Engine** powered by the **Gauss Convergence Method**: like gradient descent for prompts, each iteration measures the standard deviation from perfection, forms a hypothesis about which fix will reduce it, applies the fix, checks for regression, and auto-reverts if things got worse. It learns from every iteration and persists those learnings across sessions.
 
-```
-You: "I need a prompt for Claude Opus to analyze stocks"
+```mermaid
+graph TD
+    User(["You: 'I need a prompt for Claude Opus to analyze stocks'"])
 
-  ┌─────────────────────────────────────────────────────────────┐
-  │  ORCHESTRATOR (Opus)                                        │
-  │  Scans context → asks questions → selects techniques        │
-  │  → generates prompt → delegates to agent network            │
-  └──────────┬──────────────────────────────────┬───────────────┘
-             │                                  │
-             ▼                                  ▼
-  ┌──────────────────────┐           ┌──────────────────────┐
-  │  OPTIMIZER (Sonnet)  │           │  REVIEWER (Haiku)    │
-  │                      │           │                      │
-  │  Convergence Engine  │──────────▶│  Validation checks   │
-  │  Up to 100 iterations│  when     │  Score freshness     │
-  │  Hypothesis-driven   │  done     │  Format alignment    │
-  │  Binary assertions   │           │  Registry cross-ref  │
-  │  Auto-revert on      │           │  Domain coherence    │
-  │  regression          │           │  APPROVED / FAIL     │
-  └──────────────────────┘           └──────────────────────┘
+    User --> Orch
+
+    subgraph Orch["ORCHESTRATOR (Opus)"]
+        direction LR
+        scan["Scan context"] --> ask["Ask questions"]
+        ask --> tech["Select techniques"]
+        tech --> gen["Generate prompt"]
+    end
+
+    Orch --> Opt
+    Orch --> Rev
+
+    subgraph Opt["OPTIMIZER (Sonnet)"]
+        conv["Convergence Engine<br/><small>Up to 100 iterations</small>"]
+        hypo["Hypothesis-driven fixes"]
+        assert["Binary assertions"]
+        revert["Auto-revert on regression"]
+        conv --> hypo --> assert --> revert
+    end
+
+    subgraph Rev["REVIEWER (Haiku)"]
+        val["Validation checks"]
+        score["Score freshness"]
+        fmt["Format alignment"]
+        reg["Registry cross-ref"]
+        verdict["APPROVED / FAIL"]
+        val --> score --> fmt --> reg --> verdict
+    end
+
+    Opt -->|"when done"| Rev
+
+    style Orch fill:#161b22,stroke:#bc8cff,color:#e6edf3
+    style Opt fill:#161b22,stroke:#58a6ff,color:#e6edf3
+    style Rev fill:#161b22,stroke:#3fb950,color:#e6edf3
 ```
 
 No permission prompts. No manual iteration. You describe what you need, the agent network delivers.
@@ -106,17 +124,24 @@ Wrote the perfect Claude prompt. Now the team needs GPT-4.1. One command: `/tran
 
 ## The Full Lifecycle
 
-```
-  Create          Optimize         Test           Harden          Translate
-  /create     →   /converge    →   /test-prompt → /harden     →  /translate-prompt
-  ┌─────────┐    ┌───────────┐    ┌───────────┐  ┌───────────┐  ┌──────────────┐
-  │ Crafter │───▶│Convergence│───▶│  Tester   │─▶│ Hardener  │─▶│  Translator  │
-  │  (Opus) │    │ (Sonnet)  │    │ (Sonnet)  │  │ (Sonnet)  │  │  (Sonnet)    │
-  └─────────┘    └───────────┘    └───────────┘  └───────────┘  └──────────────┘
-       │              │                │               │               │
-       ▼              ▼                ▼               ▼               ▼
-   prompt.xml    9.4/10 DEPLOY    7/7 PASS       10/12 RESIST    prompt-gpt.md
-   + metadata    + learnings.md   + results.json + audit.json    + comparison
+```mermaid
+graph LR
+    A["🎨 Crafter<br/><small>Opus</small><br/>/create"] -->|prompt.xml| B["⚡ Convergence<br/><small>Sonnet</small><br/>/converge"]
+    B -->|"9.4/10 DEPLOY"| C["🧪 Tester<br/><small>Sonnet</small><br/>/test-prompt"]
+    C -->|"7/7 PASS"| D["🛡️ Hardener<br/><small>Sonnet</small><br/>/harden"]
+    D -->|"10/12 RESIST"| E["🌐 Translator<br/><small>Sonnet</small><br/>/translate-prompt"]
+
+    A2(["prompt.xml<br/>+ metadata"]) ~~~ A
+    B2(["learnings.md"]) ~~~ B
+    C2(["results.json"]) ~~~ C
+    D2(["audit.json"]) ~~~ D
+    E2(["prompt-gpt.md<br/>+ comparison"]) ~~~ E
+
+    style A fill:#161b22,stroke:#bc8cff,color:#e6edf3
+    style B fill:#161b22,stroke:#58a6ff,color:#e6edf3
+    style C fill:#161b22,stroke:#3fb950,color:#e6edf3
+    style D fill:#161b22,stroke:#f85149,color:#e6edf3
+    style E fill:#161b22,stroke:#d29922,color:#e6edf3
 ```
 
 Refine anytime with `/refine`. Every step is autonomous.
@@ -210,6 +235,40 @@ Cross-session learning in `learnings.json`. Strategy success rates, pattern dete
 
 *Full derivations with proofs: [`docs/science/README.md`](docs/science/README.md). The math runs as code in `shared/scripts/`.*
 
+## Output Test Engine
+
+Five engines that evaluate **actual model output** — not just the prompt. Run them offline (free) or with API calls.
+
+```
+shared/scripts/
+├── output-test.py        # Hybrid orchestrator — 4-phase pipeline
+├── output-eval.py        # Heuristic output scorer (5-axis, offline)
+├── output-sim.py         # Dry-run simulator (predicts quality, no API)
+├── output-schema.py      # Schema generator + validator
+└── self-check-inject.py  # Injects self-QA rubric into prompts
+```
+
+**How it works:**
+
+| Phase | What | Cost |
+|-------|------|------|
+| 1. Pre-flight | Prompt quality check, token budget forecast, schema generation | Free |
+| 2. Generate | Inject self-check, POST to target model, save output | ~$1.20 (Opus) |
+| 3. Evaluate | Heuristic scoring, schema validation, assertion tests, self-check extraction | Free |
+| 4. Fix & Loop | Offline regex fixes first, Sonnet API only when needed | ~$0.10 |
+
+```bash
+python output-test.py <prompt-folder> --dry-run   # Phase 1 only (free)
+python output-test.py <prompt-folder> --max 3     # Full pipeline
+python output-eval.py <prompt-folder>             # Standalone heuristic scorer
+python output-schema.py <folder> --generate       # Generate structural schema
+python output-schema.py <folder> --validate out.md # Validate output against schema
+python output-sim.py <prompt-folder>              # Predict output quality
+python self-check-inject.py prompt.xml --inject   # Add self-QA rubric
+```
+
+Five scoring axes (offline, zero cost): Structural Completeness, Specificity, Prior Art Grounding, Assertion Tests, Coherence. Tested against real 10K-word Opus output: **9.9/10 heuristic, 97% schema compliance**.
+
 ## vs Everything Else
 
 | | Flux | Promptfoo | AutoResearch | PromptLayer | Manual |
@@ -227,6 +286,12 @@ Cross-session learning in `learnings.json`. Strategy success rates, pattern dete
 | PDF audit report | dark theme, single page | - | - | dashboard | - |
 | Dependencies | Python stdlib only | Node.js | Python | SaaS | - |
 | Price | Free (MIT) | Free / Pro | Free | $$$ | Free |
+
+## Architecture
+
+Interactive architecture explorer with plugin diagrams, agent cards, and data flow:
+
+**[docs/architecture/](docs/architecture/)** — auto-generated from the codebase. Run `python docs/architecture/generate.py` to regenerate.
 
 ## Contributing
 

@@ -1,0 +1,28 @@
+graph TD
+    CC["Claude Code<br/>Tool Calls"]
+    convergence_engine["convergence-engine<br/><small>—</small>"]
+    CC --> convergence_engine
+    convergence_engine_out(["state/metrics.jsonl"])
+    convergence_engine --> convergence_engine_out
+    prompt_crafter["prompt-crafter<br/><small>PostToolUse</small>"]
+    CC --> prompt_crafter
+    prompt_crafter_out(["state/metrics.jsonl"])
+    prompt_crafter --> prompt_crafter_out
+    style prompt_crafter fill:#161b22,stroke:#3fb950,color:#e6edf3
+    prompt_harden["prompt-harden<br/><small>—</small>"]
+    CC --> prompt_harden
+    prompt_harden_out(["state/metrics.jsonl"])
+    prompt_harden --> prompt_harden_out
+    prompt_refiner["prompt-refiner<br/><small>—</small>"]
+    CC --> prompt_refiner
+    prompt_refiner_out(["state/metrics.jsonl"])
+    prompt_refiner --> prompt_refiner_out
+    prompt_tester["prompt-tester<br/><small>—</small>"]
+    CC --> prompt_tester
+    prompt_tester_out(["state/metrics.jsonl"])
+    prompt_tester --> prompt_tester_out
+    prompt_translate["prompt-translate<br/><small>—</small>"]
+    CC --> prompt_translate
+    prompt_translate_out(["state/metrics.jsonl"])
+    prompt_translate --> prompt_translate_out
+    style CC fill:#0d1117,stroke:#bc8cff,color:#e6edf3

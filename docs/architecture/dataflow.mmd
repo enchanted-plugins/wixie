@@ -1,0 +1,21 @@
+graph TB
+    subgraph inputs["Tool Calls"]
+        Bash["Bash"]
+        Read["Read"]
+        Write["Write / Edit"]
+        Glob["Glob / Grep"]
+    end
+    convergence_engine_metrics["convergence-engine/state/metrics.jsonl<br/><small></small>"]
+    prompt_crafter_metrics["prompt-crafter/state/metrics.jsonl<br/><small></small>"]
+    Write --> prompt_crafter_metrics
+    prompt_harden_metrics["prompt-harden/state/metrics.jsonl<br/><small></small>"]
+    prompt_refiner_metrics["prompt-refiner/state/metrics.jsonl<br/><small></small>"]
+    prompt_tester_metrics["prompt-tester/state/metrics.jsonl<br/><small></small>"]
+    prompt_translate_metrics["prompt-translate/state/metrics.jsonl<br/><small></small>"]
+    report["📊 /allay:report<br/>Aggregates all metrics"]
+    convergence_engine_metrics --> report
+    prompt_crafter_metrics --> report
+    prompt_harden_metrics --> report
+    prompt_refiner_metrics --> report
+    prompt_tester_metrics --> report
+    prompt_translate_metrics --> report

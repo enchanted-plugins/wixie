@@ -1,0 +1,8 @@
+graph TD
+    start(["Session Start"]) --> turns
+    subgraph turns["Active Session"]
+        t1["Turn N: Tool Call"]
+        t1 --> exec["Tool Executes"]
+        exec --> post["PostToolUse<br/>prompt-crafter"]
+        post --> t1
+    end

@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Allay — Architecture Explorer</title>
+<script src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js"></script>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: #0d1117;
+    color: #e6edf3;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+    font-size: 14px;
+    line-height: 1.6;
+    padding: 0;
+  }
+  .brand-bar { height: 3px; background: #39d353; }
+  .container { max-width: 1200px; margin: 0 auto; padding: 32px 24px; }
+  h1 { font-size: 32px; margin-bottom: 4px; }
+  h1 span { color: #8b949e; font-size: 14px; font-weight: 400; margin-left: 12px; }
+  .subtitle { color: #484f58; font-size: 12px; margin-bottom: 32px; }
+  h2 {
+    font-size: 18px;
+    margin: 32px 0 16px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid #30363d;
+  }
+  .tabs {
+    display: flex;
+    gap: 4px;
+    margin-bottom: 0;
+    border-bottom: 1px solid #30363d;
+  }
+  .tab {
+    padding: 8px 16px;
+    cursor: pointer;
+    border: 1px solid transparent;
+    border-bottom: none;
+    border-radius: 6px 6px 0 0;
+    color: #8b949e;
+    font-size: 13px;
+    background: transparent;
+    transition: all 0.15s;
+  }
+  .tab:hover { color: #e6edf3; background: #161b22; }
+  .tab.active {
+    color: #e6edf3;
+    background: #161b22;
+    border-color: #30363d;
+    border-bottom-color: #161b22;
+    margin-bottom: -1px;
+  }
+  .diagram-panel {
+    display: none;
+    background: #161b22;
+    border: 1px solid #30363d;
+    border-top: none;
+    border-radius: 0 0 8px 8px;
+    padding: 24px;
+    min-height: 300px;
+    overflow-x: auto;
+  }
+  .diagram-panel.active { display: block; }
+  .mermaid { background: transparent; }
+  .mermaid svg { max-width: 100%; }
+  .plugins-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+    gap: 16px;
+    margin-top: 16px;
+  }
+  .plugin-card {
+    background: #161b22;
+    border: 1px solid #30363d;
+    border-radius: 8px;
+    padding: 20px;
+  }
+  .plugin-card h3 {
+    font-size: 16px;
+    margin-bottom: 4px;
+    color: #58a6ff;
+  }
+  .plugin-card .desc {
+    color: #8b949e;
+    font-size: 12px;
+    margin-bottom: 12px;
+  }
+  .section-label {
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: #484f58;
+    margin-top: 12px;
+    margin-bottom: 4px;
+  }
+  .hook {
+    font-size: 12px;
+    padding: 4px 0;
+    border-bottom: 1px solid #21262d;
+  }
+  .phase {
+    display: inline-block;
+    padding: 1px 6px;
+    border-radius: 3px;
+    font-size: 10px;
+    font-weight: 600;
+    background: #1c2333;
+    color: #58a6ff;
+  }
+  .matcher { color: #3fb950; font-size: 11px; }
+  .item { font-size: 12px; padding: 2px 0; }
+  .dim { color: #484f58; }
+  code {
+    background: #1c2333;
+    padding: 1px 5px;
+    border-radius: 3px;
+    font-size: 12px;
+    color: #e6edf3;
+  }
+  .footer {
+    margin-top: 40px;
+    padding-top: 16px;
+    border-top: 1px solid #30363d;
+    font-size: 11px;
+    color: #484f58;
+    display: flex;
+    justify-content: space-between;
+  }
+</style>
+</head>
+<body>
+<div class="brand-bar"></div>
+<div class="container">
+  <h1>Allay <span>Architecture Explorer</span></h1>
+  <div class="subtitle">Auto-generated from codebase — 2026-04-15 05:26 UTC</div>
+
+  <h2>System Diagrams</h2>
+  <div class="tabs">
+    <div class="tab active" onclick="showTab('highlevel')">High Level</div>
+    <div class="tab" onclick="showTab('hooks')">Hook Detail</div>
+    <div class="tab" onclick="showTab('dataflow')">Data Flow</div>
+    <div class="tab" onclick="showTab('lifecycle')">Session Lifecycle</div>
+  </div>
+
+  <div id="panel-highlevel" class="diagram-panel active">
+    <pre class="mermaid">graph TD
+    CC["Claude Code<br/>Tool Calls"]
+    convergence_engine["convergence-engine<br/><small>—</small>"]
+    CC --> convergence_engine
+    convergence_engine_out(["state/metrics.jsonl"])
+    convergence_engine --> convergence_engine_out
+    prompt_crafter["prompt-crafter<br/><small>PostToolUse</small>"]
+    CC --> prompt_crafter
+    prompt_crafter_out(["state/metrics.jsonl"])
+    prompt_crafter --> prompt_crafter_out
+    style prompt_crafter fill:#161b22,stroke:#3fb950,color:#e6edf3
+    prompt_harden["prompt-harden<br/><small>—</small>"]
+    CC --> prompt_harden
+    prompt_harden_out(["state/metrics.jsonl"])
+    prompt_harden --> prompt_harden_out
+    prompt_refiner["prompt-refiner<br/><small>—</small>"]
+    CC --> prompt_refiner
+    prompt_refiner_out(["state/metrics.jsonl"])
+    prompt_refiner --> prompt_refiner_out
+    prompt_tester["prompt-tester<br/><small>—</small>"]
+    CC --> prompt_tester
+    prompt_tester_out(["state/metrics.jsonl"])
+    prompt_tester --> prompt_tester_out
+    prompt_translate["prompt-translate<br/><small>—</small>"]
+    CC --> prompt_translate
+    prompt_translate_out(["state/metrics.jsonl"])
+    prompt_translate --> prompt_translate_out
+    style CC fill:#0d1117,stroke:#bc8cff,color:#e6edf3</pre>
+  </div>
+  <div id="panel-hooks" class="diagram-panel">
+    <pre class="mermaid">graph LR
+    subgraph convergence_engine["convergence-engine"]
+    end
+    subgraph prompt_crafter["prompt-crafter"]
+        prompt_crafter_h0_trigger["PostToolUse<br/>Write | Edit"]
+        prompt_crafter_h0_script["prompt\.; then echo [Flux] Prompt saved: $FILE — convergence engine will optimize automatically; fi'<br/><small>timeout: 5s</small>"]
+        prompt_crafter_h0_trigger --> prompt_crafter_h0_script
+    end
+    subgraph prompt_harden["prompt-harden"]
+    end
+    subgraph prompt_refiner["prompt-refiner"]
+    end
+    subgraph prompt_tester["prompt-tester"]
+    end
+    subgraph prompt_translate["prompt-translate"]
+    end</pre>
+  </div>
+  <div id="panel-dataflow" class="diagram-panel">
+    <pre class="mermaid">graph TB
+    subgraph inputs["Tool Calls"]
+        Bash["Bash"]
+        Read["Read"]
+        Write["Write / Edit"]
+        Glob["Glob / Grep"]
+    end
+    convergence_engine_metrics["convergence-engine/state/metrics.jsonl<br/><small></small>"]
+    prompt_crafter_metrics["prompt-crafter/state/metrics.jsonl<br/><small></small>"]
+    Write --> prompt_crafter_metrics
+    prompt_harden_metrics["prompt-harden/state/metrics.jsonl<br/><small></small>"]
+    prompt_refiner_metrics["prompt-refiner/state/metrics.jsonl<br/><small></small>"]
+    prompt_tester_metrics["prompt-tester/state/metrics.jsonl<br/><small></small>"]
+    prompt_translate_metrics["prompt-translate/state/metrics.jsonl<br/><small></small>"]
+    report["📊 /allay:report<br/>Aggregates all metrics"]
+    convergence_engine_metrics --> report
+    prompt_crafter_metrics --> report
+    prompt_harden_metrics --> report
+    prompt_refiner_metrics --> report
+    prompt_tester_metrics --> report
+    prompt_translate_metrics --> report</pre>
+  </div>
+  <div id="panel-lifecycle" class="diagram-panel">
+    <pre class="mermaid">graph TD
+    start(["Session Start"]) --> turns
+    subgraph turns["Active Session"]
+        t1["Turn N: Tool Call"]
+        t1 --> exec["Tool Executes"]
+        exec --> post["PostToolUse<br/>prompt-crafter"]
+        post --> t1
+    end</pre>
+  </div>
+
+  <h2>Plugin Components</h2>
+  <div class="plugins-grid">
+    
+        <div class="plugin-card">
+          <h3>convergence-engine</h3>
+          <p class="desc">Autonomous prompt perfection engine. Iterates up to 100 times, fixing the weakest axis each round until DEPLOY verdict. Multi-agent: convergence + reviewer.</p>
+          <div class="section-label">Hooks</div>
+          <div class="dim">None</div>
+          <div class="section-label">Skills</div>
+          <div class="item"><strong>converge</strong></div>
+          <div class="section-label">Agents</div>
+          <div class="item"><strong>optimizer</strong> <span class="dim">(sonnet, fork)</span></div><div class="item"><strong>reviewer</strong> <span class="dim">(haiku, fork)</span></div>
+          <div class="section-label">Commands</div>
+          <div class="dim">None</div>
+        </div>
+        <div class="plugin-card">
+          <h3>prompt-crafter</h3>
+          <p class="desc">Creates production-ready prompts with 16 techniques, 64 models, convergence engine, and multi-agent review pipeline.</p>
+          <div class="section-label">Hooks</div>
+          <div class="hook"><span class="phase">PostToolUse</span> <span class="matcher">Write|Edit</span> → <code>prompt\.; then echo [Flux] Prompt saved: $FILE — convergence engine will optimize automatically; fi'</code> <span class="dim">(5s)</span></div>
+          <div class="section-label">Skills</div>
+          <div class="item"><strong>prompt-creator</strong></div><div class="item"><strong>prompt-reviewer</strong></div>
+          <div class="section-label">Agents</div>
+          <div class="item"><strong>reviewer</strong> <span class="dim">(haiku, fork)</span></div>
+          <div class="section-label">Commands</div>
+          <div class="dim">None</div>
+        </div>
+        <div class="plugin-card">
+          <h3>prompt-harden</h3>
+          <p class="desc">Tests prompts for injection/jailbreak vulnerabilities. Runs 12 attack patterns, reports exploits found, suggests defenses. OWASP LLM Top 10 coverage.</p>
+          <div class="section-label">Hooks</div>
+          <div class="dim">None</div>
+          <div class="section-label">Skills</div>
+          <div class="item"><strong>harden</strong></div>
+          <div class="section-label">Agents</div>
+          <div class="item"><strong>red-team</strong> <span class="dim">(sonnet, fork)</span></div>
+          <div class="section-label">Commands</div>
+          <div class="dim">None</div>
+        </div>
+        <div class="plugin-card">
+          <h3>prompt-refiner</h3>
+          <p class="desc">Improves existing prompts with diagnosis, convergence engine, and multi-agent review pipeline.</p>
+          <div class="section-label">Hooks</div>
+          <div class="dim">None</div>
+          <div class="section-label">Skills</div>
+          <div class="item"><strong>prompt-improver</strong></div>
+          <div class="section-label">Agents</div>
+          <div class="item"><strong>reviewer</strong> <span class="dim">(haiku, fork)</span></div>
+          <div class="section-label">Commands</div>
+          <div class="dim">None</div>
+        </div>
+        <div class="plugin-card">
+          <h3>prompt-tester</h3>
+          <p class="desc">Executes tests.json against real model output. Runs prompts, checks assertions, reports pass/fail per test case. CI/CD compatible.</p>
+          <div class="section-label">Hooks</div>
+          <div class="dim">None</div>
+          <div class="section-label">Skills</div>
+          <div class="item"><strong>test-runner</strong></div>
+          <div class="section-label">Agents</div>
+          <div class="item"><strong>executor</strong> <span class="dim">(sonnet, fork)</span></div>
+          <div class="section-label">Commands</div>
+          <div class="dim">None</div>
+        </div>
+        <div class="plugin-card">
+          <h3>prompt-translate</h3>
+          <p class="desc">Converts prompts between models — Claude to GPT, GPT to Gemini, etc. Re-selects techniques, adapts format, preserves intent. Uses the 64-model registry.</p>
+          <div class="section-label">Hooks</div>
+          <div class="dim">None</div>
+          <div class="section-label">Skills</div>
+          <div class="item"><strong>translate</strong></div>
+          <div class="section-label">Agents</div>
+          <div class="item"><strong>adapter</strong> <span class="dim">(sonnet, fork)</span></div>
+          <div class="section-label">Commands</div>
+          <div class="dim">None</div>
+        </div>
+  </div>
+
+  <div class="footer">
+    <span>Generated by docs/architecture/generate.py from plugin.json, hooks.json, SKILL.md, agents/*.md</span>
+    <span>Allay v2.0.0</span>
+  </div>
+</div>
+
+<script>
+  mermaid.initialize({
+    startOnLoad: true,
+    theme: 'dark',
+    themeVariables: {
+      darkMode: true,
+      background: '#161b22',
+      primaryColor: '#1c2333',
+      primaryTextColor: '#e6edf3',
+      primaryBorderColor: '#30363d',
+      lineColor: '#484f58',
+      secondaryColor: '#161b22',
+      tertiaryColor: '#1c2333',
+    }
+  });
+
+  function showTab(id) {
+    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.diagram-panel').forEach(p => p.classList.remove('active'));
+    event.target.classList.add('active');
+    document.getElementById('panel-' + id).classList.add('active');
+
+    // Re-render mermaid for newly visible panels
+    const panel = document.getElementById('panel-' + id);
+    const pre = panel.querySelector('.mermaid');
+    if (pre && !pre.getAttribute('data-processed')) {
+      mermaid.run({ nodes: [pre] });
+    }
+  }
+</script>
+</body>
+</html>

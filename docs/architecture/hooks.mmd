@@ -1,0 +1,16 @@
+graph LR
+    subgraph convergence_engine["convergence-engine"]
+    end
+    subgraph prompt_crafter["prompt-crafter"]
+        prompt_crafter_h0_trigger["PostToolUse<br/>Write | Edit"]
+        prompt_crafter_h0_script["prompt\.; then echo [Flux] Prompt saved: $FILE — convergence engine will optimize automatically; fi'<br/><small>timeout: 5s</small>"]
+        prompt_crafter_h0_trigger --> prompt_crafter_h0_script
+    end
+    subgraph prompt_harden["prompt-harden"]
+    end
+    subgraph prompt_refiner["prompt-refiner"]
+    end
+    subgraph prompt_tester["prompt-tester"]
+    end
+    subgraph prompt_translate["prompt-translate"]
+    end
