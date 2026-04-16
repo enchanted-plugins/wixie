@@ -1,6 +1,6 @@
 # Flux
 
-**An @enchanted-plugins product — algorithm-driven, agent-managed, self-learning.**
+> **An @enchanted-plugins product — algorithm-driven, agent-managed, self-learning.**
 
 The first prompt engineering platform that learns from itself.
 
