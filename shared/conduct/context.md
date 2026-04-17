@@ -36,7 +36,7 @@ Subagents protect the parent context. Use them when the raw material is large bu
 | Running a test suite and triaging failures | Subagent | Parent only needs the failure summary |
 | Reading three specific files you already identified | Parent | No point delegating |
 
-Subagent prompts always end with a **structured return clause** — see `shared/delegation.md`.
+Subagent prompts always end with a **structured return clause** — see `shared/conduct/delegation.md`.
 
 ## The checkpoint protocol
 

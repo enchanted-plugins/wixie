@@ -28,12 +28,13 @@ The first prompt engineering platform that learns from itself.
 - [How It Works](#how-it-works)
 - [What Makes Flux Different](#what-makes-flux-different)
 - [The Full Lifecycle](#the-full-lifecycle)
-- [Install](#install)
 - [6 Plugins, 7 Agents, 64 Models](#6-plugins-7-agents-64-models)
 - [What You Get Per Prompt](#what-you-get-per-prompt)
+- [Install](#install)
 - [The Science Behind Flux](#the-science-behind-flux)
 - [Output Test Engine](#output-test-engine)
 - [vs Everything Else](#vs-everything-else)
+- [Agent Conduct (10 Modules)](#agent-conduct-10-modules)
 - [Architecture](#architecture)
 - [Contributing](#contributing)
 - [License](#license)
@@ -304,22 +305,22 @@ Five scoring axes (offline, zero cost): Structural Completeness, Specificity, Pr
 | Dependencies | Python stdlib only | Node.js | Python | SaaS | - |
 | Price | Free (MIT) | Free / Pro | Free | $$$ | Free |
 
-## Behavioral modules
+## Agent Conduct (10 Modules)
 
-Every skill inherits a set of reusable behavioral contracts from [shared/](shared/) — loaded once into [CLAUDE.md](CLAUDE.md), applied across all plugins.
+Every skill inherits a reusable behavioral contract from [shared/](shared/) — loaded once into [CLAUDE.md](CLAUDE.md), applied across all plugins. This is how Claude *acts* inside Flux: deterministic, surgical, verifiable. Not a suggestion; a contract.
 
 | Module | What it governs |
 |--------|-----------------|
-| [discipline.md](shared/discipline.md) | Coding conduct: think-first, simplicity, surgical edits, goal-driven loops |
-| [context.md](shared/context.md) | Attention-budget hygiene, U-curve placement, checkpoint protocol |
-| [verification.md](shared/verification.md) | Independent checks, baseline snapshots, dry-run for destructive ops |
-| [delegation.md](shared/delegation.md) | Subagent contracts, tool whitelisting, parallel vs. serial rules |
-| [failure-modes.md](shared/failure-modes.md) | 14-code taxonomy for `learnings.md` so E6 Gauss Accumulation compounds |
-| [tool-use.md](shared/tool-use.md) | Tool-choice hygiene, error payload contract, parallel-dispatch rules |
-| [formatting.md](shared/formatting.md) | Per-target format (XML / Markdown sandwich / minimal / few-shot), prefill + stop sequences |
-| [skill-authoring.md](shared/skill-authoring.md) | SKILL.md frontmatter discipline, discovery test |
-| [hooks.md](shared/hooks.md) | Advisory-only hooks, injection over denial, fail-open |
-| [precedent.md](shared/precedent.md) | Log self-observed failures to `state/precedent-log.md`; consult before risky steps |
+| [discipline.md](shared/conduct/discipline.md) | Coding conduct: think-first, simplicity, surgical edits, goal-driven loops |
+| [context.md](shared/conduct/context.md) | Attention-budget hygiene, U-curve placement, checkpoint protocol |
+| [verification.md](shared/conduct/verification.md) | Independent checks, baseline snapshots, dry-run for destructive ops |
+| [delegation.md](shared/conduct/delegation.md) | Subagent contracts, tool whitelisting, parallel vs. serial rules |
+| [failure-modes.md](shared/conduct/failure-modes.md) | 14-code taxonomy for `learnings.md` so E6 Gauss Accumulation compounds |
+| [tool-use.md](shared/conduct/tool-use.md) | Tool-choice hygiene, error payload contract, parallel-dispatch rules |
+| [formatting.md](shared/conduct/formatting.md) | Per-target format (XML / Markdown sandwich / minimal / few-shot), prefill + stop sequences |
+| [skill-authoring.md](shared/conduct/skill-authoring.md) | SKILL.md frontmatter discipline, discovery test |
+| [hooks.md](shared/conduct/hooks.md) | Advisory-only hooks, injection over denial, fail-open |
+| [precedent.md](shared/conduct/precedent.md) | Log self-observed failures to `state/precedent-log.md`; consult before risky steps |
 
 ## Architecture
 

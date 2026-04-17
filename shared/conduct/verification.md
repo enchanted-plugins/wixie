@@ -56,7 +56,7 @@ Before declaring done on any code change:
 2. Read it line by line.
 3. Confirm: *every line in the diff is either (a) the change requested, (b) required by (a), or (c) pre-existing drift you will flag.* Any line that doesn't fit one of the three is an unsolicited edit — revert it.
 
-This is the single cheapest scope-creep filter. See also @shared/discipline.md § Surgical changes.
+This is the single cheapest scope-creep filter. See also @shared/conduct/discipline.md § Surgical changes.
 
 ## Verification is not optional for shipping claims
 

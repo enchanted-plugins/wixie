@@ -96,7 +96,7 @@ The body is the *runbook*, not the pitch. Structure:
 3. **Steps** — numbered. Each step names the tool used and the success criterion.
 4. **Outputs** — artifacts produced, where they land.
 5. **Handoff** — what the next skill in the chain expects.
-6. **Failure modes** — which `shared/failure-modes.md` codes apply.
+6. **Failure modes** — which `shared/conduct/failure-modes.md` codes apply.
 
 The body is read *after* selection, so optimize it for execution, not discovery.
 

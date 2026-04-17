@@ -14,7 +14,7 @@ Accumulation only learns if failure reasons are comparable. "It got worse" is no
 |------|------|-----------|---------|
 | F01 | Sycophancy | User said "great!" and agent abandoned a flagged concern | Re-assert the concern before proceeding |
 | F02 | Fabrication | Cited API / flag / file that doesn't exist | Verify before citing; `Glob` / `Grep` first |
-| F03 | Context decay | Instruction from top of context violated at bottom | See @shared/context.md § Checkpoint protocol |
+| F03 | Context decay | Instruction from top of context violated at bottom | See @shared/conduct/context.md § Checkpoint protocol |
 | F04 | Task drift | Work expanded past the stated goal | Re-read the success criterion; cut back to scope |
 | F05 | Instruction attenuation | Rule stated once, obeyed once, then forgotten | Move rule to top-200 or bottom-200 slot |
 
@@ -22,11 +22,11 @@ Accumulation only learns if failure reasons are comparable. "It got worse" is no
 
 | Code | Name | Signature | Counter |
 |------|------|-----------|---------|
-| F06 | Premature action | Edited before grounding — wrong file, wrong function | See @shared/tool-use.md § Read before Edit |
-| F07 | Over-helpful substitution | Solved a problem the user didn't ask about | See @shared/discipline.md § Surgical changes |
+| F06 | Premature action | Edited before grounding — wrong file, wrong function | See @shared/conduct/tool-use.md § Read before Edit |
+| F07 | Over-helpful substitution | Solved a problem the user didn't ask about | See @shared/conduct/discipline.md § Surgical changes |
 | F08 | Tool mis-invocation | Wrong tool for the job (Bash for read, Write for small edit) | Default to the dedicated tool |
 | F09 | Parallel race | Two writes to the same file / same branch | Serialize or partition by path |
-| F10 | Destructive without confirmation | `rm`, `reset --hard`, `force push` without explicit yes | See @shared/verification.md § Dry-run for destructive ops |
+| F10 | Destructive without confirmation | `rm`, `reset --hard`, `force push` without explicit yes | See @shared/conduct/verification.md § Dry-run for destructive ops |
 
 ### Reasoning failures
 
@@ -34,7 +34,7 @@ Accumulation only learns if failure reasons are comparable. "It got worse" is no
 |------|------|-----------|---------|
 | F11 | Reward hacking | Hit the metric by gaming it (e.g., pass assertion by weakening it) | Reviewer checks whether the test still tests the original behavior |
 | F12 | Degeneration loop | Same edit, reverted, re-applied across iterations | No-regression contract; stop the axis |
-| F13 | Distractor pollution | Long irrelevant context bent the output | See @shared/context.md § Smallest-set rule |
+| F13 | Distractor pollution | Long irrelevant context bent the output | See @shared/conduct/context.md § Smallest-set rule |
 | F14 | Version drift | Used deprecated API / retired model ID / old flag | Check `models-registry.json` and docs before emitting |
 
 ## How to log a failure
