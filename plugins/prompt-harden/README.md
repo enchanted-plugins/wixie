@@ -65,3 +65,7 @@ RESULT: 8/12 resistant | 2 VULNERABLE | 2 skipped
 |------|------|-------|
 | Skill | harden | (main agent) |
 | Agent | red-team | Sonnet — crafts and executes attacks |
+
+## Behavioral modules
+
+Inherits the [shared behavioral modules](../../shared/) via root [CLAUDE.md](../../CLAUDE.md) — discipline, context, verification, delegation, failure-modes, tool-use, formatting, skill-authoring, hooks, precedent.

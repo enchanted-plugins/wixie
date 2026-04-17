@@ -52,3 +52,7 @@ prompts/<name>/
 ├── tests.json          3-5 regression test cases
 └── report.pdf          Dark-themed single-page audit report
 ```
+
+## Behavioral modules
+
+Inherits the [shared behavioral modules](../../shared/) via root [CLAUDE.md](../../CLAUDE.md) — discipline, context, verification, delegation, failure-modes, tool-use, formatting, skill-authoring, hooks, precedent.

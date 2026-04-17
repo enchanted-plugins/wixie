@@ -61,3 +61,7 @@ Saves the translated prompt as a new folder with full artifacts.
 |------|------|-------|
 | Skill | translate | (main agent) |
 | Agent | adapter | Sonnet — handles mechanical format conversion |
+
+## Behavioral modules
+
+Inherits the [shared behavioral modules](../../shared/) via root [CLAUDE.md](../../CLAUDE.md) — discipline, context, verification, delegation, failure-modes, tool-use, formatting, skill-authoring, hooks, precedent.

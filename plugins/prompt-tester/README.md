@@ -51,3 +51,7 @@ Saves `test-results.json` to the prompt folder with timestamps, pass rates, and 
 |------|------|-------|
 | Skill | test-runner | (main agent) |
 | Agent | executor | Sonnet — runs individual test cases |
+
+## Behavioral modules
+
+Inherits the [shared behavioral modules](../../shared/) via root [CLAUDE.md](../../CLAUDE.md) — discipline, context, verification, delegation, failure-modes, tool-use, formatting, skill-authoring, hooks, precedent.

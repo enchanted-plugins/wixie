@@ -56,3 +56,7 @@ Output: optimized prompt (8.1/10) + updated metadata + fresh report.pdf
 - **DEPLOY:** overall ≥ 9.0, all axes ≥ 7.0
 - **PLATEAU:** score unchanged for 3 consecutive iterations
 - **MAX:** 100 iterations reached
+
+## Behavioral modules
+
+Inherits the [shared behavioral modules](../../shared/) via root [CLAUDE.md](../../CLAUDE.md) — discipline, context, verification, delegation, failure-modes, tool-use, formatting, skill-authoring, hooks, precedent.

@@ -46,3 +46,7 @@ User provides existing prompt
 ## For Image Prompts
 
 Collaborative loop — you generate the image externally, rate it 1-10, tell the agent what's wrong. It adjusts and you try again. No iteration limit.
+
+## Behavioral modules
+
+Inherits the [shared behavioral modules](../../shared/) via root [CLAUDE.md](../../CLAUDE.md) — discipline, context, verification, delegation, failure-modes, tool-use, formatting, skill-authoring, hooks, precedent.

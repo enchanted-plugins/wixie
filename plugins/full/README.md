@@ -19,3 +19,7 @@ Claude Code resolves the six dependencies and installs:
 - `prompt-translate` — ports prompts between 64 models
 
 If you want to cherry-pick a single plugin (e.g. just `prompt-harden`), you can — but the plugins hand off to each other at runtime, so you'll typically want them all.
+
+## Behavioral modules
+
+Inherits the [shared behavioral modules](../../shared/) via root [CLAUDE.md](../../CLAUDE.md) — discipline, context, verification, delegation, failure-modes, tool-use, formatting, skill-authoring, hooks, precedent.

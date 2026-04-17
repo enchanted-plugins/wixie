@@ -2,6 +2,23 @@
 
 Audience: Claude. Flux engineers prompts — crafts, converges, tests, hardens, translates — via a managed Opus/Sonnet/Haiku network across 64 target models.
 
+## Shared behavioral modules
+
+These apply to every skill in every plugin. Load once; do not re-derive.
+
+- @shared/discipline.md — coding conduct: think-first, simplicity, surgical edits, goal-driven loops
+- @shared/context.md — attention-budget hygiene, U-curve placement, checkpoint protocol
+- @shared/verification.md — independent checks, baseline snapshots, dry-run for destructive ops
+- @shared/delegation.md — subagent contracts, tool whitelisting, parallel vs. serial rules
+- @shared/failure-modes.md — 14-code taxonomy for `learnings.md` so E6 can aggregate
+- @shared/tool-use.md — tool-choice hygiene, error payload contract, parallel-dispatch rules
+- @shared/formatting.md — per-target format (XML/Markdown/minimal/few-shot), prefill + stop sequences
+- @shared/skill-authoring.md — SKILL.md frontmatter discipline, discovery test
+- @shared/hooks.md — advisory-only hooks, injection over denial, fail-open
+- @shared/precedent.md — log self-observed failures to `state/precedent-log.md`; consult before risky steps
+
+When a module conflicts with a plugin-local instruction, the plugin wins — but log the override.
+
 ## Lifecycle
 
 Flux is skill-invoked, not hook-driven. The single hook is advisory (prompt-save notification). Each skill hands artifacts to the next.
