@@ -25,34 +25,53 @@ Every @enchanted-plugins product follows this exact structure:
 
 ```
 <product>/
-├── .claude-plugin/marketplace.json
+├── .claude-plugin/marketplace.json       # name + owner.name + metadata + plugins[]
 ├── plugins/
 │   └── <plugin-name>/
 │       ├── .claude-plugin/plugin.json
-│       ├── skills/<skill>/SKILL.md       # allowed-tools frontmatter required
-│       ├── agents/<agent>.md             # model + context: fork + allowed-tools
+│       ├── skills/<skill>/SKILL.md       # frontmatter: name, description, model, tools
+│       ├── agents/<agent>.md             # frontmatter: model, context, allowed-tools
 │       ├── commands/<command>.md          # slash commands
-│       ├── hooks/hooks.json              # lifecycle bindings
-│       │   └── <hook-point>/<script>.sh
-│       ├── state/.gitkeep
+│       ├── hooks/hooks.json              # advisory-only lifecycle bindings
+│       ├── state/.gitkeep                # per-plugin state, gitignored at runtime
 │       └── README.md
 ├── shared/
-│   ├── scripts/                          # Python stdlib only
-│   ├── references/                       # knowledge base (if applicable)
-│   └── models-registry.json              # (if applicable)
+│   ├── conduct/                          # 10 universal behavioral modules (@-loaded by CLAUDE.md)
+│   ├── scripts/                          # plugin-specific Python (stdlib only)
+│   ├── constants.sh                      # shell helpers: now_iso, ensure_dir, log
+│   ├── metrics.sh                        # emit_metric, rotate_if_too_big
+│   ├── sanitize.sh                       # sanitize_for_json, sanitize_path, sanitize_slug
+│   └── <plugin-specific>                 # e.g. references/, patterns/, models-registry.json
 ├── tests/
-│   ├── run-all.sh
+│   ├── run-all.sh                        # iterates plugins/*/tests/
+│   ├── shared/                           # cross-plugin test helpers
 │   └── <plugin>/test-*.sh
 ├── docs/
+│   ├── architecture/                     # auto-generated from plugin.json + hooks.json + SKILL.md
+│   │   ├── generate.py                   # the generator — reads source-of-truth, writes below
+│   │   ├── highlevel.mmd                 # system diagram
+│   │   ├── hooks.mmd                     # hook lifecycle
+│   │   ├── lifecycle.mmd                 # session flow
+│   │   ├── dataflow.mmd                  # enchanted-mcp event flow
+│   │   ├── index.html                    # dark-themed single-page explorer
+│   │   └── README.md                     # "do not hand-edit, run generate.py"
+│   ├── assets/                           # renderer toolchain (mermaid-cli + puppeteer + mathjax)
+│   │   ├── apply-blueprint.js            # Mermaid SVG → blueprint background
+│   │   ├── render-math.js                # LaTeX → SVG for mobile-readable README
+│   │   ├── mermaid.config.json
+│   │   ├── puppeteer.config.json
+│   │   ├── package.json                  # devDeps only; node_modules + lockfile gitignored
+│   │   └── math/                         # pre-rendered equation SVGs
 │   ├── science/README.md                 # LaTeX formulas, named algorithms
-│   ├── ecosystem.md                      # visual diagrams, data flow
+│   ├── ecosystem.md                      # ecosystem map, data flow, algorithm distribution
 │   ├── brand-guide.md                    # this file
-│   └── ROADMAP.md                        # phased development plan
-├── configs/claude-code/README.md
-├── install.sh
-├── README.md                             # product selling page
+│   ├── ROADMAP.md                        # phased development plan
+│   └── org-profile-README.md             # GitHub org landing page source
+├── configs/claude-code/README.md          # optional settings.json snippets
+├── install.sh                             # pre-flight + clone to ~/.claude/plugins/
+├── README.md                              # product selling page (10 required sections)
 ├── CONTRIBUTING.md
-└── LICENSE
+└── LICENSE                                # MIT, enchanted-plugins copyright
 ```
 
 ## README Standard
@@ -102,9 +121,9 @@ One logical change per commit. Never batch unrelated changes.
 
 ## Report Standard
 
-Every product generates dark-themed single-page PDF reports:
-- Background: `#0A0A0A`
-- Surface: `#141414`
-- Borders: `rgba(255,255,255,0.04)`
-- Generated via `report-gen.py` → `html-to-pdf.py` (Edge/Chrome headless)
+Every product generates dark-themed single-page PDF reports via the `docs/architecture/` pipeline:
+- Background: `#0d1117` · Surface: `#161b22` · Border: `#1e3a5f` · Accent: `#58a6ff`
+- Agent-tier accents: Opus `#bc8cff` · Sonnet `#58a6ff` · Haiku muted
+- Generated via `docs/architecture/generate.py` + `docs/assets/puppeteer.config.json` (Chrome headless)
 - Content: score bars, technique pills, audit findings, verdict with next steps
+- Never hand-edit the diagrams or HTML — regenerate via `python docs/architecture/generate.py`
