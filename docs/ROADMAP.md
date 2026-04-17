@@ -13,6 +13,18 @@ Individual installs    Unified interface     Full coverage         Real-time das
 
 ---
 
+## Foundation Infrastructure
+
+Before the first plugin ships, the ecosystem needs one shared piece: the repo template every sibling is cloned from.
+
+| Repo | Role | Status |
+|------|------|--------|
+| [`enchanted-plugins/schematic`](https://github.com/enchanted-plugins/schematic) | Canonical repo template. Ships the 8-section CLAUDE.md, 10 `shared/conduct/*.md` modules, `docs/architecture/` auto-generation pipeline, `plugins/example-subplugin/` skeleton, renderer toolchain. Never installed — cloned. | Shipped |
+
+The template is the contract. When it drifts, all downstream siblings drift — so changes to `schematic` are treated as brand-standard changes, not per-plugin improvements.
+
+---
+
 ## Phase 1: Core 5 Plugins (Foundation)
 
 The first 5 plugins answer the 5 fundamental questions of AI-assisted development.
