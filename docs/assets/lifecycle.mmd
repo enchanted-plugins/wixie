@@ -5,24 +5,49 @@ config:
   theme: dark
   flowchart:
     curve: basis
-    padding: 10
-    nodeSpacing: 28
-    rankSpacing: 30
+    padding: 18
+    nodeSpacing: 44
+    rankSpacing: 50
     htmlLabels: true
+    subGraphTitleMargin:
+      top: 14
+      bottom: 18
 ---
 flowchart TB
-    A["<div style='min-width:300px;text-align:left'><span style='color:#8b949e;font-family:ui-monospace,monospace;font-size:12px;letter-spacing:1px'>STAGE&nbsp;01</span>&nbsp;&nbsp;·&nbsp;&nbsp;<b>Crafter</b>&nbsp;&nbsp;·&nbsp;&nbsp;<span style='color:#8b949e;font-weight:400'>Opus&nbsp;&middot;&nbsp;/create</span><br/><code style='color:#d2a8ff;font-size:13px'>prompt.xml &nbsp;+&nbsp; metadata.json</code></div>"]
-    B["<div style='min-width:300px;text-align:left'><span style='color:#8b949e;font-family:ui-monospace,monospace;font-size:12px;letter-spacing:1px'>STAGE&nbsp;02</span>&nbsp;&nbsp;·&nbsp;&nbsp;<b>Convergence</b>&nbsp;&nbsp;·&nbsp;&nbsp;<span style='color:#8b949e;font-weight:400'>Sonnet&nbsp;&middot;&nbsp;/converge</span><br/><code style='color:#79c0ff;font-size:13px'>learnings.md &nbsp;+&nbsp; score deltas</code></div>"]
-    C["<div style='min-width:300px;text-align:left'><span style='color:#8b949e;font-family:ui-monospace,monospace;font-size:12px;letter-spacing:1px'>STAGE&nbsp;03</span>&nbsp;&nbsp;·&nbsp;&nbsp;<b>Tester</b>&nbsp;&nbsp;·&nbsp;&nbsp;<span style='color:#8b949e;font-weight:400'>Sonnet&nbsp;&middot;&nbsp;/test-prompt</span><br/><code style='color:#7ee787;font-size:13px'>results.json &nbsp;·&nbsp; pass / fail</code></div>"]
-    F["<div style='min-width:300px;text-align:left'><span style='color:#8b949e;font-family:ui-monospace,monospace;font-size:12px;letter-spacing:1px'>STAGE&nbsp;04</span>&nbsp;&nbsp;·&nbsp;&nbsp;<b>Output Test</b>&nbsp;&nbsp;·&nbsp;&nbsp;<span style='color:#8b949e;font-weight:400'>Hybrid&nbsp;&middot;&nbsp;output-test.py</span><br/><code style='color:#ffa657;font-size:13px'>schema &nbsp;+&nbsp; 5-axis scores</code></div>"]
-    D["<div style='min-width:300px;text-align:left'><span style='color:#8b949e;font-family:ui-monospace,monospace;font-size:12px;letter-spacing:1px'>STAGE&nbsp;05</span>&nbsp;&nbsp;·&nbsp;&nbsp;<b>Hardener</b>&nbsp;&nbsp;·&nbsp;&nbsp;<span style='color:#8b949e;font-weight:400'>Sonnet&nbsp;&middot;&nbsp;/harden</span><br/><code style='color:#ff7b72;font-size:13px'>audit.json &nbsp;·&nbsp; 12 attacks</code></div>"]
-    E["<div style='min-width:300px;text-align:left'><span style='color:#8b949e;font-family:ui-monospace,monospace;font-size:12px;letter-spacing:1px'>STAGE&nbsp;06</span>&nbsp;&nbsp;·&nbsp;&nbsp;<b>Translator</b>&nbsp;&nbsp;·&nbsp;&nbsp;<span style='color:#8b949e;font-weight:400'>Sonnet&nbsp;&middot;&nbsp;/translate</span><br/><code style='color:#d4a72c;font-size:13px'>prompt-&lt;target&gt;.md &nbsp;+&nbsp; comparison</code></div>"]
+    TitleBlock["<div style='font-family:ui-monospace,SFMono-Regular,Consolas,monospace;text-align:center;min-width:940px;padding:6px 10px;line-height:1.8'><div style='color:#58a6ff;font-size:15px;letter-spacing:6px;border-bottom:1px solid #1e3a5f;padding-bottom:10px;margin-bottom:10px'>FLUX &nbsp;·&nbsp; PROMPT&nbsp;LIFECYCLE &nbsp;·&nbsp; STAGE&nbsp;DIAGRAM</div><div style='display:flex;gap:40px;justify-content:center;font-size:11px;color:#8b949e;letter-spacing:2px'><span>DWG&nbsp;&nbsp;<b style='color:#e6edf3'>FLX-002</b></span><span>REV&nbsp;&nbsp;<b style='color:#e6edf3'>A.4</b></span><span>SCALE&nbsp;&nbsp;<b style='color:#e6edf3'>1:1</b></span><span>STAGES&nbsp;&nbsp;<b style='color:#e6edf3'>n&nbsp;=&nbsp;6</b></span><span>SHEET&nbsp;&nbsp;<b style='color:#e6edf3'>01&nbsp;/&nbsp;01</b></span></div></div>"]
 
-    A ==>|"9.0/10 DEPLOY"| B
-    B ==>|"8/8 SAT"| C
-    C ==>|"7/7 PASS"| F
-    F ==>|"9.9/10 PASS"| D
-    D ==>|"10/12 RESIST"| E
+    A["<div style='text-align:center;min-width:940px;line-height:2;padding:4px 8px'><div><span style='font-family:ui-monospace,monospace;color:#8b949e;font-size:11px;letter-spacing:3px'>STAGE&nbsp;01&nbsp;·&nbsp;GENESIS</span></div><div style='line-height:1.8'><b style='letter-spacing:2px'>CRAFTER</b>&nbsp;&nbsp;·&nbsp;&nbsp;<span style='color:#bc8cff'>Opus</span>&nbsp;&nbsp;·&nbsp;&nbsp;<code style='color:#e6edf3'>/create</code></div><div style='color:#6e7681;font-size:11px;font-family:ui-monospace,monospace;letter-spacing:1.2px'>τ&nbsp;≈&nbsp;15s&nbsp;&nbsp;·&nbsp;&nbsp;T&nbsp;≈&nbsp;1.2k&nbsp;tok&nbsp;&nbsp;·&nbsp;&nbsp;C&nbsp;≈&nbsp;$0.06</div><div style='border-top:1px solid #1e3a5f;margin-top:6px;padding-top:6px;font-family:ui-monospace,monospace;font-size:11px;letter-spacing:1px'><span style='color:#8b949e'>ARTIFACT</span>&nbsp;&nbsp;<span style='color:#d2a8ff'>prompt.xml&nbsp;+&nbsp;metadata.json</span></div></div>"]
+
+    B["<div style='text-align:center;min-width:940px;line-height:2;padding:4px 8px'><div><span style='font-family:ui-monospace,monospace;color:#8b949e;font-size:11px;letter-spacing:3px'>STAGE&nbsp;02&nbsp;·&nbsp;OPTIMIZATION</span></div><div style='line-height:1.8'><b style='letter-spacing:2px'>CONVERGENCE</b>&nbsp;&nbsp;·&nbsp;&nbsp;<span style='color:#58a6ff'>Sonnet</span>&nbsp;&nbsp;·&nbsp;&nbsp;<code style='color:#e6edf3'>/converge</code></div><div style='color:#6e7681;font-size:11px;font-family:ui-monospace,monospace;letter-spacing:1.2px'>n&nbsp;≤&nbsp;100&nbsp;&nbsp;·&nbsp;&nbsp;σ&nbsp;→&nbsp;0&nbsp;&nbsp;·&nbsp;&nbsp;τ&nbsp;≈&nbsp;30–90s&nbsp;&nbsp;·&nbsp;&nbsp;C&nbsp;≈&nbsp;$0.15</div><div style='border-top:1px solid #1e3a5f;margin-top:6px;padding-top:6px;font-family:ui-monospace,monospace;font-size:11px;letter-spacing:1px'><span style='color:#8b949e'>ARTIFACT</span>&nbsp;&nbsp;<span style='color:#79c0ff'>learnings.md&nbsp;+&nbsp;score&nbsp;deltas</span></div></div>"]
+
+    C["<div style='text-align:center;min-width:940px;line-height:2;padding:4px 8px'><div><span style='font-family:ui-monospace,monospace;color:#8b949e;font-size:11px;letter-spacing:3px'>STAGE&nbsp;03&nbsp;·&nbsp;STATIC&nbsp;VERIFICATION</span></div><div style='line-height:1.8'><b style='letter-spacing:2px'>TESTER</b>&nbsp;&nbsp;·&nbsp;&nbsp;<span style='color:#3fb950'>Sonnet</span>&nbsp;&nbsp;·&nbsp;&nbsp;<code style='color:#e6edf3'>/test-prompt</code></div><div style='color:#6e7681;font-size:11px;font-family:ui-monospace,monospace;letter-spacing:1.2px'>∀&nbsp;tᵢ&nbsp;∈&nbsp;T&nbsp;:&nbsp;tᵢ&nbsp;→&nbsp;PASS&nbsp;&nbsp;·&nbsp;&nbsp;τ&nbsp;≈&nbsp;10s&nbsp;&nbsp;·&nbsp;&nbsp;C&nbsp;≈&nbsp;$0.05</div><div style='border-top:1px solid #1e3a5f;margin-top:6px;padding-top:6px;font-family:ui-monospace,monospace;font-size:11px;letter-spacing:1px'><span style='color:#8b949e'>ARTIFACT</span>&nbsp;&nbsp;<span style='color:#7ee787'>results.json&nbsp;·&nbsp;assertion&nbsp;matrix</span></div></div>"]
+
+    F["<div style='text-align:center;min-width:940px;line-height:2;padding:4px 8px'><div><span style='font-family:ui-monospace,monospace;color:#8b949e;font-size:11px;letter-spacing:3px'>STAGE&nbsp;04&nbsp;·&nbsp;DYNAMIC&nbsp;VERIFICATION</span></div><div style='line-height:1.8'><b style='letter-spacing:2px'>OUTPUT&nbsp;TEST</b>&nbsp;&nbsp;·&nbsp;&nbsp;<span style='color:#d8853b'>Hybrid</span>&nbsp;&nbsp;·&nbsp;&nbsp;<code style='color:#e6edf3'>output-test.py</code></div><div style='color:#6e7681;font-size:11px;font-family:ui-monospace,monospace;letter-spacing:1.2px'>4-phase&nbsp;pipeline&nbsp;&nbsp;·&nbsp;&nbsp;offline&nbsp;default&nbsp;&nbsp;·&nbsp;&nbsp;C&nbsp;≈&nbsp;free&nbsp;→&nbsp;$0.10</div><div style='border-top:1px solid #1e3a5f;margin-top:6px;padding-top:6px;font-family:ui-monospace,monospace;font-size:11px;letter-spacing:1px'><span style='color:#8b949e'>ARTIFACT</span>&nbsp;&nbsp;<span style='color:#ffa657'>output-reference.md&nbsp;+&nbsp;schema&nbsp;+&nbsp;scores</span></div></div>"]
+
+    D["<div style='text-align:center;min-width:940px;line-height:2;padding:4px 8px'><div><span style='font-family:ui-monospace,monospace;color:#8b949e;font-size:11px;letter-spacing:3px'>STAGE&nbsp;05&nbsp;·&nbsp;ADVERSARIAL&nbsp;HARDENING</span></div><div style='line-height:1.8'><b style='letter-spacing:2px'>HARDENER</b>&nbsp;&nbsp;·&nbsp;&nbsp;<span style='color:#d75952'>Sonnet</span>&nbsp;&nbsp;·&nbsp;&nbsp;<code style='color:#e6edf3'>/harden</code></div><div style='color:#6e7681;font-size:11px;font-family:ui-monospace,monospace;letter-spacing:1.2px'>Ω(P)&nbsp;=&nbsp;|RESIST|&nbsp;/&nbsp;|C|&nbsp;&nbsp;·&nbsp;&nbsp;12&nbsp;attack&nbsp;classes&nbsp;&nbsp;·&nbsp;&nbsp;C&nbsp;≈&nbsp;$0.20</div><div style='border-top:1px solid #1e3a5f;margin-top:6px;padding-top:6px;font-family:ui-monospace,monospace;font-size:11px;letter-spacing:1px'><span style='color:#8b949e'>ARTIFACT</span>&nbsp;&nbsp;<span style='color:#ff7b72'>audit.json&nbsp;·&nbsp;vulnerability&nbsp;matrix</span></div></div>"]
+
+    E["<div style='text-align:center;min-width:940px;line-height:2;padding:4px 8px'><div><span style='font-family:ui-monospace,monospace;color:#8b949e;font-size:11px;letter-spacing:3px'>STAGE&nbsp;06&nbsp;·&nbsp;CROSS-DOMAIN&nbsp;ADAPTATION</span></div><div style='line-height:1.8'><b style='letter-spacing:2px'>TRANSLATOR</b>&nbsp;&nbsp;·&nbsp;&nbsp;<span style='color:#b88522'>Sonnet</span>&nbsp;&nbsp;·&nbsp;&nbsp;<code style='color:#e6edf3'>/translate-prompt</code></div><div style='color:#6e7681;font-size:11px;font-family:ui-monospace,monospace;letter-spacing:1.2px'>T&nbsp;:&nbsp;(P,&nbsp;Mₛ)&nbsp;→&nbsp;(P′,&nbsp;Mₜ)&nbsp;&nbsp;·&nbsp;&nbsp;64-model&nbsp;registry&nbsp;&nbsp;·&nbsp;&nbsp;C&nbsp;≈&nbsp;$0.10</div><div style='border-top:1px solid #1e3a5f;margin-top:6px;padding-top:6px;font-family:ui-monospace,monospace;font-size:11px;letter-spacing:1px'><span style='color:#8b949e'>ARTIFACT</span>&nbsp;&nbsp;<span style='color:#d4a72c'>prompt-&lt;target&gt;.md&nbsp;+&nbsp;comparison</span></div></div>"]
+
+    subgraph Legend["<div style='font-family:ui-monospace,monospace;color:#8b949e;font-size:11px;letter-spacing:3px;min-width:940px;text-align:center'>LEGEND&nbsp;&nbsp;·&nbsp;&nbsp;GATE&nbsp;NOTATION&nbsp;&nbsp;·&nbsp;&nbsp;τ&nbsp;=&nbsp;latency&nbsp;&nbsp;·&nbsp;&nbsp;T&nbsp;=&nbsp;tokens&nbsp;&nbsp;·&nbsp;&nbsp;C&nbsp;=&nbsp;cost&nbsp;&nbsp;·&nbsp;&nbsp;σ&nbsp;=&nbsp;score&nbsp;std-dev</div>"]
+        direction LR
+        lg1["<span style='color:#bc8cff'>■</span>&nbsp;&nbsp;genesis"] --- lg2["<span style='color:#58a6ff'>■</span>&nbsp;&nbsp;optimization"] --- lg3["<span style='color:#3fb950'>■</span>&nbsp;&nbsp;static&nbsp;verify"] --- lg4["<span style='color:#d8853b'>■</span>&nbsp;&nbsp;dynamic&nbsp;verify"] --- lg5["<span style='color:#d75952'>■</span>&nbsp;&nbsp;hardening"] --- lg6["<span style='color:#b88522'>■</span>&nbsp;&nbsp;adaptation"]
+    end
+
+    TitleBlock ~~~ A
+    A ==>|"GATE · σ < 0.45 ∧ score ≥ 9.0"| B
+    B ==>|"GATE · ⋀ Aⱼ(P) = 1 (j = 1..8)"| C
+    C ==>|"GATE · ∀ tᵢ ∈ T : tᵢ → PASS"| F
+    F ==>|"GATE · score ≥ 9.0 ∧ schema valid"| D
+    D ==>|"GATE · Ω(P) ≥ 10/12 RESIST"| E
+    E ~~~ Legend
+
+    classDef titleBlock fill:#06111f,stroke:#1e3a5f,stroke-width:1px,color:#e6edf3,rx:4,ry:4
+    classDef legend fill:#06111f,stroke:#1e3a5f,stroke-width:1px,color:#8b949e,rx:4,ry:4
+    classDef legendItem fill:#0a1628,stroke:#1e3a5f,stroke-width:0.5px,color:#c9d1d9,rx:4,ry:4
+
+    class TitleBlock titleBlock
+    class Legend legend
+    class lg1,lg2,lg3,lg4,lg5,lg6 legendItem
 
     style A fill:#0f1d33,stroke:#bc8cff,stroke-width:2px,color:#e6edf3,rx:12,ry:12
     style B fill:#0f1d33,stroke:#58a6ff,stroke-width:2px,color:#e6edf3,rx:12,ry:12
@@ -31,4 +56,4 @@ flowchart TB
     style D fill:#0f1d33,stroke:#d75952,stroke-width:2px,color:#e6edf3,rx:12,ry:12
     style E fill:#0f1d33,stroke:#b88522,stroke-width:2px,color:#e6edf3,rx:12,ry:12
 
-    linkStyle default stroke:#8b949e,stroke-width:2.5px
+    linkStyle default stroke:#8b949e,stroke-width:1.5px

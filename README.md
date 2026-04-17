@@ -47,23 +47,19 @@ The core innovation is the **Convergence Engine** powered by the **Gauss Converg
 
 The diagram below shows the four-agent pipeline: a user request flows into the **Opus orchestrator** (scan → ask → technique select → generate), which hands off to the **Sonnet optimizer** (convergence, hypothesis-driven fixes, binary assertions, auto-revert) and the **Haiku reviewer** (validation, freshness, format, registry). An approved prompt then enters the **hybrid output tester** (pre-flight → generate → evaluate → fix).
 
-<details align="center">
-<summary style="list-style: none; cursor: pointer;"><img src="docs/assets/pipeline.svg"
-       alt="Flux four-agent pipeline blueprint — title block, Developer request, Orchestrator (Opus), Optimizer (Sonnet), Reviewer (Haiku), Output Tester (Hybrid), and tier legend. Click to expand source."
-       width="100%" style="max-width: 1000px;"></summary>
+<p align="center">
+  <a href="docs/assets/pipeline.mmd" title="View pipeline source (Mermaid)">
+    <img src="docs/assets/pipeline.svg"
+         alt="Flux four-agent pipeline blueprint — title block, Developer request, Orchestrator (Opus), Optimizer (Sonnet), Reviewer (Haiku), Output Tester (Hybrid), and tier legend"
+         width="100%" style="max-width: 1100px;">
+  </a>
+</p>
 
-<br/>
+<sub align="center">
 
-Source: [docs/assets/pipeline.mmd](docs/assets/pipeline.mmd). Mobile-safe pre-rendered SVG with blueprint overlay. Regenerate:
+Source: [docs/assets/pipeline.mmd](docs/assets/pipeline.mmd) · Regeneration command in [docs/assets/README.md](docs/assets/README.md).
 
-```bash
-npx @mermaid-js/mermaid-cli \
-  -i docs/assets/pipeline.mmd -o docs/assets/pipeline.svg \
-  -c docs/assets/mermaid.config.json -b "#0a1628" -w 1800 \
-  && node docs/assets/apply-blueprint.js docs/assets/pipeline.svg
-```
-
-</details>
+</sub>
 
 No permission prompts. No manual iteration. You describe what you need, the agent network delivers.
 
@@ -130,23 +126,19 @@ Wrote the perfect Claude prompt. Now the team needs GPT-4.1. One command: `/tran
 
 A prompt moves left to right through five stages: **Crafter** (Opus, `/create`) produces `prompt.xml` + metadata; **Convergence** (Sonnet, `/converge`) drives it to 9.0+/DEPLOY and appends `learnings.md`; **Tester** (Sonnet, `/test-prompt`) runs assertions; the **Output Test** hybrid pipeline generates and evaluates real model output; **Hardener** (Sonnet, `/harden`) runs 12 attack patterns and emits `audit.json`; **Translator** (Sonnet, `/translate-prompt`) rewrites for a target model with a score comparison attached. Each stage produces a named artifact consumed by the next.
 
-<details align="center">
-<summary style="list-style: none; cursor: pointer;"><img src="docs/assets/lifecycle.svg"
-       alt="Flux prompt lifecycle blueprint — 6 stages, Crafter → Convergence → Tester → Output Test → Hardener → Translator. Click to expand source."
-       width="100%" style="max-width: 320px;"></summary>
+<p align="center">
+  <a href="docs/assets/lifecycle.mmd" title="View lifecycle source (Mermaid)">
+    <img src="docs/assets/lifecycle.svg"
+         alt="Flux prompt lifecycle blueprint — 6 stages: Crafter → Convergence → Tester → Output Test → Hardener → Translator, with gate notation between each"
+         width="100%" style="max-width: 1100px;">
+  </a>
+</p>
 
-<br/>
+<sub align="center">
 
-Source: [docs/assets/lifecycle.mmd](docs/assets/lifecycle.mmd). Mobile-safe pre-rendered SVG with blueprint overlay. Regenerate:
+Source: [docs/assets/lifecycle.mmd](docs/assets/lifecycle.mmd) · Regeneration command in [docs/assets/README.md](docs/assets/README.md).
 
-```bash
-npx @mermaid-js/mermaid-cli \
-  -i docs/assets/lifecycle.mmd -o docs/assets/lifecycle.svg \
-  -c docs/assets/mermaid.config.json -b "#0a1628" -w 1400 \
-  && node docs/assets/apply-blueprint.js docs/assets/lifecycle.svg
-```
-
-</details>
+</sub>
 
 Refine anytime with `/refine`. Every step is autonomous.
 
