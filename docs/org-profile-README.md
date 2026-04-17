@@ -38,23 +38,53 @@ The math isn't documentation. It runs as code.
 
 ### Flux — Prompt Engineering Platform
 
-6 plugins. 7 agents. 64 models. Create, optimize, test, harden, and translate prompts.
+7 agents. 64 models. Create, optimize, test, harden, and translate prompts.
 
 ```
 /plugin marketplace add enchanted-plugins/flux
 ```
 
-[Repository](https://github.com/enchanted-plugins/flux) | [Science](https://github.com/enchanted-plugins/flux/blob/main/docs/science/README.md)
+[Repository](https://github.com/enchanted-plugins/flux) · v3.0.0 · 7 plugins · [Science](https://github.com/enchanted-plugins/flux/blob/main/docs/science/README.md)
 
 ### Allay — Context Health Toolkit
 
-3 plugins. 15 tests. Token management, drift detection, compaction survival.
+Token management, drift detection, compaction survival.
 
 ```
 /plugin marketplace add enchanted-plugins/allay
 ```
 
-[Repository](https://github.com/enchanted-plugins/allay) | [Science](https://github.com/enchanted-plugins/flux/blob/main/docs/science/README.md#allay-context-health)
+[Repository](https://github.com/enchanted-plugins/allay) · v2.0.0 · 4 plugins
+
+### Hornet — Change Comprehension
+
+Bayesian trust scoring, semantic-diff clustering, and information-gain decision support for Claude Code.
+
+```
+/plugin marketplace add enchanted-plugins/hornet
+```
+
+[Repository](https://github.com/enchanted-plugins/hornet) · v1.0.0 · 5 plugins
+
+### Reaper — Security Guardrails
+
+Secret scanning, vulnerability detection, action guarding, config shielding, and audit logging.
+
+```
+/plugin marketplace add enchanted-plugins/reaper
+```
+
+[Repository](https://github.com/enchanted-plugins/reaper) · v1.0.0 · 6 plugins
+
+### Weaver — Git Workflow Layer
+
+Auto-orchestrates branch / commit / PR per task boundary; reads CI status across 9 hosts and 8 CI systems.
+
+```
+/plugin marketplace add enchanted-plugins/weaver
+```
+
+[Repository](https://github.com/enchanted-plugins/weaver) · v0.0.1 · 9 plugins
 
 ## Infrastructure
 
