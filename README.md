@@ -23,6 +23,12 @@ The first prompt engineering platform that learns from itself.
 >
 > Time: under 2 minutes. Manual effort: zero.
 
+## Origin
+
+Flux takes its name from the **enchanting mechanic in Minecraft** — the ritual that binds magical properties to plain items through iterative refinement. Every prompt starts plain; the convergence engine enchants it until it carries the right properties for the target model.
+
+The question this plugin answers: *What did I say?*
+
 ## Contents
 
 - [How It Works](#how-it-works)
@@ -315,6 +321,12 @@ Interactive architecture explorer with plugin diagrams, agent cards, and data fl
 ## Contributing
 
 See [CONTRIBUTING.md](CONTRIBUTING.md)
+
+## Origin
+
+Flux takes its name from **Minecraft** — crafting, enchanting, and collecting, the foundation of building something from nothing. In the game, flux is what you channel through an enchanting table to bind a property to an object. In this ecosystem, Flux is what you channel through the convergence engine to bind a behavior to a prompt.
+
+The plugin answers the first of the Five Questions every AI-assisted session surfaces: *"What did I say?"* See [docs/ecosystem.md](docs/ecosystem.md) for the full map.
 
 ## License
 
