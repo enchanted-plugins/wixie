@@ -1,22 +1,22 @@
 {
-  "name": "prompt-crafter",
-  "description": "Creates production-ready prompts with 16 techniques, 64 models, convergence engine, and multi-agent review pipeline.",
-  "version": "2.0.0",
+  "name": "flux-prompt-crafter",
+  "display_name": "Prompt Crafter",
+  "description": "Creates production-ready prompts. Scans project context, asks targeted questions, selects from 16 techniques, adapts format to 64 models, then runs the Convergence Engine until DEPLOY quality.",
+  "version": "0.1.0",
   "author": {
     "name": "enchanted-plugins"
   },
   "license": "MIT",
   "keywords": [
     "prompt-engineering",
-    "prompting",
-    "model-fitting",
-    "technique-selection",
-    "convergence",
-    "multi-agent"
+    "crafting",
+    "creation"
   ],
   "skills": [
     "./skills/prompt-creator/",
     "./skills/prompt-reviewer/"
   ],
-  "agents": "./agents/"
+  "agents": "./agents/",
+  "hooks": "./hooks/hooks.json",
+  "dependencies": []
 }

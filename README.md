@@ -238,6 +238,10 @@ prompts/b2b-ticket-router/
 
 The **PDF audit report** includes: quality score bars, 8 binary assertion results, technique pills, model profile from the 64-model registry, prompt statistics, audit findings (CRITICAL/WARNING), cost estimate, and an honest verdict with next steps.
 
+### State surface
+
+In addition to the per-prompt artifacts above, Flux writes plugin-level state to `state/`. The key file is `state/precedent.jsonl` — the plugin's self-observed-failure log, maintained per `shared/conduct/precedent.md`. Each line is a JSON object recording a command or pattern that failed unexpectedly (with the reason and the working alternative). Claude consults this log before running non-trivial Bash commands or multi-step tool sequences, and appends to it after any unexpected failure. This log is a team asset: commit it alongside code so failures discovered in one session are not silently repeated in the next.
+
 ## Roadmap
 
 Tracked in [docs/ROADMAP.md](docs/ROADMAP.md) and the shared [ecosystem map](https://github.com/enchanted-plugins/flux/blob/main/docs/ecosystem.md). For upcoming work specific to Flux, see issues tagged [roadmap](https://github.com/enchanted-plugins/flux/labels/roadmap).
@@ -312,7 +316,9 @@ shared/scripts/
 | 1. Pre-flight | Prompt quality check, token budget forecast, schema generation | Free |
 | 2. Generate | Inject self-check, POST to target model, save output | ~$1.20 (Opus) |
 | 3. Evaluate | Heuristic scoring, schema validation, assertion tests, self-check extraction | Free |
-| 4. Fix & Loop | Offline regex fixes first, Sonnet API only when needed | ~$0.10 |
+| 4. Fix & Loop | Offline regex fixes first, Sonnet API for targeted one-shot fix (not a full re-convergence loop) | ~$0.10 |
+
+> **Phase 4 limitation:** The Sonnet fix in Phase 4 is a single targeted string-replacement per iteration, not a full automated re-convergence sub-loop. If the fix target string is not found verbatim in the prompt, the fix is skipped and manual editing is required. A full Sonnet-driven convergence loop is planned but not yet implemented.
 
 ```bash
 python output-test.py <prompt-folder> --dry-run   # Phase 1 only (free)

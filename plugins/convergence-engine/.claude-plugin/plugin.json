@@ -1,20 +1,20 @@
 {
-  "name": "convergence-engine",
-  "description": "Autonomous prompt perfection engine. Iterates up to 100 times, fixing the weakest axis each round until DEPLOY verdict. Multi-agent: convergence + reviewer.",
-  "version": "1.0.0",
+  "name": "flux-convergence-engine",
+  "display_name": "Convergence Engine",
+  "description": "Autonomous prompt perfection. Runs the Gauss Convergence loop — score, identify weakest axis, fix, re-score — up to 100 iterations until DEPLOY quality.",
+  "version": "0.1.0",
   "author": {
     "name": "enchanted-plugins"
   },
   "license": "MIT",
   "keywords": [
+    "prompt-engineering",
     "convergence",
-    "optimization",
-    "self-improvement",
-    "multi-agent",
-    "prompt-quality"
+    "optimization"
   ],
   "skills": [
     "./skills/converge/"
   ],
-  "agents": "./agents/"
+  "agents": "./agents/",
+  "dependencies": []
 }

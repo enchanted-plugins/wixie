@@ -741,6 +741,7 @@ def diagnose_and_fix(client, prompt_text, output, scores, details, meta, prompt_
         fix_info = {"method": "none_needed", "applied": False, "description": "LLM evaluation passed"}
         return prompt_text, fix_info, cost
 
+    # Phase 2: Sonnet API fallback for auto-fix — currently stub; manual-fix only
     # Generate and apply a targeted fix
     print(f"    {CYAN}Generating fix...{RESET}", end="", flush=True)
     test_results = details.get("test_results", [])

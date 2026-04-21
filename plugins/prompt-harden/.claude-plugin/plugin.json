@@ -1,21 +1,20 @@
 {
-  "name": "prompt-harden",
-  "description": "Tests prompts for injection/jailbreak vulnerabilities. Runs 12 attack patterns, reports exploits found, suggests defenses. OWASP LLM Top 10 coverage.",
-  "version": "1.0.0",
+  "name": "flux-prompt-harden",
+  "display_name": "Prompt Harden",
+  "description": "Tests prompts against 12 adversarial attack patterns — injection, jailbreak, data extraction, encoding bypass, and more. Reports which attacks succeed and suggests specific defenses.",
+  "version": "0.1.0",
   "author": {
     "name": "enchanted-plugins"
   },
   "license": "MIT",
   "keywords": [
+    "prompt-engineering",
     "security",
-    "hardening",
-    "injection",
-    "jailbreak",
-    "red-team",
-    "owasp"
+    "adversarial"
   ],
   "skills": [
     "./skills/harden/"
   ],
-  "agents": "./agents/"
+  "agents": "./agents/",
+  "dependencies": []
 }

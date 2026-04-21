@@ -54,6 +54,29 @@ Reverse of above. Map `#` headers to XML tags.
 ## Output
 Return the converted prompt text and a list of changes applied.
 
+## Score delta (honest-numbers contract)
+Every translation verdict **must** emit `score-delta.json` in the prompt folder alongside the translated prompt. The file records the 5-axis before/after scores so the translation can be verified as non-regressive.
+
+Required shape:
+```json
+{
+  "source_model": "<model-id>",
+  "target_model": "<model-id>",
+  "axes": {
+    "clarity":       { "before": 0.0, "after": 0.0 },
+    "specificity":   { "before": 0.0, "after": 0.0 },
+    "structure":     { "before": 0.0, "after": 0.0 },
+    "robustness":    { "before": 0.0, "after": 0.0 },
+    "completeness":  { "before": 0.0, "after": 0.0 }
+  },
+  "overall_before": 0.0,
+  "overall_after":  0.0,
+  "verdict": "DEPLOY | HOLD | FAIL"
+}
+```
+
+A translation that does not emit `score-delta.json` is incomplete. The main `/translate-prompt` skill must gate its handoff on the presence of this file. Translation without verification is not translation (see `CLAUDE.md` § Anti-patterns).
+
 ## Rules
 - Preserve ALL domain content, examples, and custom terminology.
 - Only change structural elements: tags, headers, technique markers.

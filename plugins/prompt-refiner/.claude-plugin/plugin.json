@@ -1,21 +1,20 @@
 {
-  "name": "prompt-refiner",
-  "description": "Improves existing prompts with diagnosis, convergence engine, and multi-agent review pipeline.",
-  "version": "2.0.0",
+  "name": "flux-prompt-refiner",
+  "display_name": "Prompt Refiner",
+  "description": "Improves existing prompts while preserving intent. Diagnoses weaknesses, checks model fit, re-selects techniques, and runs the Convergence Engine to push toward DEPLOY quality.",
+  "version": "0.1.0",
   "author": {
     "name": "enchanted-plugins"
   },
   "license": "MIT",
   "keywords": [
     "prompt-engineering",
-    "prompt-optimization",
-    "refactoring",
-    "model-fitting",
-    "convergence",
-    "multi-agent"
+    "refinement",
+    "improvement"
   ],
   "skills": [
     "./skills/prompt-improver/"
   ],
-  "agents": "./agents/"
+  "agents": "./agents/",
+  "dependencies": []
 }

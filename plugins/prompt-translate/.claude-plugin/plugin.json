@@ -1,20 +1,20 @@
 {
-  "name": "prompt-translate",
-  "description": "Converts prompts between models \u2014 Claude to GPT, GPT to Gemini, etc. Re-selects techniques, adapts format, preserves intent. Uses the 64-model registry.",
-  "version": "1.0.0",
+  "name": "flux-prompt-translate",
+  "display_name": "Prompt Translate",
+  "description": "Converts prompts optimized for one model into the optimal format for another. XML to Markdown, CoT to no-CoT, verbose to minimal. Preserves intent and domain content; only changes prompt engineering.",
+  "version": "0.1.0",
   "author": {
     "name": "enchanted-plugins"
   },
   "license": "MIT",
   "keywords": [
+    "prompt-engineering",
     "translation",
-    "adaptation",
-    "cross-model",
-    "model-conversion",
-    "portability"
+    "adaptation"
   ],
   "skills": [
     "./skills/translate/"
   ],
-  "agents": "./agents/"
+  "agents": "./agents/",
+  "dependencies": []
 }

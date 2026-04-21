@@ -34,7 +34,7 @@ The first 5 plugins answer the 5 fundamental questions of AI-assisted developmen
 | 1 | **Flux** | What did I say? (prompt quality) | Gauss Convergence, Boolean SAT, Game Theory, Cross-Domain Adaptation | v3.0.0 | Shipped — 7 plugins |
 | 2 | **Allay** | What did I spend? (token health) | Markov Drift, Shannon Compression, Linear Runway, Atomic Serialization | v2.0.0 | Shipped — 4 plugins |
 | 3 | **Hornet** | What just happened? (change comprehension) | Bayesian Trust, Semantic Diff, Information-Gain, Session Continuity | v1.0.0 | Shipped — 5 plugins |
-| 4 | **Reaper** | Is it safe? (security) | Aho-Corasick, Shannon Entropy, Config Poisoning, Phantom Dependency, Threat Convergence | v1.0.0 | Shipped — 6 plugins |
+| 4 | **Reaper** | Is it safe? (security) | Aho-Corasick, Shannon Entropy, Config Poisoning, Phantom Dependency, EMA Posture Decay | v1.0.0 | Shipped — 6 plugins |
 | 5 | **Nook** | What did it cost? (spend tracking) | Exponential Smoothing, Budget Forecasting | — | Not started |
 
 ### Milestone: 5 plugins shipped
@@ -101,17 +101,19 @@ Add 5 more plugins covering code quality, testing, DevOps, documentation, and AP
 
 | # | Plugin | Question | Algorithm | Category |
 |---|--------|----------|-----------|----------|
-| 6 | **Athena** | Is this code good? | AST Diff + Weighted Decision Trees | Code review |
+| 6 | **Mantis** | Is this code good? | Cousot Interval + Falleri Structural Diff + Zheng Pairwise | Code review |
 | 7 | **Crucible** | Do the tests catch bugs? | Genetic Mutation Testing | Testing/QA |
 | 8 | **Assembler** | Can this deploy? | Critical Path DAG Optimization | DevOps/CI |
 | 9 | **Scribe** | Is the docs up to date? | TF-IDF Extractive Summarization | Documentation |
 | 10 | **Schema** | Is the API contract valid? | Semantic Version Diffing | API design |
 
+> **Retired:** Athena (originally planned for slot #6) was retired before implementation. Mantis replaces it with a more rigorous algorithm stack (Cousot Interval Analysis + Falleri Structural Diff + Zheng Pairwise Comparison) that provides static-analysis-grade code review rather than heuristic AST diff alone.
+
 ### Milestone: 10 plugins + enhanced MCP
 - All 10 plugins connected to enchanted-mcp
 - Dashboard shows full development lifecycle
 - Cross-plugin intelligence covers: prompt → code → test → security → deploy → docs
-- Plugin-to-plugin event triggers (Hornet flags change → Athena auto-reviews → Crucible tests)
+- Plugin-to-plugin event triggers (Hornet flags change → Mantis auto-reviews → Crucible tests)
 
 ---
 
@@ -211,14 +213,20 @@ Every named algorithm across the ecosystem:
 | A3 | Shannon Compression | Allay | Information-theoretic output reduction |
 | A4 | Atomic State Serialization | Allay | Bounded checkpoint persistence |
 | A5 | Content-Addressable Dedup | Allay | Hash-based read deduplication |
-| V1 | Semantic Diff Compression | Hornet | Multi-file change clustering |
-| V2 | Bayesian Trust Scoring | Hornet | Prior-posterior change risk assessment |
-| V3 | Information-Gain Decision | Hornet | Review prioritization by uncertainty reduction |
-| V4 | Session Continuity Graph | Hornet | Decision-causal relationship persistence |
-| V5 | Adversarial Self-Review | Hornet | Specific concern generation for risky changes |
-| V6 | Gauss Learning (Hornet) | Hornet | Developer preference accumulation |
-| S1 | Aho-Corasick Pattern | Reaper | Multi-pattern secret scanning |
-| S2 | Shannon Entropy Analysis | Reaper | High-entropy string detection |
+| H1 | Semantic Diff Compression | Hornet | Multi-file change clustering |
+| H2 | Bayesian Trust Scoring | Hornet | Prior-posterior change risk assessment |
+| H3 | Information-Gain Decision | Hornet | Review prioritization by uncertainty reduction |
+| H4 | Session Continuity Graph | Hornet | Decision-causal relationship persistence |
+| H5 | Adversarial Self-Review | Hornet | Specific concern generation for risky changes |
+| H6 | Gauss Learning (Hornet) | Hornet | Developer preference accumulation |
+| R1 | Aho-Corasick Pattern | Reaper | Multi-pattern secret scanning |
+| R2 | Shannon Entropy Analysis | Reaper | High-entropy string detection |
+| R3 | OWASP Vulnerability Graph | Reaper | Vulnerability pattern detection |
+| R4 | Markov Action Classification | Reaper | Dangerous command classification |
+| R5 | Config Poisoning Detection | Reaper | Malicious config interception at SessionStart |
+| R6 | Phantom Dependency Detection | Reaper | Slopsquatting / dependency confusion detection |
+| R7 | Subcommand Overflow | Reaper | Subcommand injection and overflow detection |
+| R8 | EMA Posture Decay | Reaper | Cross-hook EMA threat-rate decay (α=0.3; Roberts 1959) |
 | L1 | Exponential Smoothing | Nook | Cost forecasting |
 | L2 | Budget Boundary Detection | Nook | Spend threshold alerting |
 | W1 | Myers-Diff Conventional Classifier | Weaver | Diff-to-Conventional-Commits classification |

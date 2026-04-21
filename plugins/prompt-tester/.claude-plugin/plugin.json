@@ -1,20 +1,20 @@
 {
-  "name": "prompt-tester",
-  "description": "Executes tests.json against real model output. Runs prompts, checks assertions, reports pass/fail per test case. CI/CD compatible.",
-  "version": "1.0.0",
+  "name": "flux-prompt-tester",
+  "display_name": "Prompt Tester",
+  "description": "Executes tests.json regression cases against prompts. Runs each test case through the prompt, checks output against expected_contains assertions, and reports pass/fail with failure reasons.",
+  "version": "0.1.0",
   "author": {
     "name": "enchanted-plugins"
   },
   "license": "MIT",
   "keywords": [
+    "prompt-engineering",
     "testing",
-    "assertions",
-    "evaluation",
-    "regression",
-    "ci-cd"
+    "regression"
   ],
   "skills": [
     "./skills/test-runner/"
   ],
-  "agents": "./agents/"
+  "agents": "./agents/",
+  "dependencies": []
 }
