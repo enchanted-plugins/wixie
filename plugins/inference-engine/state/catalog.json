@@ -1,6 +1,6 @@
 {
-  "elevated_count": 51,
-  "last_reconciled": "2026-04-22T10:42:10Z",
+  "elevated_count": 52,
+  "last_reconciled": "2026-04-22T11:00:02Z",
   "patterns": {
     "085a16501160ad89": {
       "alpha": 4.0,
@@ -8,7 +8,7 @@
       "category": "prompt-injection",
       "code": "PI05",
       "counter": "Render MCP tool descriptions inside a tagged untrusted-schema span, strip any imperative-mood content before presenting the catalog to the model, and diff every new server's descriptions against a reviewed allowlist.",
-      "days_since_last_seen": 0.0,
+      "days_since_last_seen": 0.012,
       "elevated_at": "2026-04-22T10:42:09Z",
       "first_seen": "2026-04-22T10:42:09Z",
       "last_seen": "2026-04-22T10:42:09Z",
@@ -39,7 +39,7 @@
       ],
       "title": "MCP tool-description poisoning — malicious schema text carries instructions to the host model",
       "verdict": "elevated",
-      "weight": 1.0
+      "weight": 0.9997
     },
     "0d42de5bdc9aea43": {
       "alpha": 12.0,
@@ -47,7 +47,7 @@
       "category": "tool-misuse",
       "code": "TM01",
       "counter": "Default to Read for file content, Grep for pattern search, and Glob for filename matching; reserve Bash for state-mutating operations like git, build, and test commands.",
-      "days_since_last_seen": 0.0,
+      "days_since_last_seen": 0.012,
       "elevated_at": "2026-04-22T10:42:09Z",
       "first_seen": "2026-04-22T10:42:09Z",
       "last_seen": "2026-04-22T10:42:09Z",
@@ -78,7 +78,7 @@
       ],
       "title": "Bash-for-Read reflex — agent uses shell when a dedicated tool exists",
       "verdict": "elevated",
-      "weight": 1.0
+      "weight": 0.9997
     },
     "0d7d66c9e1c3978b": {
       "alpha": 8.0,
@@ -86,7 +86,7 @@
       "category": "hallucination",
       "code": "HL05",
       "counter": "Before citing any file path in reasoning or in an edit, confirm the path exists via Glob or Read, and if it does not, state the inference explicitly as a proposed-create path.",
-      "days_since_last_seen": 0.0,
+      "days_since_last_seen": 0.012,
       "elevated_at": "2026-04-22T10:42:10Z",
       "first_seen": "2026-04-22T10:42:09Z",
       "last_seen": "2026-04-22T10:42:09Z",
@@ -117,7 +117,7 @@
       ],
       "title": "Confabulated file path — agent cites a file it inferred from a naming convention",
       "verdict": "elevated",
-      "weight": 1.0
+      "weight": 0.9997
     },
     "14b9d68d319e516b": {
       "alpha": 4.0,
@@ -125,7 +125,7 @@
       "category": "review",
       "code": "RV02",
       "counter": "Require per-hunk granularity in any review surface that writes to files, and when unavailable, have the agent split its own edits into one-purpose-per-edit calls so the reviewer can reject a single intent cleanly.",
-      "days_since_last_seen": 0.0,
+      "days_since_last_seen": 0.012,
       "elevated_at": "2026-04-22T10:42:09Z",
       "first_seen": "2026-04-22T10:42:09Z",
       "last_seen": "2026-04-22T10:42:09Z",
@@ -156,7 +156,7 @@
       ],
       "title": "No per-hunk accept/discard — reviewer must accept or reject the whole change",
       "verdict": "elevated",
-      "weight": 1.0
+      "weight": 0.9997
     },
     "1e2f2fd100114946": {
       "alpha": 5.0,
@@ -164,7 +164,7 @@
       "category": "trajectory",
       "code": "TRJ04",
       "counter": "Before registering any new skill, test its trigger against a held-out set of prior skills' positive cases and reject registration if it steals dispatch on any of them.",
-      "days_since_last_seen": 0.0,
+      "days_since_last_seen": 0.012,
       "elevated_at": "2026-04-22T10:42:09Z",
       "first_seen": "2026-04-22T10:42:09Z",
       "last_seen": "2026-04-22T10:42:09Z",
@@ -195,7 +195,7 @@
       ],
       "title": "Voyager-style skill overfitting — a new skill is added that subsumes and breaks an older one",
       "verdict": "elevated",
-      "weight": 1.0
+      "weight": 0.9997
     },
     "1eba7ccf7b69d0dc": {
       "alpha": 7.0,
@@ -203,7 +203,7 @@
       "category": "context-drift",
       "code": "CD05",
       "counter": "Excerpt the specific span needed (400 tokens or less) rather than attaching a full file, and when a full file is necessary, tag it as <reference_only do_not_reason_about_topic>.",
-      "days_since_last_seen": 0.0,
+      "days_since_last_seen": 0.012,
       "elevated_at": "2026-04-22T10:42:10Z",
       "first_seen": "2026-04-22T10:42:09Z",
       "last_seen": "2026-04-22T10:42:09Z",
@@ -234,7 +234,7 @@
       ],
       "title": "Distractor pollution — long irrelevant content bends the output toward topic drift",
       "verdict": "elevated",
-      "weight": 1.0
+      "weight": 0.9997
     },
     "247a5ef05c8a927c": {
       "alpha": 2.0,
@@ -242,7 +242,7 @@
       "category": "operational-discipline",
       "code": "OP01",
       "counter": "After generating a Flux PDF, sweep the prompt folder for *.html and move or delete. Only prompt.<ext>, metadata.json, tests.json, learnings.{md,json}, output-schema.json, and report.pdf belong in prompts/<name>/. Intermediate files go in plugins/prompt-crafter/state/.",
-      "days_since_last_seen": 10.446,
+      "days_since_last_seen": 10.458,
       "first_seen": "2026-04-12",
       "last_seen": "2026-04-12",
       "llr": 1.791759469228055,
@@ -272,7 +272,7 @@
       ],
       "title": "Report placement: HTML in plugin state dir, PDF in prompt folder",
       "verdict": "noise",
-      "weight": 0.7856
+      "weight": 0.7853
     },
     "2bba0179e1a2512f": {
       "alpha": 5.0,
@@ -280,7 +280,7 @@
       "category": "prompt-injection",
       "code": "PI04",
       "counter": "Namespace every MCP tool by server ID at dispatch time, require explicit user confirmation on the first call to any newly registered tool, and surface the fully-qualified server.tool name in the call trace.",
-      "days_since_last_seen": 0.0,
+      "days_since_last_seen": 0.012,
       "elevated_at": "2026-04-22T10:42:09Z",
       "first_seen": "2026-04-22T10:42:09Z",
       "last_seen": "2026-04-22T10:42:09Z",
@@ -311,7 +311,7 @@
       ],
       "title": "MCP tool-shadowing — malicious server exposes a tool name that collides with a trusted one",
       "verdict": "elevated",
-      "weight": 1.0
+      "weight": 0.9997
     },
     "3712b39b91289222": {
       "alpha": 6.0,
@@ -319,7 +319,7 @@
       "category": "compaction",
       "code": "CD04",
       "counter": "Any post-compaction claim about numbers, paths, or commit hashes must be re-verified with a fresh tool call before being used as input to an edit or destructive action.",
-      "days_since_last_seen": 0.0,
+      "days_since_last_seen": 0.012,
       "elevated_at": "2026-04-22T10:42:09Z",
       "first_seen": "2026-04-22T10:42:09Z",
       "last_seen": "2026-04-22T10:42:09Z",
@@ -350,7 +350,7 @@
       ],
       "title": "Compaction-induced fabrication — summarized turn retains a claim the original never made",
       "verdict": "elevated",
-      "weight": 1.0
+      "weight": 0.9997
     },
     "4bb7324c0f87497d": {
       "alpha": 9.0,
@@ -358,7 +358,7 @@
       "category": "agent-coordination",
       "code": "AC03",
       "counter": "Every subagent prompt includes a briefing clause naming goal, already-ruled-out paths, and why this matters, plus a structured-return clause naming the exact output shape expected.",
-      "days_since_last_seen": 0.0,
+      "days_since_last_seen": 0.012,
       "elevated_at": "2026-04-22T10:42:09Z",
       "first_seen": "2026-04-22T10:42:09Z",
       "last_seen": "2026-04-22T10:42:09Z",
@@ -389,7 +389,7 @@
       ],
       "title": "Sub-agent context starvation — spawned agent lacks the brief needed to act",
       "verdict": "elevated",
-      "weight": 1.0
+      "weight": 0.9997
     },
     "54704e7bf6ad307a": {
       "alpha": 9.0,
@@ -397,7 +397,7 @@
       "category": "hallucination",
       "code": "HL03",
       "counter": "Before citing file content, verify the actual Read or Grep tool call appears in the recent trace; if it does not, re-issue the tool call and cite from its output, not memory.",
-      "days_since_last_seen": 0.0,
+      "days_since_last_seen": 0.012,
       "elevated_at": "2026-04-22T10:42:09Z",
       "first_seen": "2026-04-22T10:42:09Z",
       "last_seen": "2026-04-22T10:42:09Z",
@@ -428,7 +428,7 @@
       ],
       "title": "Path hallucination — agent claims to have read a file it never opened",
       "verdict": "elevated",
-      "weight": 1.0
+      "weight": 0.9997
     },
     "5728b50a06ea4d43": {
       "alpha": 7.0,
@@ -436,7 +436,7 @@
       "category": "trajectory",
       "code": "TRJ03",
       "counter": "Pin the verbatim user goal at the top of every ReAct iteration as immutable context, and before each tool call verify the proposed action serves the pinned goal phrase rather than the current paraphrase.",
-      "days_since_last_seen": 0.0,
+      "days_since_last_seen": 0.012,
       "elevated_at": "2026-04-22T10:42:09Z",
       "first_seen": "2026-04-22T10:42:09Z",
       "last_seen": "2026-04-22T10:42:09Z",
@@ -467,7 +467,7 @@
       ],
       "title": "Goal drift via ReAct thought trajectory — reasoning chain reframes the goal mid-loop",
       "verdict": "elevated",
-      "weight": 1.0
+      "weight": 0.9997
     },
     "572cd0f9eb713a51": {
       "alpha": 5.0,
@@ -475,7 +475,7 @@
       "category": "deployment",
       "code": "DP02",
       "counter": "Schedule a weekly regression run over all DEPLOY-bar prompts against the current pinned model snapshot, and require re-convergence whenever the score drops below its deploy threshold.",
-      "days_since_last_seen": 0.0,
+      "days_since_last_seen": 0.012,
       "elevated_at": "2026-04-22T10:42:09Z",
       "first_seen": "2026-04-22T10:42:09Z",
       "last_seen": "2026-04-22T10:42:09Z",
@@ -506,7 +506,7 @@
       ],
       "title": "Prompt regression after provider update — same prompt scores lower after model patch",
       "verdict": "elevated",
-      "weight": 1.0
+      "weight": 0.9997
     },
     "5850e6442f0d92d1": {
       "alpha": 4.0,
@@ -514,7 +514,7 @@
       "category": "cache",
       "code": "MC03",
       "counter": "Place the breakpoint after the stable portion of the prompt only, and verify that cache-read tokens dominate cache-write tokens in billing within the first five turns of a session.",
-      "days_since_last_seen": 0.0,
+      "days_since_last_seen": 0.012,
       "elevated_at": "2026-04-22T10:42:09Z",
       "first_seen": "2026-04-22T10:42:09Z",
       "last_seen": "2026-04-22T10:42:09Z",
@@ -545,7 +545,7 @@
       ],
       "title": "Cache-write economics trap — over-eager cache writes cost more than they save",
       "verdict": "elevated",
-      "weight": 1.0
+      "weight": 0.9997
     },
     "5bacc3c49a4c61da": {
       "alpha": 2.0,
@@ -553,7 +553,7 @@
       "category": "branding-drift",
       "code": "OP05",
       "counter": "Honest naming contract: every algorithm name must match what the code does, not what the roadmap aspires to. When declaring an engine 'Bayesian / Gauss / Thompson / Beta-Binomial,' verify prior and posterior update steps exist in code. If only a decay rule exists, call it EMA / exponential smoothing / posture decay. Taxonomy across enchanted-plugins: EMA-class (Reaper R8, Nook L1, Allay A2), Beta-Binomial-class (Mantis M6), Prose-log-class (Flux F6 learnings.json, precedent.jsonl).",
-      "days_since_last_seen": 0.446,
+      "days_since_last_seen": 0.458,
       "first_seen": "2026-04-22",
       "last_seen": "2026-04-22",
       "llr": 1.791759469228055,
@@ -585,7 +585,7 @@
       ],
       "title": "R8 labeled 'Bayesian Threat Convergence' but implementation is pure EMA",
       "verdict": "noise",
-      "weight": 0.9897
+      "weight": 0.9895
     },
     "5d8708861e20503e": {
       "alpha": 6.0,
@@ -593,7 +593,7 @@
       "category": "meta",
       "code": "META01",
       "counter": "Run the full declared lifecycle in one pass before handing over; heuristic self-check is a sanity check, not convergence, and reactive fixes count as evidence the lifecycle was skipped.",
-      "days_since_last_seen": 0.0,
+      "days_since_last_seen": 0.012,
       "elevated_at": "2026-04-22T10:42:09Z",
       "first_seen": "2026-04-22T10:42:09Z",
       "last_seen": "2026-04-22T10:42:09Z",
@@ -624,7 +624,7 @@
       ],
       "title": "Skipped lifecycle — agent ships artifact before running its own verification stages",
       "verdict": "elevated",
-      "weight": 1.0
+      "weight": 0.9997
     },
     "6023a429e41068f6": {
       "alpha": 11.0,
@@ -632,7 +632,7 @@
       "category": "review",
       "code": "RV03",
       "counter": "Touch only the flagged lines and match the file's local style; if another issue is noticed, mention it in the reply but do not fix silently, and never bundle a refactor with a bug fix.",
-      "days_since_last_seen": 0.0,
+      "days_since_last_seen": 0.012,
       "elevated_at": "2026-04-22T10:42:09Z",
       "first_seen": "2026-04-22T10:42:09Z",
       "last_seen": "2026-04-22T10:42:09Z",
@@ -663,7 +663,7 @@
       ],
       "title": "Session abandonment on unexpected changes — 10-20% of sessions end after surprise edit",
       "verdict": "elevated",
-      "weight": 1.0
+      "weight": 0.9997
     },
     "66b295362e7c80a7": {
       "alpha": 4.0,
@@ -671,7 +671,7 @@
       "category": "deployment",
       "code": "DP03",
       "counter": "Track every settings mutation through a change-logged mechanism that records source, timestamp, and diff, and surface recent settings changes to the agent in session-start context when they affect its behavior.",
-      "days_since_last_seen": 0.0,
+      "days_since_last_seen": 0.012,
       "elevated_at": "2026-04-22T10:42:09Z",
       "first_seen": "2026-04-22T10:42:09Z",
       "last_seen": "2026-04-22T10:42:09Z",
@@ -702,7 +702,7 @@
       ],
       "title": "Config poisoning — environment variable or settings file quietly changes agent behavior across sessions",
       "verdict": "elevated",
-      "weight": 1.0
+      "weight": 0.9997
     },
     "6845f40499407403": {
       "alpha": 4.0,
@@ -710,7 +710,7 @@
       "category": "agent-coordination",
       "code": "AC04",
       "counter": "Every hook that can spawn a subagent checks for a nesting marker (CLAUDE_SUBAGENT env var or equivalent payload field) and exits 0 without action when set.",
-      "days_since_last_seen": 0.0,
+      "days_since_last_seen": 0.012,
       "elevated_at": "2026-04-22T10:42:09Z",
       "first_seen": "2026-04-22T10:42:09Z",
       "last_seen": "2026-04-22T10:42:09Z",
@@ -741,7 +741,7 @@
       ],
       "title": "Subagent recursion — UserPromptSubmit hook spawns a subagent whose first prompt re-triggers the hook",
       "verdict": "elevated",
-      "weight": 1.0
+      "weight": 0.9997
     },
     "6a9ed291dad1c933": {
       "alpha": 16.0,
@@ -749,7 +749,7 @@
       "category": "review",
       "code": "TM02",
       "counter": "Batch low-risk permissions into scoped allowlists at project setup so every individual prompt is high-salience, and require an explicit diff-of-action for any permission that touches destructive tools.",
-      "days_since_last_seen": 0.0,
+      "days_since_last_seen": 0.012,
       "elevated_at": "2026-04-22T10:42:09Z",
       "first_seen": "2026-04-22T10:42:09Z",
       "last_seen": "2026-04-22T10:42:09Z",
@@ -780,7 +780,7 @@
       ],
       "title": "Permission rubber-stamping — user accepts tool permissions at ~93% rate without review",
       "verdict": "elevated",
-      "weight": 1.0
+      "weight": 0.9997
     },
     "70027444226be323": {
       "alpha": 6.0,
@@ -788,7 +788,7 @@
       "category": "agent-coordination",
       "code": "AC02",
       "counter": "Restate the role and persona constraints in the last 200 tokens of every turn that crosses the 30-turn mark, and inject a role-check question every 20 turns that the agent must answer in-persona.",
-      "days_since_last_seen": 0.0,
+      "days_since_last_seen": 0.012,
       "elevated_at": "2026-04-22T10:42:09Z",
       "first_seen": "2026-04-22T10:42:09Z",
       "last_seen": "2026-04-22T10:42:09Z",
@@ -819,7 +819,7 @@
       ],
       "title": "Role drift — persona assigned at session start erodes across long turn sequences",
       "verdict": "elevated",
-      "weight": 1.0
+      "weight": 0.9997
     },
     "7214e0986c23c53c": {
       "alpha": 4.0,
@@ -827,7 +827,7 @@
       "category": "cache",
       "code": "MC02",
       "counter": "Version the system prompt with a monotonically-increasing token (e.g., SYS-v17) included inside the cached span so any update bumps the hash and forces cache rebuild.",
-      "days_since_last_seen": 0.0,
+      "days_since_last_seen": 0.012,
       "elevated_at": "2026-04-22T10:42:09Z",
       "first_seen": "2026-04-22T10:42:09Z",
       "last_seen": "2026-04-22T10:42:09Z",
@@ -858,7 +858,7 @@
       ],
       "title": "Stale cache hit — reused cached prefix carries outdated system prompt or tool schema",
       "verdict": "elevated",
-      "weight": 1.0
+      "weight": 0.9997
     },
     "73b6b0f9f7488c5a": {
       "alpha": 21.0,
@@ -866,7 +866,7 @@
       "category": "context-drift",
       "code": "CD01",
       "counter": "Place load-bearing constraints in the first 200 or last 200 tokens of the request, and when the middle of context must carry a fact, restate it in the final 200 tokens as an anchor.",
-      "days_since_last_seen": 0.0,
+      "days_since_last_seen": 0.012,
       "elevated_at": "2026-04-22T10:42:09Z",
       "first_seen": "2026-04-22T10:42:09Z",
       "last_seen": "2026-04-22T10:42:09Z",
@@ -897,7 +897,7 @@
       ],
       "title": "Lost-in-the-middle recall collapse — U-curve valley for mid-context facts",
       "verdict": "elevated",
-      "weight": 1.0
+      "weight": 0.9997
     },
     "761d0ed0f24f43c9": {
       "alpha": 14.0,
@@ -905,7 +905,7 @@
       "category": "prompt-injection",
       "code": "PI07",
       "counter": "Apply safety classification to the semantic content of the request regardless of role-play framing, and treat fictional-scenario wrappers requesting operational details (weapons, exploits, PII) as first-class refusals.",
-      "days_since_last_seen": 0.0,
+      "days_since_last_seen": 0.012,
       "elevated_at": "2026-04-22T10:42:10Z",
       "first_seen": "2026-04-22T10:42:09Z",
       "last_seen": "2026-04-22T10:42:09Z",
@@ -936,7 +936,7 @@
       ],
       "title": "Refusal-bypass via role-play framing — jailbreak through fictional scenario wrapping",
       "verdict": "elevated",
-      "weight": 1.0
+      "weight": 0.9997
     },
     "775cb4db2f807b82": {
       "alpha": 10.0,
@@ -944,7 +944,7 @@
       "category": "context-drift",
       "code": "CD02",
       "counter": "Budget context like 50k regardless of nominal limit, emit a checkpoint block at 50% fill, drop prior turns to the checkpoint, and continue with the checkpoint as source of truth.",
-      "days_since_last_seen": 0.0,
+      "days_since_last_seen": 0.012,
       "elevated_at": "2026-04-22T10:42:09Z",
       "first_seen": "2026-04-22T10:42:09Z",
       "last_seen": "2026-04-22T10:42:09Z",
@@ -975,7 +975,7 @@
       ],
       "title": "Context rot — quality degradation as usable window fills past ~50%",
       "verdict": "elevated",
-      "weight": 1.0
+      "weight": 0.9997
     },
     "77bfc71273b82e0f": {
       "alpha": 10.0,
@@ -983,7 +983,7 @@
       "category": "hallucination",
       "code": "HL06",
       "counter": "Instruct the generator to answer only from the retrieved passages, require every factual claim to cite a specific retrieval span, and refuse to answer when retrieval does not cover the question.",
-      "days_since_last_seen": 0.0,
+      "days_since_last_seen": 0.012,
       "elevated_at": "2026-04-22T10:42:10Z",
       "first_seen": "2026-04-22T10:42:09Z",
       "last_seen": "2026-04-22T10:42:09Z",
@@ -1014,7 +1014,7 @@
       ],
       "title": "Grounded but wrong — retrieval returned context and the model still fabricated outside it",
       "verdict": "elevated",
-      "weight": 1.0
+      "weight": 0.9997
     },
     "7b599a1a3bf131e4": {
       "alpha": 5.0,
@@ -1022,7 +1022,7 @@
       "category": "cache",
       "code": "MC01",
       "counter": "Never include untrusted content in the cached portion of a prompt; cache only the system prompt and tool catalog, and place user or retrieved data strictly after the cache breakpoint.",
-      "days_since_last_seen": 0.0,
+      "days_since_last_seen": 0.012,
       "elevated_at": "2026-04-22T10:42:09Z",
       "first_seen": "2026-04-22T10:42:09Z",
       "last_seen": "2026-04-22T10:42:09Z",
@@ -1053,7 +1053,7 @@
       ],
       "title": "Prompt-cache poisoning — attacker-controlled prefix cached and reused for later sessions",
       "verdict": "elevated",
-      "weight": 1.0
+      "weight": 0.9997
     },
     "7c3fbe8e4bec150b": {
       "alpha": 2.0,
@@ -1061,7 +1061,7 @@
       "category": "operational-discipline",
       "code": "OP03",
       "counter": "A directory has real tracked content OR a .gitkeep — never both. When adding the first real file, remove the .gitkeep in the same commit. Sweep before committing plugin scaffolds: for d in $(find . -type d); do [[ -f $d/.gitkeep ]] && [[ $(ls -A $d | grep -v gitkeep | wc -l) -gt 0 ]] && echo redundant: $d/.gitkeep; done",
-      "days_since_last_seen": 5.446,
+      "days_since_last_seen": 5.458,
       "first_seen": "2026-04-17",
       "last_seen": "2026-04-17",
       "llr": 1.791759469228055,
@@ -1091,7 +1091,7 @@
       ],
       "title": ".gitkeep only in empty dirs — never alongside real content",
       "verdict": "noise",
-      "weight": 0.8818
+      "weight": 0.8815
     },
     "7ca48bef4c42faf4": {
       "alpha": 8.0,
@@ -1099,7 +1099,7 @@
       "category": "trajectory",
       "code": "TRJ02",
       "counter": "Gate every reflection-driven revision on a no-regression test that requires the revision to pass every assertion the draft passed, and revert to the draft when the test fails.",
-      "days_since_last_seen": 0.0,
+      "days_since_last_seen": 0.012,
       "elevated_at": "2026-04-22T10:42:09Z",
       "first_seen": "2026-04-22T10:42:09Z",
       "last_seen": "2026-04-22T10:42:09Z",
@@ -1130,7 +1130,7 @@
       ],
       "title": "Reflection-induced degeneration — Reflexion loop makes a correct answer worse",
       "verdict": "elevated",
-      "weight": 1.0
+      "weight": 0.9997
     },
     "85153f16a1d32872": {
       "alpha": 8.0,
@@ -1138,7 +1138,7 @@
       "category": "process-discipline",
       "code": "F07",
       "counter": "Run the full Flux lifecycle in one pass before handing over: /create → /converge (Sonnet optimizer + Haiku reviewer, not heuristic loops) → /test-prompt (surfaces tests.json + metadata shape + format/registry mismatch) → /harden (red-team audit on high-stakes prompts) → hand over with honest verdict. Heuristic self-eval is a sanity check, not convergence.",
-      "days_since_last_seen": 1.446,
+      "days_since_last_seen": 1.458,
       "elevated_at": "2026-04-22T10:20:32Z",
       "first_seen": "2026-04-21",
       "last_seen": "2026-04-21",
@@ -1170,7 +1170,7 @@
       ],
       "title": "Ran seven reactive iterations instead of one-pass Flux lifecycle",
       "verdict": "elevated",
-      "weight": 0.9671
+      "weight": 0.9669
     },
     "884dfe8c2b89e70f": {
       "alpha": 2.0,
@@ -1178,7 +1178,7 @@
       "category": "operational-discipline",
       "code": "OP02",
       "counter": "Pre-run minimum on every new prompt folder: prompt.<ext>, metadata.json, tests.json, learnings.md, learnings.json (sessions/hypotheses/axis-progressions shape), output-schema.json. Post-run additions: output-reference.md, output-test-results.json, report.pdf. Diff against reaper/, reaper-patterns/, redteam-ops-architecture/ before declaring ready.",
-      "days_since_last_seen": 5.446,
+      "days_since_last_seen": 5.458,
       "first_seen": "2026-04-17",
       "last_seen": "2026-04-17",
       "llr": 1.791759469228055,
@@ -1208,7 +1208,7 @@
       ],
       "title": "Every new Flux prompt folder ships the full canonical file set pre-run",
       "verdict": "noise",
-      "weight": 0.8818
+      "weight": 0.8815
     },
     "8ea2324b72bcb932": {
       "alpha": 7.0,
@@ -1216,7 +1216,7 @@
       "category": "memory",
       "code": "MEM01",
       "counter": "Before acting on a memory that names a path, version, or status, verify the fact against a live source (filesystem, registry, live docs) and demote memory to a preference-only role.",
-      "days_since_last_seen": 0.0,
+      "days_since_last_seen": 0.012,
       "elevated_at": "2026-04-22T10:42:09Z",
       "first_seen": "2026-04-22T10:42:09Z",
       "last_seen": "2026-04-22T10:42:09Z",
@@ -1247,7 +1247,7 @@
       ],
       "title": "Memory staleness — recalled fact was true when stored but is false now",
       "verdict": "elevated",
-      "weight": 1.0
+      "weight": 0.9997
     },
     "8f5d956ad3d8eaba": {
       "alpha": 8.0,
@@ -1255,7 +1255,7 @@
       "category": "judging",
       "code": "JG03",
       "counter": "Keep the rubric held-out from the generator, add adversarial assertions to the test suite that pass only if behavior is correct, and have the judge flag when a candidate's rubric score exceeds its holistic score by a large margin.",
-      "days_since_last_seen": 0.0,
+      "days_since_last_seen": 0.012,
       "elevated_at": "2026-04-22T10:42:09Z",
       "first_seen": "2026-04-22T10:42:09Z",
       "last_seen": "2026-04-22T10:42:09Z",
@@ -1286,7 +1286,7 @@
       ],
       "title": "Reward hacking against a rubric-weak judge — agent games the metric rather than the behavior",
       "verdict": "elevated",
-      "weight": 1.0
+      "weight": 0.9997
     },
     "906f8393357938ff": {
       "alpha": 5.0,
@@ -1294,7 +1294,7 @@
       "category": "meta",
       "code": "META04",
       "counter": "A shipping verdict comes from the current run's scores and 8/8 SAT assertions; re-run self-eval when unsure, and never claim DEPLOY with stored metadata from a prior session.",
-      "days_since_last_seen": 0.0,
+      "days_since_last_seen": 0.012,
       "elevated_at": "2026-04-22T10:42:10Z",
       "first_seen": "2026-04-22T10:42:09Z",
       "last_seen": "2026-04-22T10:42:09Z",
@@ -1325,6 +1325,49 @@
       ],
       "title": "Honest-numbers violation — DEPLOY claimed on stale or self-reported scores",
       "verdict": "elevated",
+      "weight": 0.9997
+    },
+    "94f847ac4a6b6eee": {
+      "alpha": 11.0,
+      "beta": 1.0,
+      "category": "operational-discipline",
+      "code": "OP06",
+      "counter": "When a subagent writes investigative scripts to probe what-if score responses, write to /tmp/<plugin>-<task>-NNN.py or a plugin-scoped state/<plugin>/scratch/ dir with .gitignore coverage. flux/state/ is reserved for tracked cross-plugin artifacts (precedent.jsonl, learning-substrate state). Sweep and delete scratch before agent return. If the scratch hardcodes an absolute UNC path, it is definitionally not reusable and therefore always scratch.",
+      "days_since_last_seen": 0.0,
+      "elevated_at": "2026-04-22T11:00:00Z",
+      "first_seen": "2026-04-22T10:59:31Z",
+      "last_seen": "2026-04-22T10:59:31Z",
+      "llr": 10.0,
+      "observations": 10,
+      "pattern_id": "94f847ac4a6b6eee",
+      "posterior_ci95": [
+        0.7151,
+        0.9977
+      ],
+      "posterior_mean": 0.9167,
+      "reservoir": [
+        {
+          "session": "unknown",
+          "title": "Agent scratch-simulation scripts left behind in repo-root state/ after convergence run",
+          "ts": "2026-04-22T10:59:31Z"
+        }
+      ],
+      "sessions_seen": [
+        "unknown"
+      ],
+      "signal": "Untracked .py or .sh file appears at repo root or in flux/state/ after an agent run and contains an open() call with a hardcoded c:/git/enchanted-skills/ absolute path.",
+      "tags": [
+        "flux",
+        "agent-hygiene",
+        "scratch-residue",
+        "convergence-engine",
+        "enchanted-plugins",
+        "brand-standard",
+        "file-hygiene",
+        "operational-discipline"
+      ],
+      "title": "Agent scratch-simulation scripts left behind in repo-root state/ after convergence run",
+      "verdict": "elevated",
       "weight": 1.0
     },
     "950b21dd55716b6a": {
@@ -1333,7 +1376,7 @@
       "category": "compaction",
       "code": "CD03",
       "counter": "Before triggering or accepting auto-compaction, write the explicit success criterion as a <goal> block that the compactor must preserve verbatim, and on resume verify the goal still matches the original ask.",
-      "days_since_last_seen": 0.0,
+      "days_since_last_seen": 0.012,
       "elevated_at": "2026-04-22T10:42:09Z",
       "first_seen": "2026-04-22T10:42:09Z",
       "last_seen": "2026-04-22T10:42:09Z",
@@ -1364,7 +1407,7 @@
       ],
       "title": "Task drift across auto-compaction — goal lost when session summary omits the success criterion",
       "verdict": "elevated",
-      "weight": 1.0
+      "weight": 0.9997
     },
     "965478aaaaffa8f3": {
       "alpha": 7.0,
@@ -1372,7 +1415,7 @@
       "category": "agent-coordination",
       "code": "AC01",
       "counter": "Cross-family or cross-tier reviewers only — pair a Sonnet optimizer with a Haiku validator from a different training generation, and treat same-family agreement as one observation, not two.",
-      "days_since_last_seen": 0.0,
+      "days_since_last_seen": 0.012,
       "elevated_at": "2026-04-22T10:42:09Z",
       "first_seen": "2026-04-22T10:42:09Z",
       "last_seen": "2026-04-22T10:42:09Z",
@@ -1403,7 +1446,7 @@
       ],
       "title": "Multi-agent false consensus — two agents agreeing because they share a training prior",
       "verdict": "elevated",
-      "weight": 1.0
+      "weight": 0.9997
     },
     "9bef341fa3000c46": {
       "alpha": 7.0,
@@ -1411,7 +1454,7 @@
       "category": "meta",
       "code": "META02",
       "counter": "Every failure-log entry tags exactly one canonical code from the declared taxonomy and carries the required fields (code, axis, hypothesis, outcome, counter) so cross-session aggregation can compound.",
-      "days_since_last_seen": 0.0,
+      "days_since_last_seen": 0.012,
       "elevated_at": "2026-04-22T10:42:09Z",
       "first_seen": "2026-04-22T10:42:09Z",
       "last_seen": "2026-04-22T10:42:09Z",
@@ -1442,7 +1485,7 @@
       ],
       "title": "Untagged failure logging — free-text notes that don't compound across sessions",
       "verdict": "elevated",
-      "weight": 1.0
+      "weight": 0.9997
     },
     "9de5773bd732b01a": {
       "alpha": 10.0,
@@ -1450,7 +1493,7 @@
       "category": "prompt-injection",
       "code": "PI02",
       "counter": "Treat all retrieved content as untrusted data framed inside explicit <retrieved_untrusted> tags, strip invisible text and HTML comments before injection, and disable tool-use during the first pass that summarizes the retrieval.",
-      "days_since_last_seen": 0.0,
+      "days_since_last_seen": 0.012,
       "elevated_at": "2026-04-22T10:42:09Z",
       "first_seen": "2026-04-22T10:42:09Z",
       "last_seen": "2026-04-22T10:42:09Z",
@@ -1481,7 +1524,7 @@
       ],
       "title": "Indirect prompt injection via retrieved documents or webpage content",
       "verdict": "elevated",
-      "weight": 1.0
+      "weight": 0.9997
     },
     "a40374ca54536e52": {
       "alpha": 10.0,
@@ -1489,7 +1532,7 @@
       "category": "judging",
       "code": "JG01",
       "counter": "Use a judge from a different model family than the generator whenever possible, and when cross-family is infeasible, blind the judge with style normalization (strip distinctive phrasing) before rating.",
-      "days_since_last_seen": 0.0,
+      "days_since_last_seen": 0.012,
       "elevated_at": "2026-04-22T10:42:09Z",
       "first_seen": "2026-04-22T10:42:09Z",
       "last_seen": "2026-04-22T10:42:09Z",
@@ -1520,7 +1563,7 @@
       ],
       "title": "Self-preference bias — LLM judge rates its own outputs higher than peer outputs",
       "verdict": "elevated",
-      "weight": 1.0
+      "weight": 0.9997
     },
     "a58bbe03b45962f1": {
       "alpha": 5.0,
@@ -1528,7 +1571,7 @@
       "category": "review",
       "code": "RV01",
       "counter": "Strip whitespace-only and EOL-only hunks from the review diff by default, show true-content changes first, and expose a collapsed all-hunks view only on explicit toggle.",
-      "days_since_last_seen": 0.0,
+      "days_since_last_seen": 0.012,
       "elevated_at": "2026-04-22T10:42:09Z",
       "first_seen": "2026-04-22T10:42:09Z",
       "last_seen": "2026-04-22T10:42:09Z",
@@ -1559,7 +1602,7 @@
       ],
       "title": "Phantom-diff inflation — 11-line change displayed as +7490/-6880 in the review UI",
       "verdict": "elevated",
-      "weight": 1.0
+      "weight": 0.9997
     },
     "a795fd41d13837ca": {
       "alpha": 4.0,
@@ -1567,7 +1610,7 @@
       "category": "agent-coordination",
       "code": "AC05",
       "counter": "Never dispatch two agents in parallel that could write to the same path; partition by path or serialize on any shared write target, and surface the partition plan before dispatch.",
-      "days_since_last_seen": 0.0,
+      "days_since_last_seen": 0.012,
       "elevated_at": "2026-04-22T10:42:10Z",
       "first_seen": "2026-04-22T10:42:09Z",
       "last_seen": "2026-04-22T10:42:09Z",
@@ -1598,7 +1641,7 @@
       ],
       "title": "Parallel subagent race — two writes to the same file from concurrently dispatched agents",
       "verdict": "elevated",
-      "weight": 1.0
+      "weight": 0.9997
     },
     "c5606e9fe98723c1": {
       "alpha": 5.0,
@@ -1606,7 +1649,7 @@
       "category": "memory",
       "code": "MEM02",
       "counter": "Every memory citation names the concrete file and line where the memory lives, and a recall without such a pointer is treated as a hypothesis requiring verification, not a fact.",
-      "days_since_last_seen": 0.0,
+      "days_since_last_seen": 0.012,
       "elevated_at": "2026-04-22T10:42:09Z",
       "first_seen": "2026-04-22T10:42:09Z",
       "last_seen": "2026-04-22T10:42:09Z",
@@ -1637,7 +1680,7 @@
       ],
       "title": "False recall — memory invents a detail that was never stored",
       "verdict": "elevated",
-      "weight": 1.0
+      "weight": 0.9997
     },
     "c574b0846fe25b16": {
       "alpha": 4.0,
@@ -1645,7 +1688,7 @@
       "category": "memory",
       "code": "MEM03",
       "counter": "Scope every memory entry to the narrowest applicable level (project > user > global), and when recalling a cross-project preference, explicitly confirm the preference applies to the current project before acting.",
-      "days_since_last_seen": 0.0,
+      "days_since_last_seen": 0.012,
       "elevated_at": "2026-04-22T10:42:09Z",
       "first_seen": "2026-04-22T10:42:09Z",
       "last_seen": "2026-04-22T10:42:09Z",
@@ -1676,7 +1719,7 @@
       ],
       "title": "Cross-session leak — user-scoped memory bleeds into a different project or persona",
       "verdict": "elevated",
-      "weight": 1.0
+      "weight": 0.9997
     },
     "c5a8f94f8493cf41": {
       "alpha": 19.0,
@@ -1684,7 +1727,7 @@
       "category": "hallucination",
       "code": "HL02",
       "counter": "Before calling any library API not already used in the file, Read the installed library's source or stubs, or grep node_modules/site-packages for the actual symbol, rather than completing from prior memory.",
-      "days_since_last_seen": 0.0,
+      "days_since_last_seen": 0.012,
       "elevated_at": "2026-04-22T10:42:09Z",
       "first_seen": "2026-04-22T10:42:09Z",
       "last_seen": "2026-04-22T10:42:09Z",
@@ -1715,7 +1758,7 @@
       ],
       "title": "API-surface hallucination — invented function signature, flag, or class method",
       "verdict": "elevated",
-      "weight": 1.0
+      "weight": 0.9997
     },
     "c9c1f0aac2fbe93b": {
       "alpha": 7.0,
@@ -1723,7 +1766,7 @@
       "category": "tool-misuse",
       "code": "TM04",
       "counter": "Any destructive op (rm -rf, git reset --hard, git push --force, DROP, TRUNCATE, branch delete) emits a dry-run plan first and waits for an explicit yes token before executing.",
-      "days_since_last_seen": 0.0,
+      "days_since_last_seen": 0.012,
       "elevated_at": "2026-04-22T10:42:10Z",
       "first_seen": "2026-04-22T10:42:09Z",
       "last_seen": "2026-04-22T10:42:09Z",
@@ -1754,7 +1797,7 @@
       ],
       "title": "Unconfirmed destructive operation — rm -rf or reset --hard executed without explicit yes",
       "verdict": "elevated",
-      "weight": 1.0
+      "weight": 0.9997
     },
     "d29eca2b2ca46f14": {
       "alpha": 2.0,
@@ -1762,7 +1805,7 @@
       "category": "process-discipline",
       "code": "OP04",
       "counter": "For ecosystem facts (plugin list, roadmap, naming, status) always read the live docs first: flux/docs/ROADMAP.md, flux/docs/ecosystem.md, flux/docs/brand-guide.md, and the filesystem under c:/git/enchanted-skills/. Auto-memory is for user preferences, not ecosystem state.",
-      "days_since_last_seen": 4.446,
+      "days_since_last_seen": 4.458,
       "first_seen": "2026-04-18",
       "last_seen": "2026-04-18",
       "llr": 1.791759469228055,
@@ -1792,7 +1835,7 @@
       ],
       "title": "Read flux/docs/* directly for ecosystem facts, not auto-memory",
       "verdict": "noise",
-      "weight": 0.9024
+      "weight": 0.9021
     },
     "d3afdd5f54d6298d": {
       "alpha": 6.0,
@@ -1800,7 +1843,7 @@
       "category": "deployment",
       "code": "DP01",
       "counter": "Pin model references to dated snapshot IDs rather than rolling aliases, and run a regression test suite on every deployment that compares scores against a held-out baseline.",
-      "days_since_last_seen": 0.0,
+      "days_since_last_seen": 0.012,
       "elevated_at": "2026-04-22T10:42:09Z",
       "first_seen": "2026-04-22T10:42:09Z",
       "last_seen": "2026-04-22T10:42:09Z",
@@ -1831,7 +1874,7 @@
       ],
       "title": "Silent model drift post-deploy — provider updates a model ID in place and behavior shifts",
       "verdict": "elevated",
-      "weight": 1.0
+      "weight": 0.9997
     },
     "d88c23c16d07a936": {
       "alpha": 3.0,
@@ -1839,7 +1882,7 @@
       "category": "meta",
       "code": "META03",
       "counter": "Before shipping any engine with a specific-algorithm label, grep the implementation for the corresponding math (prior + posterior update, not just a learning rate) and rename to the honest class (EMA, exponential smoothing) if the math is absent.",
-      "days_since_last_seen": 0.0,
+      "days_since_last_seen": 0.012,
       "elevated_at": "2026-04-22T10:42:09Z",
       "first_seen": "2026-04-22T10:42:09Z",
       "last_seen": "2026-04-22T10:42:09Z",
@@ -1870,7 +1913,7 @@
       ],
       "title": "Branding drift — declared algorithm name diverges from implemented behavior",
       "verdict": "elevated",
-      "weight": 1.0
+      "weight": 0.9997
     },
     "d8d9b14327ee988f": {
       "alpha": 8.0,
@@ -1878,7 +1921,7 @@
       "category": "prompt-injection",
       "code": "PI06",
       "counter": "Enforce a data-flow policy that forbids any tool whose input is derived from an untrusted-read from invoking an exfil-capable tool in the same turn without explicit per-call user confirmation.",
-      "days_since_last_seen": 0.0,
+      "days_since_last_seen": 0.012,
       "elevated_at": "2026-04-22T10:42:09Z",
       "first_seen": "2026-04-22T10:42:09Z",
       "last_seen": "2026-04-22T10:42:09Z",
@@ -1909,7 +1952,7 @@
       ],
       "title": "Tool-chain exfiltration — injected instructions chain a read tool into an out-of-band write tool",
       "verdict": "elevated",
-      "weight": 1.0
+      "weight": 0.9997
     },
     "dc7a885e0ceb97f4": {
       "alpha": 6.0,
@@ -1917,7 +1960,7 @@
       "category": "tool-misuse",
       "code": "TM03",
       "counter": "Whitelist every skill with the minimum tools needed (Investigator: Read/Grep/Glob; Red-team: Read/Grep/Glob never Write; Validator: Read/Grep), and justify every Write or Bash grant in the SKILL.md body.",
-      "days_since_last_seen": 0.0,
+      "days_since_last_seen": 0.012,
       "elevated_at": "2026-04-22T10:42:10Z",
       "first_seen": "2026-04-22T10:42:09Z",
       "last_seen": "2026-04-22T10:42:09Z",
@@ -1948,7 +1991,7 @@
       ],
       "title": "Over-broad tool whitelist — skill granted Write when Read would suffice",
       "verdict": "elevated",
-      "weight": 1.0
+      "weight": 0.9997
     },
     "e19d09092859e88e": {
       "alpha": 13.0,
@@ -1956,7 +1999,7 @@
       "category": "judging",
       "code": "JG02",
       "counter": "Randomize candidate order per comparison, run each pair twice with swapped order, and require agreement across both orderings before recording a preference.",
-      "days_since_last_seen": 0.0,
+      "days_since_last_seen": 0.012,
       "elevated_at": "2026-04-22T10:42:09Z",
       "first_seen": "2026-04-22T10:42:09Z",
       "last_seen": "2026-04-22T10:42:09Z",
@@ -1987,7 +2030,7 @@
       ],
       "title": "Position bias — judge favors the first or last candidate in a pairwise comparison",
       "verdict": "elevated",
-      "weight": 1.0
+      "weight": 0.9997
     },
     "e9081bb1c1df4500": {
       "alpha": 7.0,
@@ -1995,7 +2038,7 @@
       "category": "prompt-injection",
       "code": "PI03",
       "counter": "Decode and re-classify any base64-shaped, hex-shaped, or ROT-shaped span before feeding it to the reasoning model, and reject decoded spans that resolve to imperative instructions targeting tools or system state.",
-      "days_since_last_seen": 0.0,
+      "days_since_last_seen": 0.012,
       "elevated_at": "2026-04-22T10:42:09Z",
       "first_seen": "2026-04-22T10:42:09Z",
       "last_seen": "2026-04-22T10:42:09Z",
@@ -2026,7 +2069,7 @@
       ],
       "title": "Encoding-based bypass via Base64, ROT13, or Unicode homoglyph smuggling",
       "verdict": "elevated",
-      "weight": 1.0
+      "weight": 0.9997
     },
     "eff5658417a5b9b2": {
       "alpha": 15.0,
@@ -2034,7 +2077,7 @@
       "category": "hallucination",
       "code": "HL04",
       "counter": "Never emit a paper citation with a specific year, venue, or arXiv ID without a retrieval hit in this session confirming all three; if uncertain, cite the pattern class with verification_pending flag.",
-      "days_since_last_seen": 0.0,
+      "days_since_last_seen": 0.012,
       "elevated_at": "2026-04-22T10:42:09Z",
       "first_seen": "2026-04-22T10:42:09Z",
       "last_seen": "2026-04-22T10:42:09Z",
@@ -2065,7 +2108,7 @@
       ],
       "title": "Citation hallucination — fabricated paper title, author list, or arXiv ID",
       "verdict": "elevated",
-      "weight": 1.0
+      "weight": 0.9997
     },
     "f1a1f7c6a918b30d": {
       "alpha": 9.0,
@@ -2073,7 +2116,7 @@
       "category": "trajectory",
       "code": "TRJ01",
       "counter": "Bound every agent loop with a max-steps budget and a novelty check that halts when the last three action-observation pairs are semantically identical, returning the accumulated partial result.",
-      "days_since_last_seen": 0.0,
+      "days_since_last_seen": 0.012,
       "elevated_at": "2026-04-22T10:42:09Z",
       "first_seen": "2026-04-22T10:42:09Z",
       "last_seen": "2026-04-22T10:42:09Z",
@@ -2104,7 +2147,7 @@
       ],
       "title": "Non-termination — agent loops through the same action-observation pair indefinitely",
       "verdict": "elevated",
-      "weight": 1.0
+      "weight": 0.9997
     },
     "f662af2202b28afc": {
       "alpha": 13.0,
@@ -2112,7 +2155,7 @@
       "category": "prompt-injection",
       "code": "PI01",
       "counter": "Sandwich untrusted text between fixed delimiters, classify the span as data-not-instruction in the system prompt, and refuse to execute imperatives originating from the delimited span regardless of tone or authority claim.",
-      "days_since_last_seen": 0.0,
+      "days_since_last_seen": 0.012,
       "elevated_at": "2026-04-22T10:42:09Z",
       "first_seen": "2026-04-22T10:42:09Z",
       "last_seen": "2026-04-22T10:42:09Z",
@@ -2142,7 +2185,7 @@
       ],
       "title": "Direct prompt injection via user-supplied text overriding system instructions",
       "verdict": "elevated",
-      "weight": 1.0
+      "weight": 0.9997
     },
     "f9444541422b7428": {
       "alpha": 12.0,
@@ -2150,7 +2193,7 @@
       "category": "hallucination",
       "code": "HL01",
       "counter": "Before any install or import of a package not already present in the lockfile, verify the package exists on the registry and its maintainer, publish date, and download count are consistent with an established project.",
-      "days_since_last_seen": 0.0,
+      "days_since_last_seen": 0.012,
       "elevated_at": "2026-04-22T10:42:09Z",
       "first_seen": "2026-04-22T10:42:09Z",
       "last_seen": "2026-04-22T10:42:09Z",
@@ -2181,11 +2224,11 @@
       ],
       "title": "Package hallucination — agent imports or installs a non-existent package name",
       "verdict": "elevated",
-      "weight": 1.0
+      "weight": 0.9997
     }
   },
   "retired_count": 0,
-  "total_artifacts": 56,
-  "total_patterns": 56,
+  "total_artifacts": 57,
+  "total_patterns": 57,
   "version": 1
 }

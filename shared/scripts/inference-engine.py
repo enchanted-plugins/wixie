@@ -429,16 +429,34 @@ def cmd_render_briefing(args: list[str]) -> int:
     catalog = load_catalog()
     patterns = catalog.get("patterns", {})
 
-    # Filter to patterns relevant to this plugin: plugin listed in tags OR in original scope.
+    # Filter: a pattern is relevant to a plugin briefing if ANY hold:
+    #   1. plugin == "all"                                  — the unscoped ecosystem view
+    #   2. plugin name appears in tags                      — the plugin-scoped view
+    #   3. category in CROSS_CUTTING                        — meta / review patterns are
+    #                                                         load-bearing for every plugin
+    CROSS_CUTTING = {"meta", "review"}
     relevant = []
     for pat in patterns.values():
         if pat.get("verdict") != "elevated":
             continue
         tags = [t.lower() for t in pat.get("tags", [])]
-        if plugin.lower() in tags or plugin.lower() == "all":
+        category = (pat.get("category") or "").lower()
+        if (
+            plugin.lower() == "all"
+            or plugin.lower() in tags
+            or category in CROSS_CUTTING
+        ):
             relevant.append(pat)
 
     relevant.sort(key=lambda p: p.get("weight", 0), reverse=True)
+
+    # Top-N cap for the ecosystem-wide briefing. Plugin-scoped briefings are
+    # already filter-narrow, so no cap there. Full catalog always in catalog.json.
+    BRIEFING_CAP = 10
+    total_matching = len(relevant)
+    truncated = plugin.lower() == "all" and total_matching > BRIEFING_CAP
+    if truncated:
+        relevant = relevant[:BRIEFING_CAP]
 
     BRIEFINGS_DIR.mkdir(parents=True, exist_ok=True)
     out = BRIEFINGS_DIR / f"{plugin}.md"
@@ -459,7 +477,16 @@ def cmd_render_briefing(args: list[str]) -> int:
             "_No elevated patterns yet. Run `/inference-reconcile` after at least one cross-session recurrence._"
         )
     else:
-        lines.append(f"## {len(relevant)} elevated pattern(s)")
+        header = f"## {len(relevant)} elevated pattern(s)"
+        if truncated:
+            header = f"## Top {len(relevant)} of {total_matching} elevated patterns (ranked by EMA-decayed weight)"
+        lines.append(header)
+        if truncated:
+            lines.append("")
+            lines.append(
+                f"_Truncated to top {BRIEFING_CAP} by weight. Full catalog at `state/catalog.json`; "
+                "use `/inference-query <code|tag|pattern_id>` to search the rest._"
+            )
         lines.append("")
         for pat in relevant:
             lines += [
