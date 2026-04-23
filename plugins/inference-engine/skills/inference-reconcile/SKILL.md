@@ -28,7 +28,7 @@ Delegate to the Sonnet-tier reconciler. The agent runs the engine, validates out
 ```
 Agent(subagent_type="general-purpose", model="sonnet",
       prompt="Run the reconciler agent defined at
-              flux/plugins/inference-engine/agents/reconciler.md.")
+              wixie/plugins/inference-engine/agents/reconciler.md.")
 ```
 
 ### Step 2: Parse the agent's report
@@ -41,20 +41,20 @@ reconciled <N> artifacts -> <P> patterns (<E> elevated, <R> retired)
 
 ### Step 3: Re-render briefings if verdicts changed
 
-If the agent reports that verdicts changed (the agent diffs against the prior catalog internally), a fresh `state/briefings/flux.md` is already written. Otherwise re-render unconditionally — cheap and keeps the briefing timestamp current:
+If the agent reports that verdicts changed (the agent diffs against the prior catalog internally), a fresh `state/briefings/wixie.md` is already written. Otherwise re-render unconditionally — cheap and keeps the briefing timestamp current:
 
 ```bash
-python ${CLAUDE_PLUGIN_ROOT}/../../shared/scripts/inference-engine.py render-briefing flux
+python ${CLAUDE_PLUGIN_ROOT}/../../shared/scripts/inference-engine.py render-briefing wixie
 ```
 
 ### Step 4: Report to caller
 
 ```
 Reconcile complete: <N> artifacts, <P> patterns (<E> elevated, <R> retired)
-Briefing: state/briefings/flux.md
+Briefing: state/briefings/wixie.md
 ```
 
-If `FLUX_INFERENCE_ENABLED=0` the reconcile still runs (it's safe) but the emit pipeline is a no-op, so the catalog may not reflect recent sessions. Tell the caller honestly.
+If `WIXIE_INFERENCE_ENABLED=0` the reconcile still runs (it's safe) but the emit pipeline is a no-op, so the catalog may not reflect recent sessions. Tell the caller honestly.
 
 ## Rules
 

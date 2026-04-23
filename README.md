@@ -1,4 +1,4 @@
-# Flux
+# Wixie
 
 <p>
   <a href="LICENSE.txt"><img alt="License: MIT" src="https://img.shields.io/badge/License-MIT-3fb950?style=for-the-badge"></a>
@@ -17,7 +17,7 @@ The first prompt engineering platform that learns from itself.
 
 > "Build me a B2B ticket routing system like Zendesk."
 >
-> Flux researched Zendesk, Freshdesk, Intercom, and Crisp. Selected 3 techniques
+> Wixie researched Zendesk, Freshdesk, Intercom, and Crisp. Selected 3 techniques
 > for Claude Opus. Generated 10KB of production-ready prompt. Ran the Convergence
 > Engine — 2 iterations, hypothesis-driven, auto-fixed Failure Resilience from 5 to 10.
 > Scored 9.4/10. DEPLOY. All 8 assertions pass. Dark-themed PDF audit report delivered.
@@ -26,7 +26,7 @@ The first prompt engineering platform that learns from itself.
 
 ## Origin
 
-Flux takes its name from the **enchanting mechanic in Minecraft** — the ritual that binds magical properties to plain items through iterative refinement. Every prompt starts plain; the convergence engine enchants it until it carries the right properties for the target model.
+**Wixie** takes its name from **Ars Nouveau** — a cauldron-summoned familiar that autocrafts potions by iterating ingredients through the cauldron until the brew carries the exact properties the recipe demands. Every prompt starts raw; the convergence engine brews it, round after round, until it carries the right properties for the target model.
 
 The question this plugin answers: *What did I say?*
 
@@ -39,19 +39,19 @@ The question this plugin answers: *What did I say?*
 Not for:
 
 - Single-model, single-session quick prototyping — `/create` is overkill; write the prompt inline.
-- Teams that want hosted LLM orchestration — Flux is local-only by design, no SaaS layer.
+- Teams that want hosted LLM orchestration — Wixie is local-only by design, no SaaS layer.
 
 ## Contents
 
 - [How It Works](#how-it-works)
-- [What Makes Flux Different](#what-makes-flux-different)
+- [What Makes Wixie Different](#what-makes-wixie-different)
 - [The Full Lifecycle](#the-full-lifecycle)
 - [Install](#install)
 - [Quickstart](#quickstart)
 - [6 Plugins, 7 Agents, 64 Models](#6-plugins-7-agents-64-models)
 - [What You Get Per Prompt](#what-you-get-per-prompt)
 - [Roadmap](#roadmap)
-- [The Science Behind Flux](#the-science-behind-flux)
+- [The Science Behind Wixie](#the-science-behind-wixie)
 - [Output Test Engine](#output-test-engine)
 - [vs Everything Else](#vs-everything-else)
 - [Agent Conduct (10 Modules)](#agent-conduct-10-modules)
@@ -64,7 +64,7 @@ Not for:
 
 ## How It Works
 
-Flux doesn't generate prompts. It **engineers** them — then stress-tests, hardens, and translates them across 64 models.
+Wixie doesn't generate prompts. It **engineers** them — then stress-tests, hardens, and translates them across 64 models.
 
 The core innovation is the **Convergence Engine** powered by the **Gauss Convergence Method**: like gradient descent for prompts, each iteration measures the standard deviation from perfection, forms a hypothesis about which fix will reduce it, applies the fix, checks for regression, and auto-reverts if things got worse. It learns from every iteration and persists those learnings across sessions.
 
@@ -73,7 +73,7 @@ The diagram below shows the four-agent pipeline: a user request flows into the *
 <p align="center">
   <a href="docs/assets/pipeline.mmd" title="View pipeline source (Mermaid)">
     <img src="docs/assets/pipeline.svg"
-         alt="Flux four-agent pipeline blueprint — title block, Developer request, Orchestrator (Opus), Optimizer (Sonnet), Reviewer (Haiku), Output Tester (Hybrid), and tier legend"
+         alt="Wixie four-agent pipeline blueprint — title block, Developer request, Orchestrator (Opus), Optimizer (Sonnet), Reviewer (Haiku), Output Tester (Hybrid), and tier legend"
          width="100%" style="max-width: 1100px;">
   </a>
 </p>
@@ -86,7 +86,7 @@ Source: [docs/assets/pipeline.mmd](docs/assets/pipeline.mmd) · Regeneration com
 
 No permission prompts. No manual iteration. You describe what you need, the agent network delivers.
 
-## What Makes Flux Different
+## What Makes Wixie Different
 
 ### It supports every model you actually use
 
@@ -94,7 +94,7 @@ No permission prompts. No manual iteration. You describe what you need, the agen
 
 Text LLMs: Claude (Opus/Sonnet/Haiku), GPT (4.1/4o/5), o-series (o1/o3/o4-mini), Gemini (2.5/3), DeepSeek (R1/V3), Grok, Qwen, Llama, Mistral, Cohere, Jamba, Amazon Nova, Phi, Yi, Codestral, Perplexity.
 
-**Image generation**: DALL-E 3, GPT Image 1.5, Midjourney v6/v7/v8, Niji 7, Stable Diffusion 3.5, FLUX.1/2 (Pro/Flex/Max/Kontext/Schnell), Ideogram 2/3, Imagen 3/4, Recraft V4, Reve Image, Adobe Firefly 5, Nano Banana (Pro/2), Seedream 4.5/5, Luma Photon, HunyuanImage 3, Kling Image 03, Wan 2.7.
+**Image generation**: DALL-E 3, GPT Image 1.5, Midjourney v6/v7/v8, Niji 7, Stable Diffusion 3.5, WIXIE.1/2 (Pro/Flex/Max/Kontext/Schnell), Ideogram 2/3, Imagen 3/4, Recraft V4, Reve Image, Adobe Firefly 5, Nano Banana (Pro/2), Seedream 4.5/5, Luma Photon, HunyuanImage 3, Kling Image 03, Wan 2.7.
 
 **Video**: Runway Gen-3, Seedance 2.0. **Audio**: ElevenLabs, Suno v4.
 
@@ -111,7 +111,7 @@ The Convergence Engine doesn't just loop — it **learns**. Each iteration:
 5. **Logs the outcome** to `learnings.md` — what worked, what didn't, why
 
 ```
-FLUX CONVERGENCE ENGINE
+WIXIE CONVERGENCE ENGINE
 Target: DEPLOY (overall >= 9.0, all axes >= 7.0)
 
 Iteration 1:  8.4/10 — hypothesis: fix Failure Resilience
@@ -127,13 +127,13 @@ Next time you refine that prompt, the engine reads `learnings.md` and avoids rep
 
 For text prompts: fully autonomous, up to 100 iterations, zero user input.
 
-For **image generation prompts** (DALL-E, Midjourney, Stable Diffusion, Flux, Nano Banana, and 20+ more): collaborative loop. You generate the image on your platform, rate it 1-10, tell the agent what's wrong. It adjusts the prompt based on your visual feedback — colors, composition, style, missing elements. No iteration limit. After 5+ rounds, it summarizes patterns and suggests trying a different model if issues persist.
+For **image generation prompts** (DALL-E, Midjourney, Stable Diffusion, Wixie, Nano Banana, and 20+ more): collaborative loop. You generate the image on your platform, rate it 1-10, tell the agent what's wrong. It adjusts the prompt based on your visual feedback — colors, composition, style, missing elements. No iteration limit. After 5+ rounds, it summarizes patterns and suggests trying a different model if issues persist.
 
 ### It catches model mismatches before you waste time
 
 Pick Claude for image generation? GPT for a task that needs reasoning-native? Gemini without examples?
 
-Flux cross-references your model choice against the task domain and warns you with better alternatives — before generating a single token.
+Wixie cross-references your model choice against the task domain and warns you with better alternatives — before generating a single token.
 
 ### It hardens your prompts against attacks
 
@@ -152,7 +152,7 @@ A prompt moves left to right through five stages: **Crafter** (Opus, `/create`) 
 <p align="center">
   <a href="docs/assets/lifecycle.mmd" title="View lifecycle source (Mermaid)">
     <img src="docs/assets/lifecycle.svg"
-         alt="Flux prompt lifecycle blueprint — 6 stages: Crafter → Convergence → Tester → Output Test → Hardener → Translator, with gate notation between each"
+         alt="Wixie prompt lifecycle blueprint — 6 stages: Crafter → Convergence → Tester → Output Test → Hardener → Translator, with gate notation between each"
          width="100%" style="max-width: 1100px;">
   </a>
 </p>
@@ -167,23 +167,23 @@ Refine anytime with `/refine`. Every step is autonomous.
 
 ## Install
 
-Flux ships as a 6-plugin pipeline. One meta-plugin — `full` — lists all six as dependencies, so a single install pulls in the whole chain.
+Wixie ships as a 6-plugin pipeline. One meta-plugin — `full` — lists all six as dependencies, so a single install pulls in the whole chain.
 
 **In Claude Code** (recommended):
 
 ```
-/plugin marketplace add enchanted-plugins/flux
-/plugin install full@flux
+/plugin marketplace add enchanted-plugins/wixie
+/plugin install full@wixie
 ```
 
 Claude Code resolves the dependency list and installs all 6 plugins. Verify with `/plugin list`.
 
-**Want to cherry-pick?** Individual plugins are still installable by name — e.g. `/plugin install prompt-harden@flux` if you only need the hardener. The pipeline is designed to work end-to-end, though, so `full@flux` is the path we recommend.
+**Want to cherry-pick?** Individual plugins are still installable by name — e.g. `/plugin install prompt-harden@wixie` if you only need the hardener. The pipeline is designed to work end-to-end, though, so `full@wixie` is the path we recommend.
 
 **Via shell** (also installs `shared/scripts/*.py` locally for `output-test` / `output-eval`):
 
 ```bash
-bash <(curl -s https://raw.githubusercontent.com/enchanted-plugins/flux/main/install.sh)
+bash <(curl -s https://raw.githubusercontent.com/enchanted-plugins/wixie/main/install.sh)
 ```
 
 ## Quickstart
@@ -191,7 +191,7 @@ bash <(curl -s https://raw.githubusercontent.com/enchanted-plugins/flux/main/ins
 Install, craft, converge, ship. Sixty seconds:
 
 ```
-/plugin install full@flux
+/plugin install full@wixie
 /create B2B ticket routing system like Zendesk, for Claude Opus
 /converge prompts/b2b-ticket-router
 ```
@@ -216,7 +216,7 @@ Five slash commands converge on five color-coded artifacts in `prompts/<name>/`,
 <p align="center">
   <a href="docs/assets/state-flow.mmd" title="View state-flow diagram source (Mermaid)">
     <img src="docs/assets/state-flow.svg"
-         alt="Flux per-prompt state flow: five slash commands (/create, /converge, /test-prompt, /harden, /translate-prompt) feed five color-coded artifact groups (genesis prompt.xml + metadata.json, verification tests.json, adversarial audit.json, accumulation learnings.md, audit report.pdf) converging on the DEPLOY / HOLD / FAIL verdict"
+         alt="Wixie per-prompt state flow: five slash commands (/create, /converge, /test-prompt, /harden, /translate-prompt) feed five color-coded artifact groups (genesis prompt.xml + metadata.json, verification tests.json, adversarial audit.json, accumulation learnings.md, audit report.pdf) converging on the DEPLOY / HOLD / FAIL verdict"
          width="100%" style="max-width:1100px;">
   </a>
 </p>
@@ -240,15 +240,15 @@ The **PDF audit report** includes: quality score bars, 8 binary assertion result
 
 ### State surface
 
-In addition to the per-prompt artifacts above, Flux writes plugin-level state to `state/`. The key file is `state/precedent.jsonl` — the plugin's self-observed-failure log, maintained per `shared/conduct/precedent.md`. Each line is a JSON object recording a command or pattern that failed unexpectedly (with the reason and the working alternative). Claude consults this log before running non-trivial Bash commands or multi-step tool sequences, and appends to it after any unexpected failure. This log is a team asset: commit it alongside code so failures discovered in one session are not silently repeated in the next.
+In addition to the per-prompt artifacts above, Wixie writes plugin-level state to `state/`. The key file is `state/precedent.jsonl` — the plugin's self-observed-failure log, maintained per `shared/conduct/precedent.md`. Each line is a JSON object recording a command or pattern that failed unexpectedly (with the reason and the working alternative). Claude consults this log before running non-trivial Bash commands or multi-step tool sequences, and appends to it after any unexpected failure. This log is a team asset: commit it alongside code so failures discovered in one session are not silently repeated in the next.
 
 ## Roadmap
 
-Tracked in [docs/ROADMAP.md](docs/ROADMAP.md) and the shared [ecosystem map](https://github.com/enchanted-plugins/flux/blob/main/docs/ecosystem.md). For upcoming work specific to Flux, see issues tagged [roadmap](https://github.com/enchanted-plugins/flux/labels/roadmap).
+Tracked in [docs/ROADMAP.md](docs/ROADMAP.md) and the shared [ecosystem map](https://github.com/enchanted-plugins/wixie/blob/main/docs/ecosystem.md). For upcoming work specific to Wixie, see issues tagged [roadmap](https://github.com/enchanted-plugins/wixie/labels/roadmap).
 
-## The Science Behind Flux
+## The Science Behind Wixie
 
-Every Flux engine is built on a formal mathematical model. Full derivations in [`docs/science/README.md`](docs/science/README.md).
+Every Wixie engine is built on a formal mathematical model. Full derivations in [`docs/science/README.md`](docs/science/README.md).
 
 ### Engine 1: Gauss Convergence Method
 
@@ -334,7 +334,7 @@ Five scoring axes (offline, zero cost): Structural Completeness, Specificity, Pr
 
 ## vs Everything Else
 
-| | Flux | Promptfoo | AutoResearch | PromptLayer | Manual |
+| | Wixie | Promptfoo | AutoResearch | PromptLayer | Manual |
 |---|---|---|---|---|---|
 | Create prompts | 16 techniques, 64 models | - | - | - | trial and error |
 | Optimize (convergence) | 100 iterations, self-learning | - | unbounded | - | - |
@@ -352,7 +352,7 @@ Five scoring axes (offline, zero cost): Structural Completeness, Specificity, Pr
 
 ## Agent Conduct (10 Modules)
 
-Every skill inherits a reusable behavioral contract from [shared/](shared/) — loaded once into [CLAUDE.md](CLAUDE.md), applied across all plugins. This is how Claude *acts* inside Flux: deterministic, surgical, verifiable. Not a suggestion; a contract.
+Every skill inherits a reusable behavioral contract from [shared/](shared/) — loaded once into [CLAUDE.md](CLAUDE.md), applied across all plugins. This is how Claude *acts* inside Wixie: deterministic, surgical, verifiable. Not a suggestion; a contract.
 
 | Module | What it governs |
 |--------|-----------------|
@@ -375,7 +375,7 @@ Interactive architecture explorer with plugin diagrams, agent cards, and data fl
 
 ## Acknowledgments
 
-Flux builds on foundations laid by others:
+Wixie builds on foundations laid by others:
 
 - **[Claude Code](https://github.com/anthropics/claude-code)** (Anthropic) — the plugin surface this work extends.
 - **[Keep a Changelog](https://keepachangelog.com/)** — CHANGELOG convention.
@@ -387,7 +387,7 @@ Flux builds on foundations laid by others:
 
 ## Versioning & release cadence
 
-Flux follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html). Breaking changes land on major bumps only; the [CHANGELOG](CHANGELOG.md) flags them explicitly. Release cadence is opportunistic — tags land when accumulated fixes or features justify a cut, not on a fixed schedule. Migration notes between majors live in [docs/upgrading.md](docs/upgrading.md).
+Wixie follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html). Breaking changes land on major bumps only; the [CHANGELOG](CHANGELOG.md) flags them explicitly. Release cadence is opportunistic — tags land when accumulated fixes or features justify a cut, not on a fixed schedule. Migration notes between majors live in [docs/upgrading.md](docs/upgrading.md).
 
 ## Contributing
 
@@ -398,11 +398,11 @@ See [CONTRIBUTING.md](CONTRIBUTING.md)
 If you use this project in research or derivative work, please cite it:
 
 ```bibtex
-@software{flux_2026,
-  title = {Flux},
+@software{wixie_2026,
+  title = {Wixie},
   author = {{Klaiderman}},
   year = {2026},
-  url = {https://github.com/enchanted-plugins/flux}
+  url = {https://github.com/enchanted-plugins/wixie}
 }
 ```
 
@@ -416,8 +416,8 @@ MIT
 
 ## Role in the ecosystem
 
-Flux is the **prompt-engineering layer** of the @enchanted-plugins stack — it crafts what gets said to a model. Its upstream dependency is Reaper's `config-shield`, which scans the repo at SessionStart so Flux operates on a trusted config surface. Its downstream neighbors observe what Flux produces: Allay measures the tokens Flux's dispatches consume, Hornet scores the changes Flux's prompts induce, and Nook attributes the dollar cost per engine (E1–E6).
+Wixie is the **prompt-engineering layer** of the @enchanted-plugins stack — it crafts what gets said to a model. Its upstream dependency is Hydra's `config-shield`, which scans the repo at SessionStart so Wixie operates on a trusted config surface. Its downstream neighbors observe what Wixie produces: Fae measures the tokens Wixie's dispatches consume, Raven scores the changes Wixie's prompts induce, and Pech attributes the dollar cost per engine (E1–E6).
 
-Flux does not track tokens (Allay's lane), score change trust (Hornet's lane), review code correctness (Mantis's lane), orchestrate git (Weaver's lane), scan security surfaces (Reaper's lane), or price dispatches (Nook's lane). It engineers the prompt — nothing more.
+Wixie does not track tokens (Fae's lane), score change trust (Raven's lane), review code correctness (Lich's lane), orchestrate git (Sylph's lane), scan security surfaces (Hydra's lane), or price dispatches (Pech's lane). It engineers the prompt — nothing more.
 
 See [docs/ecosystem.md § Data Flow Between Plugins](docs/ecosystem.md#data-flow-between-plugins) for the full map.

@@ -1,12 +1,12 @@
-# Flux glossary
+# Wixie glossary
 
-Terms of art used across Flux. Short definitions; the math lives in [docs/science/README.md](science/README.md).
+Terms of art used across Wixie. Short definitions; the math lives in [docs/science/README.md](science/README.md).
 
 ## Scoring
 
 ### 5 axes
 
-Flux scores every prompt on five independent dimensions. Each is scored 0-10 against a rubric held in the convergence engine's optimizer.
+Wixie scores every prompt on five independent dimensions. Each is scored 0-10 against a rubric held in the convergence engine's optimizer.
 
 | # | Axis | What it measures |
 |---|------|------------------|
@@ -26,7 +26,7 @@ Axes combine into an **overall score**. Combination is not a straight mean — l
 
 Standard deviation of the 5 axis scores from the ideal (10). Lower is better. σ < 0.45 is part of the DEPLOY bar — it means every axis is tight, not that one axis is excellent and another is weak.
 
-A prompt with scores `[10, 10, 6, 9, 10]` has an overall ≈ 9.0 but a σ much higher than `[9, 9, 9, 9, 9]`. Flux treats the second as deployable and the first as HOLD, regardless of headline score.
+A prompt with scores `[10, 10, 6, 9, 10]` has an overall ≈ 9.0 but a σ much higher than `[9, 9, 9, 9, 9]`. Wixie treats the second as deployable and the first as HOLD, regardless of headline score.
 
 ### 8 SAT assertions
 
@@ -98,7 +98,7 @@ Routing tasks across tiers is a cost / quality contract, not a style preference.
 
 ## Format dialects
 
-Flux emits prompts in one of four shapes depending on the target model family:
+Wixie emits prompts in one of four shapes depending on the target model family:
 
 - **XML** — Claude (any tier). `<role>`, `<task>`, `<context>`, `<constraints>`, `<format>`, `<examples>`, `<edge_cases>`.
 - **Markdown with sandwich method** — GPT-4.x / 5. Instructions at the top and bottom; examples sandwiched in the middle (GPT attends less to the middle, so the bottom restatement is the recall anchor).
@@ -115,7 +115,7 @@ Failure codes (F01–F14) are defined in [shared/conduct/failure-modes.md](../sh
 
 ## See also
 
-- [README.md](../README.md) — what Flux does end-to-end.
+- [README.md](../README.md) — what Wixie does end-to-end.
 - [docs/getting-started.md](getting-started.md) — 5-minute first run.
 - [docs/science/README.md](science/README.md) — the formal model for every term above.
 - [docs/architecture/](architecture/) — auto-generated pipeline diagram.

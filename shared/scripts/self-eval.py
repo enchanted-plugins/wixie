@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Flux Self-Evaluation — heuristic prompt scorer. Stdlib only."""
+"""Wixie Self-Evaluation — heuristic prompt scorer. Stdlib only."""
 import sys, re, os
 from collections import Counter
 
@@ -135,7 +135,7 @@ def bar(val, w=20):
 def render(scores):
     overall = sum(scores[a] for a in AXES) / len(AXES)
     low = [a for a in AXES if scores[a] < 6]
-    lines = ["", "=" * 55, "  FLUX SELF-EVALUATION", "=" * 55, ""]
+    lines = ["", "=" * 55, "  WIXIE SELF-EVALUATION", "=" * 55, ""]
     for a in AXES:
         lines.append(f"  {(a+':').ljust(22)}{scores[a]:4.0f}/10  {bar(scores[a])}")
     lines += ["", f"  {'OVERALL:'.ljust(22)}{overall:4.1f}/10"]

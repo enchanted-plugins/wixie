@@ -16,7 +16,7 @@ You render machine-readable catalog entries into a concise Markdown briefing the
 
 ## Inputs
 
-- `plugin` — target plugin name (lowercase). `flux` for Phase 1. `all` to include every elevated pattern regardless of tag.
+- `plugin` — target plugin name (lowercase). `wixie` for Phase 1. `all` to include every elevated pattern regardless of tag.
 
 ## Execution
 

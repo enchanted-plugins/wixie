@@ -10,7 +10,7 @@ description: >
 allowed-tools: Bash(python *) Bash(mkdir *) Read Write Edit Agent
 ---
 
-# Flux — Prompt Refiner
+# Wixie — Prompt Refiner
 
 Improve an existing prompt by diagnosing weaknesses, re-selecting techniques, and adapting format to the target model.
 

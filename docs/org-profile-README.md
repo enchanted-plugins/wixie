@@ -36,55 +36,55 @@ The math isn't documentation. It runs as code.
 
 ## Products
 
-### Flux — Prompt Engineering Platform
+### Wixie — Prompt Engineering Platform
 
 7 agents. 64 models. Create, optimize, test, harden, and translate prompts.
 
 ```
-/plugin marketplace add enchanted-plugins/flux
+/plugin marketplace add enchanted-plugins/wixie
 ```
 
-[Repository](https://github.com/enchanted-plugins/flux) · v3.0.0 · 7 plugins · [Science](https://github.com/enchanted-plugins/flux/blob/main/docs/science/README.md)
+[Repository](https://github.com/enchanted-plugins/wixie) · v3.0.0 · 7 plugins · [Science](https://github.com/enchanted-plugins/wixie/blob/main/docs/science/README.md)
 
-### Allay — Context Health Toolkit
+### Fae — Context Health Toolkit
 
 Token management, drift detection, compaction survival.
 
 ```
-/plugin marketplace add enchanted-plugins/allay
+/plugin marketplace add enchanted-plugins/fae
 ```
 
-[Repository](https://github.com/enchanted-plugins/allay) · v2.0.0 · 4 plugins
+[Repository](https://github.com/enchanted-plugins/fae) · v2.0.0 · 4 plugins
 
-### Hornet — Change Comprehension
+### Raven — Change Comprehension
 
 Bayesian trust scoring, semantic-diff clustering, and information-gain decision support for Claude Code.
 
 ```
-/plugin marketplace add enchanted-plugins/hornet
+/plugin marketplace add enchanted-plugins/raven
 ```
 
-[Repository](https://github.com/enchanted-plugins/hornet) · v1.0.0 · 5 plugins
+[Repository](https://github.com/enchanted-plugins/raven) · v1.0.0 · 5 plugins
 
-### Reaper — Security Guardrails
+### Hydra — Security Guardrails
 
 Secret scanning, vulnerability detection, action guarding, config shielding, and audit logging.
 
 ```
-/plugin marketplace add enchanted-plugins/reaper
+/plugin marketplace add enchanted-plugins/hydra
 ```
 
-[Repository](https://github.com/enchanted-plugins/reaper) · v1.0.0 · 6 plugins
+[Repository](https://github.com/enchanted-plugins/hydra) · v1.0.0 · 6 plugins
 
-### Weaver — Git Workflow Layer
+### Sylph — Git Workflow Layer
 
 Auto-orchestrates branch / commit / PR per task boundary; reads CI status across 9 hosts and 8 CI systems.
 
 ```
-/plugin marketplace add enchanted-plugins/weaver
+/plugin marketplace add enchanted-plugins/sylph
 ```
 
-[Repository](https://github.com/enchanted-plugins/weaver) · v0.0.1 · 9 plugins
+[Repository](https://github.com/enchanted-plugins/sylph) · v0.0.1 · 9 plugins
 
 ## Infrastructure
 

@@ -6,14 +6,14 @@ Give it a task description. It scans your project context, asks targeted questio
 
 ## Install
 
-Part of the [Flux](../..) bundle. The simplest install is the `full` meta-plugin, which pulls in all 6 Flux plugins via dependency resolution:
+Part of the [Wixie](../..) bundle. The simplest install is the `full` meta-plugin, which pulls in all 6 Wixie plugins via dependency resolution:
 
 ```
-/plugin marketplace add enchanted-plugins/flux
-/plugin install full@flux
+/plugin marketplace add enchanted-plugins/wixie
+/plugin install full@wixie
 ```
 
-To install this plugin on its own: `/plugin install prompt-crafter@flux`. `prompt-crafter` hands off to `convergence-engine`, emits `tests.json` for `prompt-tester`, and pairs with `prompt-harden` / `prompt-translate` downstream — so without the others you'll hit broken handoffs on the first run.
+To install this plugin on its own: `/plugin install prompt-crafter@wixie`. `prompt-crafter` hands off to `convergence-engine`, emits `tests.json` for `prompt-tester`, and pairs with `prompt-harden` / `prompt-translate` downstream — so without the others you'll hit broken handoffs on the first run.
 
 ## Pipeline
 

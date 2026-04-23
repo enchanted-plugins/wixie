@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Flux Hybrid Convergence Engine — orchestrate all 5 evaluation approaches into
+"""Wixie Hybrid Convergence Engine — orchestrate all 5 evaluation approaches into
 a single smart pipeline that minimizes cost and maximizes output quality.
 
 Pipeline phases:
@@ -814,7 +814,7 @@ def run(folder, max_iterations=3, dry_run=False, skip_preflight=False,
     available.append("api-eval (built-in)")
 
     print_header(
-        "FLUX OUTPUT TEST ENGINE (Hybrid)",
+        "WIXIE OUTPUT TEST ENGINE (Hybrid)",
         f"Prompt: {prompt_name} | Model: {target_model_id}"
     )
 

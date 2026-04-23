@@ -4,7 +4,7 @@
 
 **Do not open a public issue for security reports.** Use GitHub's private vulnerability reporting instead:
 
-- **Primary channel:** [Open a private security advisory](https://github.com/enchanted-plugins/flux/security/advisories/new) on this repository.
+- **Primary channel:** [Open a private security advisory](https://github.com/enchanted-plugins/wixie/security/advisories/new) on this repository.
 - **Maintainer:** @klaiderman.
 
 We treat reports confidentially. We will acknowledge receipt within 72 hours and share a remediation timeline within 7 days. Coordinated disclosure is strongly preferred — please do not disclose publicly until a fix has shipped or we have agreed on a disclosure date together.

@@ -125,7 +125,7 @@ def generate_artifacts(seed: int = 2026) -> list[dict]:
 
 
 def run_engine(sandbox: Path, argv: list[str], env_extra: dict | None = None) -> subprocess.CompletedProcess:
-    env = {**os.environ, "FLUX_INFERENCE_STATE": str(sandbox), "FLUX_INFERENCE_ENABLED": "1"}
+    env = {**os.environ, "WIXIE_INFERENCE_STATE": str(sandbox), "WIXIE_INFERENCE_ENABLED": "1"}
     if env_extra:
         env.update(env_extra)
     return subprocess.run(

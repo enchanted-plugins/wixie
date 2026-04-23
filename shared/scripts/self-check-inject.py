@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Flux Self-Check Inject -- inject a <self_check> rubric into any prompt.
+"""Wixie Self-Check Inject -- inject a <self_check> rubric into any prompt.
 
 The model validates its own output before finishing. Zero extra API cost --
 the model does its own QA as part of the same generation.
@@ -328,7 +328,7 @@ def render_extract(results):
         return "\n".join([
             "",
             "=" * 60,
-            "  FLUX SELF-CHECK RESULTS",
+            "  WIXIE SELF-CHECK RESULTS",
             "=" * 60,
             "",
             "  No ## Self-Check section found in the output.",
@@ -358,7 +358,7 @@ def render_extract(results):
     lines = [
         "",
         "=" * 60,
-        "  FLUX SELF-CHECK RESULTS",
+        "  WIXIE SELF-CHECK RESULTS",
         "=" * 60,
         "",
         f"  Checks passed:  {p:3d}/{t:<3d}  {bar(p, t)}",
@@ -499,7 +499,7 @@ def main():
     if mode == "dry-run":
         print()
         print("=" * 60)
-        print("  FLUX SELF-CHECK INJECT (DRY RUN)")
+        print("  WIXIE SELF-CHECK INJECT (DRY RUN)")
         print("=" * 60)
         print()
         print(f"  Source:   {prompt_path}")
@@ -548,7 +548,7 @@ def main():
 
         print()
         print("=" * 60)
-        print("  FLUX SELF-CHECK INJECT")
+        print("  WIXIE SELF-CHECK INJECT")
         print("=" * 60)
         print()
         print(f"  {action} <self_check> in {prompt_path}")

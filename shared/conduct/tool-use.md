@@ -69,7 +69,7 @@ Semantic IDs survive serialization, logs, and human review. Opaque handles die a
 
 ## Namespacing as the registry grows
 
-When a plugin ships a tool, prefix it: `flux_converge_score`, not `score`. As the registry grows past ~20 tools, collision-driven mis-selection becomes the #1 failure. A longer name is cheaper than a wrong dispatch.
+When a plugin ships a tool, prefix it: `wixie_converge_score`, not `score`. As the registry grows past ~20 tools, collision-driven mis-selection becomes the #1 failure. A longer name is cheaper than a wrong dispatch.
 
 ## Anti-patterns
 

@@ -10,7 +10,7 @@ description: >
 allowed-tools: Bash(python *) Bash(mkdir *) Read Write Edit Agent
 ---
 
-# Flux
+# Wixie
 
 Create technique-optimized, model-fitted prompts from task descriptions with explained reasoning.
 
@@ -102,7 +102,7 @@ After Phase 2, before generating the prompt, validate that the user's chosen mod
 | analysis | DeepSeek R1, Claude Opus, o3, GPT-5 | Small models (Haiku, Phi), image/video models |
 | creative-writing | Claude Sonnet/Opus, GPT-4o, GPT-5 | Reasoning-native models (dry output), code models |
 | agent | Claude Opus, GPT-4.1, o3 | Models without tool-use support |
-| image-gen | DALL-E 3, Midjourney, Stable Diffusion, Flux, Ideogram, Imagen | Any text LLM |
+| image-gen | DALL-E 3, Midjourney, Stable Diffusion, Wixie, Ideogram, Imagen | Any text LLM |
 | conversational | Claude Sonnet, GPT-4o, Gemini Flash | Heavy reasoning models (slow, expensive) |
 | decision-making | DeepSeek R1, o3, Claude Opus | Small/fast models |
 

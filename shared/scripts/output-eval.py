@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Flux Output Evaluator — heuristic-based output scorer. Stdlib only, zero API calls."""
+"""Wixie Output Evaluator — heuristic-based output scorer. Stdlib only, zero API calls."""
 import sys, re, os, json
 
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -486,7 +486,7 @@ def bar(val, w=20):
 def render(scores, all_details, verbose):
     overall = sum(scores[a] for a in AXES) / len(AXES)
     low = [a for a in AXES if scores[a] < 6]
-    lines = ["", "=" * 60, "  FLUX OUTPUT EVALUATION", "=" * 60, ""]
+    lines = ["", "=" * 60, "  WIXIE OUTPUT EVALUATION", "=" * 60, ""]
     for a in AXES:
         lines.append(f"  {(a + ':').ljust(28)}{scores[a]:4.0f}/10  {bar(scores[a])}")
     lines += ["", f"  {'OVERALL:'.ljust(28)}{overall:4.1f}/10"]

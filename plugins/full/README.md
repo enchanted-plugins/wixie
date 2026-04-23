@@ -1,12 +1,12 @@
 # full
 
-**Meta-plugin. Installs every Flux plugin at once.**
+**Meta-plugin. Installs every Wixie plugin at once.**
 
 This plugin has no hooks, skills, or agents of its own. It exists so you can install the whole 6-plugin pipeline with one command:
 
 ```
-/plugin marketplace add enchanted-plugins/flux
-/plugin install full@flux
+/plugin marketplace add enchanted-plugins/wixie
+/plugin install full@wixie
 ```
 
 Claude Code resolves the six dependencies and installs:

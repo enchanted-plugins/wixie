@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Flux Output Schema Validator — auto-generate structural schemas from prompt
+"""Wixie Output Schema Validator — auto-generate structural schemas from prompt
 output_format sections, then validate real outputs against them.
 
 Two modes:
@@ -530,7 +530,7 @@ def render_generate(schema, schema_path):
     lines = [
         "",
         "=" * 60,
-        f"  {BOLD}FLUX OUTPUT SCHEMA GENERATOR{RESET}",
+        f"  {BOLD}WIXIE OUTPUT SCHEMA GENERATOR{RESET}",
         "=" * 60,
         "",
         f"  Generated: {os.path.basename(schema_path)}",
@@ -588,7 +588,7 @@ def render_validate(results, schema_path):
     lines = [
         "",
         "=" * 60,
-        f"  {BOLD}FLUX OUTPUT SCHEMA VALIDATOR{RESET}",
+        f"  {BOLD}WIXIE OUTPUT SCHEMA VALIDATOR{RESET}",
         "=" * 60,
         "",
         f"  Schema: {schema_name} ({ts} sections, {te} elements)",

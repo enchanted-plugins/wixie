@@ -1,4 +1,4 @@
-"""Flux shared sanitizer — input validation utilities. Stdlib only."""
+"""Wixie shared sanitizer — input validation utilities. Stdlib only."""
 import sys
 
 

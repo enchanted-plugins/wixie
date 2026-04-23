@@ -1,12 +1,12 @@
-# Getting started with Flux
+# Getting started with Wixie
 
-Flux is prompt engineering for engineers who would rather ship than iterate by hand. This page gets you from zero to a scored, DEPLOY-verdict prompt in under 5 minutes.
+Wixie is prompt engineering for engineers who would rather ship than iterate by hand. This page gets you from zero to a scored, DEPLOY-verdict prompt in under 5 minutes.
 
 ## 1. Install (60 seconds)
 
 ```
-/plugin marketplace add enchanted-plugins/flux
-/plugin install full@flux
+/plugin marketplace add enchanted-plugins/wixie
+/plugin install full@wixie
 /plugin list
 ```
 
@@ -18,7 +18,7 @@ You should see six plugins: `prompt-crafter`, `prompt-refiner`, `convergence-eng
 /create B2B ticket routing system like Zendesk, for Claude Opus
 ```
 
-Flux will:
+Wixie will:
 
 1. Research adjacent tools (Zendesk, Freshdesk, Intercom…).
 2. Select 3 techniques from its 16-technique library based on the task domain.

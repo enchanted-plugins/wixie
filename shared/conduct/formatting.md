@@ -49,7 +49,7 @@ Example 2: …
 | `<format>` | Output shape |
 | `<edge_cases>` | Named tricky inputs and their handling |
 
-These tags align with Flux's 8 SAT assertions (see root `CLAUDE.md` § DEPLOY bar). Using them is not decoration; it's how the assertions pass.
+These tags align with Wixie's 8 SAT assertions (see root `CLAUDE.md` § DEPLOY bar). Using them is not decoration; it's how the assertions pass.
 
 ## Prefill
 

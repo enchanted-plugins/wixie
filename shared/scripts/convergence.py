@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Flux Convergence Engine — autonomous prompt perfection with hypothesis-driven iteration.
+"""Wixie Convergence Engine — autonomous prompt perfection with hypothesis-driven iteration.
 
 Like gradient descent for prompts. Each iteration:
 1. Scores the prompt (5 axes)
@@ -580,7 +580,7 @@ def run(prompt_path, max_iterations=100, verbose=False):
     recs = prev_learnings.get("recommendations", [])
 
     print(f"\n{'=' * 60}")
-    print(f"  FLUX CONVERGENCE ENGINE (Gauss Method)")
+    print(f"  WIXIE CONVERGENCE ENGINE (Gauss Method)")
     print(f"  Target: DEPLOY (overall >= 9.0, all axes >= 7.0)")
     print(f"  Max iterations: {max_iterations}")
     if num_sessions:

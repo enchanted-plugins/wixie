@@ -6,14 +6,14 @@ Tests your prompt against 12 adversarial attack patterns — injection, jailbrea
 
 ## Install
 
-Part of the [Flux](../..) bundle. The simplest install is the `full` meta-plugin, which pulls in all 6 Flux plugins via dependency resolution:
+Part of the [Wixie](../..) bundle. The simplest install is the `full` meta-plugin, which pulls in all 6 Wixie plugins via dependency resolution:
 
 ```
-/plugin marketplace add enchanted-plugins/flux
-/plugin install full@flux
+/plugin marketplace add enchanted-plugins/wixie
+/plugin install full@wixie
 ```
 
-To install this plugin on its own: `/plugin install prompt-harden@flux`. `prompt-harden` audits prompts produced upstream by `prompt-crafter` / `prompt-refiner` / `convergence-engine` and re-runs `prompt-tester` after applying defenses — so on its own it has no prompts to audit and no regression check.
+To install this plugin on its own: `/plugin install prompt-harden@wixie`. `prompt-harden` audits prompts produced upstream by `prompt-crafter` / `prompt-refiner` / `convergence-engine` and re-runs `prompt-tester` after applying defenses — so on its own it has no prompts to audit and no regression check.
 
 ## Why
 

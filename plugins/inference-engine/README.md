@@ -15,9 +15,9 @@ The cross-session evidence substrate for AI-assisted development. Turns every se
 
 **5 formal engines. 4 skills. 2 agents. 95% credible intervals on every elevated pattern. Zero runtime deps.**
 
-> On 2026-04-21 the agent shipped a Flux prompt after one draft and reacted to five user pushbacks instead of running the full lifecycle. The correction was logged as F07.
+> On 2026-04-21 the agent shipped a Wixie prompt after one draft and reacted to five user pushbacks instead of running the full lifecycle. The correction was logged as F07.
 >
-> On 2026-04-22 the inference engine ingested that one artifact, accumulated 5 SPRT observations from the evidence field, crossed the elevation threshold at `LLR = 8.95`, posted `F07` to `state/briefings/flux.md` with posterior mean 0.83 and 95% credible interval 0.55–0.98.
+> On 2026-04-22 the inference engine ingested that one artifact, accumulated 5 SPRT observations from the evidence field, crossed the elevation threshold at `LLR = 8.95`, posted `F07` to `state/briefings/wixie.md` with posterior mean 0.83 and 95% credible interval 0.55–0.98.
 >
 > On the next `/converge` invocation, the skill's top-of-context reads *"run all four lifecycle stages in one pass"* before iteration 1. The correction is armed before the next mistake.
 >
@@ -29,21 +29,21 @@ The cross-session evidence substrate for AI-assisted development. Turns every se
 
 Inference Engine is internally codenamed **Ufopedia** after the research archive in *X-COM: UFO Defense* (MicroProse / Mythos, 1994) — every autopsied alien, recovered craft, and interrogated officer contributed to a growing knowledge base that shaped the next mission. Miss a lesson and the squad dies on a repeat encounter. Read the Ufopedia before dropoff and the outcome is different.
 
-The plugin's *file-system* name is **`inference-engine`** because inside any @enchanted-plugins repo the naming convention is clear-names for commands, hooks, state, and scripts — game names live only at the product/repo level (like `reaper`, `flux`, `weaver`). So the codename and the filesystem name diverge deliberately.
+The plugin's *file-system* name is **`inference-engine`** because inside any @enchanted-plugins repo the naming convention is clear-names for commands, hooks, state, and scripts — game names live only at the product/repo level (like `hydra`, `wixie`, `sylph`). So the codename and the filesystem name diverge deliberately.
 
 The question this plugin answers: *When the same mistake happens in a fourth independent session, how does every enchanted-plugin see it before the fifth attempt?*
 
 ## Who this is for
 
 - Developers who've noticed their AI agent making the same mistake across weeks of sessions and want a principled way to make the correction stick without hard-coding it into every prompt.
-- Teams running multi-plugin workflows (Flux + Hornet + Reaper + Mantis) who want cross-plugin failure patterns visible at session start, not buried in 9 separate per-plugin `learnings.json` files.
+- Teams running multi-plugin workflows (Wixie + Raven + Hydra + Lich) who want cross-plugin failure patterns visible at session start, not buried in 9 separate per-plugin `learnings.json` files.
 - Engineers who believe *honest numbers over blind compliance* — elevated patterns ship with posterior means, 95% credible intervals, and EMA-decayed weights, so a consumer can distinguish `LLR=2.9, 1 session` from `LLR=9.8, 6 sessions, weight 0.94`.
 
 Not for:
 
 - Teams satisfied with greppable prose notes in a wiki — the inference engine's value is statistical, not documentary.
 - Single-prompt quick jobs — the substrate's value grows with session count. Under three sessions, a shared doc is cheaper.
-- Replacing a per-plugin engine — Mantis's M6 Beta-Binomial-per-(developer, rule) stays local. The inference engine adds a cross-session layer on top.
+- Replacing a per-plugin engine — Lich's M6 Beta-Binomial-per-(developer, rule) stays local. The inference engine adds a cross-session layer on top.
 
 ## Contents
 
@@ -68,7 +68,7 @@ Not for:
 
 ## The Problem
 
-AI-assisted development sessions catch the same mistakes again and again. The plugin ecosystem already has *local* learning engines per plugin (F6 in Flux, H6 in Hornet, M6 in Mantis, L5 in Nook, W5 in Weaver, R8 in Reaper, A7 in Allay) — but they **never talk to each other**. A failure Flux catches during `/converge` never reaches Mantis. A preference Weaver learns never informs Hornet. Seven isolated learning loops.
+AI-assisted development sessions catch the same mistakes again and again. The plugin ecosystem already has *local* learning engines per plugin (F6 in Wixie, H6 in Raven, M6 in Lich, L5 in Pech, W5 in Sylph, R8 in Hydra, A7 in Fae) — but they **never talk to each other**. A failure Wixie catches during `/converge` never reaches Lich. A preference Sylph learns never informs Raven. Seven isolated learning loops.
 
 The literature on AI-era failure modes — Anthropic's Claude Code retrospectives, Shinn et al.'s Reflexion, Park et al.'s Generative Agents, MemGPT, Voyager — converges on one insight: **agents that remember** compound, **agents that rediscover** don't. Reflexion's mechanism (verbal reinforcement from failed trajectories) and Voyager's skill library (new skills build on old) both rely on a single shared memory surface.
 
@@ -123,7 +123,7 @@ Artifacts are append-only (the stream is a log, not a table). Catalog writes are
 
 ### Complements, never replaces
 
-The seven per-plugin engines stay exactly where they are. Mantis's M6 still computes Beta-Binomial-per-(developer, rule). Flux's F6 still writes per-prompt `learnings.json`. Reaper's R8 still applies EMA over threat-rate observations. The inference engine reads the same kinds of events and *adds* a cross-plugin layer.
+The seven per-plugin engines stay exactly where they are. Lich's M6 still computes Beta-Binomial-per-(developer, rule). Wixie's F6 still writes per-prompt `learnings.json`. Hydra's R8 still applies EMA over threat-rate observations. The inference engine reads the same kinds of events and *adds* a cross-plugin layer.
 
 ### Game metaphor that actually fits
 
@@ -133,48 +133,48 @@ Ufopedia wasn't a passive log in X-COM — it was the loop that made the next mi
 
 Five stages from failure to countermeasure:
 
-1. **Observation.** A plugin catches a failure (Flux notices reactive iteration, Hornet flags a silent revert, Reaper classifies a new attack pattern). The plugin composes a JSON artifact with `code`, `category`, `title`, `cause`, `counter`, `signal`, `tags`, and `evidence`.
+1. **Observation.** A plugin catches a failure (Wixie notices reactive iteration, Raven flags a silent revert, Hydra classifies a new attack pattern). The plugin composes a JSON artifact with `code`, `category`, `title`, `cause`, `counter`, `signal`, `tags`, and `evidence`.
 
-2. **Emission.** The plugin calls `inference-engine.py emit` (or the `inference-emit.sh` bash wrapper). The engine stamps `ts`, `session_id`, `plugin`, appends to `state/artifacts.jsonl`. Opt-in gate `FLUX_INFERENCE_ENABLED=1` required; otherwise silent no-op.
+2. **Emission.** The plugin calls `inference-engine.py emit` (or the `inference-emit.sh` bash wrapper). The engine stamps `ts`, `session_id`, `plugin`, appends to `state/artifacts.jsonl`. Opt-in gate `WIXIE_INFERENCE_ENABLED=1` required; otherwise silent no-op.
 
 3. **Reconciliation.** Triggered manually, on schedule, or after an artifact write. The engine loads every artifact, fingerprints, runs SPRT + Beta-Binomial + EMA + Reservoir, writes `catalog.json` atomically. Idempotent on identical streams.
 
 4. **Briefing.** The briefer agent renders `state/briefings/<plugin>.md` — filtered to that plugin's tags, sorted by weight, formatted for human + machine reading.
 
-5. **Consumption.** At session start the target plugin's primary skill (Phase 1: `/converge` in Flux) reads the briefing at top-of-context. The U-curve top-200-tokens slot (`shared/conduct/context.md`) means the learned patterns are the first thing Claude sees.
+5. **Consumption.** At session start the target plugin's primary skill (Phase 1: `/converge` in Wixie) reads the briefing at top-of-context. The U-curve top-200-tokens slot (`shared/conduct/context.md`) means the learned patterns are the first thing Claude sees.
 
 ## Install
 
-Part of the Flux bundle. The simplest install is the `full` meta-plugin:
+Part of the Wixie bundle. The simplest install is the `full` meta-plugin:
 
 ```
-/plugin marketplace add enchanted-plugins/flux
-/plugin install full@flux
+/plugin marketplace add enchanted-plugins/wixie
+/plugin install full@wixie
 ```
 
 Standalone:
 
 ```
-/plugin install inference-engine@flux
+/plugin install inference-engine@wixie
 ```
 
 ## Quickstart
 
 ```bash
 # Enable during rollout
-export FLUX_INFERENCE_ENABLED=1
+export WIXIE_INFERENCE_ENABLED=1
 
 # Backfill from precedent.jsonl (the human-written archive — 6 rows)
-python flux/shared/scripts/inference-engine.py backfill flux/state/precedent.jsonl
+python wixie/shared/scripts/inference-engine.py backfill wixie/state/precedent.jsonl
 
 # Run the first reconcile
-python flux/shared/scripts/inference-engine.py reconcile
+python wixie/shared/scripts/inference-engine.py reconcile
 
-# Render the Flux briefing
-python flux/shared/scripts/inference-engine.py render-briefing flux
+# Render the Wixie briefing
+python wixie/shared/scripts/inference-engine.py render-briefing wixie
 
 # Verify
-cat flux/plugins/inference-engine/state/briefings/flux.md
+cat wixie/plugins/inference-engine/state/briefings/wixie.md
 ```
 
 Or via skills:
@@ -182,7 +182,7 @@ Or via skills:
 ```
 /inference-emit          # append one artifact from structured input
 /inference-reconcile     # re-run the catalog
-/inference-brief flux    # render the briefing
+/inference-brief wixie    # render the briefing
 /inference-query F07     # search the catalog
 ```
 
@@ -221,20 +221,20 @@ One machine-readable catalog. One per-plugin briefing. Honest numbers on every e
 
 ```
 state/catalog.json                             → full catalog, posteriors + CIs + verdicts
-state/briefings/flux.md                        → top-of-context briefing for /converge
+state/briefings/wixie.md                        → top-of-context briefing for /converge
 state/artifacts.jsonl                          → append-only master log (rotation deferred; see discipline.md)
 ```
 
 An elevated pattern entry in a briefing looks like:
 
 ```markdown
-### F07 — Ran seven reactive iterations instead of one-pass Flux lifecycle
+### F07 — Ran seven reactive iterations instead of one-pass Wixie lifecycle
 
 - Weight: 0.942   Posterior: 0.833 (95% CI 0.554–0.982)   LLR: 8.95
 - Observations: 5 across 1 session(s)   Last seen: 2026-04-21 (1d ago)
-- Tags: `flux, lifecycle, convergence, prompt-engineering, process-discipline`
+- Tags: `wixie, lifecycle, convergence, prompt-engineering, process-discipline`
 
-**Signal:** When generating any prompt artifact for Flux, walk the four lifecycle stages in order before the user sees the result.
+**Signal:** When generating any prompt artifact for Wixie, walk the four lifecycle stages in order before the user sees the result.
 
 **Counter:** Run /create → /converge → /test-prompt → /harden in one pass.
 ```
@@ -318,7 +318,7 @@ Together they turn a JSONL of raw observations into a catalog a plugin can act o
 ## Architecture
 
 ```
-flux/plugins/inference-engine/
+wixie/plugins/inference-engine/
 ├── .claude-plugin/plugin.json           marketplace manifest
 ├── README.md                            this file
 ├── agents/
@@ -334,26 +334,26 @@ flux/plugins/inference-engine/
     ├── artifacts.jsonl                  append-only master log (rotation deferred)
     ├── catalog.json                     pattern catalog (atomic writes)
     └── briefings/
-        └── flux.md                      top-of-context briefing for /converge
+        └── wixie.md                      top-of-context briefing for /converge
 
-flux/shared/scripts/
+wixie/shared/scripts/
 ├── inference-engine.py                  ≈ 350 LOC stdlib Python, 6 subcommands
 └── inference-emit.sh                    ≈ 50 LOC bash wrapper for hook callers
 
-flux/shared/conduct/
+wixie/shared/conduct/
 └── inference-substrate.md               brand-standard module — how to write/read honestly
 ```
 
 ## Opt-in + Graceful Degradation
 
-The substrate is **off by default**. `emit` is a no-op unless `FLUX_INFERENCE_ENABLED=1`. `reconcile` and `render-briefing` run regardless but are safe on empty state (reconcile over zero artifacts yields an empty catalog; render-briefing writes a placeholder *"no elevated patterns yet"*).
+The substrate is **off by default**. `emit` is a no-op unless `WIXIE_INFERENCE_ENABLED=1`. `reconcile` and `render-briefing` run regardless but are safe on empty state (reconcile over zero artifacts yields an empty catalog; render-briefing writes a placeholder *"no elevated patterns yet"*).
 
 When enabled and later unreachable — filesystem error, missing script, permission problem:
 
 - `emit` from a hook logs to stderr and exits 0 (fail-open; brand contract `hooks.md`).
 - `reconcile` aborts with a non-zero exit; the caller reports honestly and does not proceed with stale briefings.
 - `render-briefing` on a missing catalog writes the placeholder.
-- Any consuming plugin that reads `briefings/flux.md` tolerates a missing or stale file — the briefing is advisory, never load-bearing.
+- Any consuming plugin that reads `briefings/wixie.md` tolerates a missing or stale file — the briefing is advisory, never load-bearing.
 
 ## Relationship to Per-Plugin Learning Engines
 
@@ -361,15 +361,15 @@ Every existing per-plugin learning engine stays local. The substrate publishes *
 
 | Plugin   | Existing engine                                  | What stays local                               | What flows into substrate |
 |----------|--------------------------------------------------|------------------------------------------------|---------------------------|
-| Flux     | F6 — learnings.json hypothesis log               | Per-prompt axis progressions, hypothesis log   | Cross-prompt F-codes (F01–F14) |
-| Allay    | A7 — Bayesian cross-session accumulation         | Per-strategy compression-success rates         | Drift patterns (A-codes)  |
-| Hornet   | H6 — developer-preference accumulation           | Per-file Beta-Bernoulli posteriors             | Cross-session H-codes     |
-| Reaper   | R8 — EMA Posture Decay                           | Per-threat EMA rates                           | Novel attack patterns (S-codes) |
-| Weaver   | W5 — workflow-preference accumulation            | Per-developer commit/branch preferences        | Cross-session W-codes     |
-| Mantis   | M6 — Beta-Binomial per-(developer, rule)         | Per-(developer, rule) posteriors               | Novel rule families (M-codes) |
-| Nook     | L5 — cost-pattern accumulation                   | Per-session cost traces                        | Cross-session cost patterns |
+| Wixie     | F6 — learnings.json hypothesis log               | Per-prompt axis progressions, hypothesis log   | Cross-prompt F-codes (F01–F14) |
+| Fae    | A7 — Bayesian cross-session accumulation         | Per-strategy compression-success rates         | Drift patterns (A-codes)  |
+| Raven   | H6 — developer-preference accumulation           | Per-file Beta-Bernoulli posteriors             | Cross-session H-codes     |
+| Hydra   | R8 — EMA Posture Decay                           | Per-threat EMA rates                           | Novel attack patterns (S-codes) |
+| Sylph   | W5 — workflow-preference accumulation            | Per-developer commit/branch preferences        | Cross-session W-codes     |
+| Lich   | M6 — Beta-Binomial per-(developer, rule)         | Per-(developer, rule) posteriors               | Novel rule families (M-codes) |
+| Pech     | L5 — cost-pattern accumulation                   | Per-session cost traces                        | Cross-session cost patterns |
 
-This is the branding-drift fix the Casting-Doubt panel caught: only Mantis M6 was genuinely Bayesian; five others were EMA-class. The taxonomy is now honest — engines keep their real mechanisms, the substrate adds the Bayesian layer on top.
+This is the branding-drift fix the Casting-Doubt panel caught: only Lich M6 was genuinely Bayesian; five others were EMA-class. The taxonomy is now honest — engines keep their real mechanisms, the substrate adds the Bayesian layer on top.
 
 ## vs Everything Else
 
@@ -408,21 +408,21 @@ Plus one new module shipped with this plugin:
 
 ```bash
 # Unit round-trip: emit → reconcile → brief, on a scratch state dir
-export FLUX_INFERENCE_STATE=/tmp/inference-test-$$
-mkdir -p "$FLUX_INFERENCE_STATE"
-FLUX_INFERENCE_ENABLED=1 python flux/shared/scripts/inference-engine.py backfill \
-  flux/state/precedent.jsonl
-python flux/shared/scripts/inference-engine.py reconcile
-python flux/shared/scripts/inference-engine.py render-briefing flux
-cat "$FLUX_INFERENCE_STATE/briefings/flux.md"
-rm -rf "$FLUX_INFERENCE_STATE"
+export WIXIE_INFERENCE_STATE=/tmp/inference-test-$$
+mkdir -p "$WIXIE_INFERENCE_STATE"
+WIXIE_INFERENCE_ENABLED=1 python wixie/shared/scripts/inference-engine.py backfill \
+  wixie/state/precedent.jsonl
+python wixie/shared/scripts/inference-engine.py reconcile
+python wixie/shared/scripts/inference-engine.py render-briefing wixie
+cat "$WIXIE_INFERENCE_STATE/briefings/wixie.md"
+rm -rf "$WIXIE_INFERENCE_STATE"
 ```
 
-The Phase 1 acceptance test is the 30-day success criterion: after 30 days of Flux use on a real machine, `state/briefings/flux.md` carries at least one elevated pattern (F07 is the obvious candidate; its evidence count of 5 user pushbacks in one session is enough to cross SPRT on the first reconcile) and `/converge` reads it before iteration 1.
+The Phase 1 acceptance test is the 30-day success criterion: after 30 days of Wixie use on a real machine, `state/briefings/wixie.md` carries at least one elevated pattern (F07 is the obvious candidate; its evidence count of 5 user pushbacks in one session is enough to cross SPRT on the first reconcile) and `/converge` reads it before iteration 1.
 
 ## Versioning & release cadence
 
-- Semantic versioning. `0.1.0` (current) = Phase 1 MVP, Flux-only wiring.
+- Semantic versioning. `0.1.0` (current) = Phase 1 MVP, Wixie-only wiring.
 - `0.2.0` = U4 Bayesian Online Change-point. Automatic pattern retirement when distributions shift.
 - `0.3.0` = Phase 2 MCP integration. `inference.pattern.elevated` / `.retired` / `.drifted` events over the `enchanted-mcp` bus; file-based fallback preserved.
 - `1.0.0` = All seven plugins wired. 90-day cross-plugin recurrence data. Production DEPLOY bar on the substrate's own outputs.

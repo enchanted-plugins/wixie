@@ -6,7 +6,7 @@ These aren't abstractions. Every formula maps to running code.
 
 ---
 
-## Flux: Prompt Engineering
+## Wixie: Prompt Engineering
 
 ### F1. Gauss Convergence Method
 
@@ -105,7 +105,7 @@ Hardening maximizes security without degrading quality:
 
 ---
 
-## Allay: Context Health
+## Fae: Context Health
 
 ### A1. Hidden Markov Drift Detection
 
@@ -113,15 +113,15 @@ Hardening maximizes security without degrading quality:
 
 Hidden states: PRODUCTIVE, READ LOOP, EDIT REVERT, TEST FAIL
 
-<p align="center"><img src="../assets/math/allay-readloop.svg" alt="P(read loop) = 1 if count(read(f, h)) >= 3 AND no write(f)"></p>
+<p align="center"><img src="../assets/math/fae-readloop.svg" alt="P(read loop) = 1 if count(read(f, h)) >= 3 AND no write(f)"></p>
 
-<p align="center"><img src="../assets/math/allay-editrevert.svg" alt="P(edit revert) = 1 if hash of write_n(f) equals hash of write_{n-2}(f)"></p>
+<p align="center"><img src="../assets/math/fae-editrevert.svg" alt="P(edit revert) = 1 if hash of write_n(f) equals hash of write_{n-2}(f)"></p>
 
-<p align="center"><img src="../assets/math/allay-testfail.svg" alt="P(test fail) = 1 if count of bash commands with non-zero exit >= 3"></p>
+<p align="center"><img src="../assets/math/fae-testfail.svg" alt="P(test fail) = 1 if count of bash commands with non-zero exit >= 3"></p>
 
 Cooldown:
 
-<p align="center"><img src="../assets/math/allay-alert.svg" alt="Alert(t) = 1 iff P(drift) = 1 AND t - t_last > tau"></p>
+<p align="center"><img src="../assets/math/fae-alert.svg" alt="Alert(t) = 1 iff P(drift) = 1 AND t - t_last > tau"></p>
 
 **Implementation:** `plugins/context-guard/hooks/post-tool-use/detect-drift.sh`
 
@@ -131,9 +131,9 @@ Cooldown:
 
 **Problem:** Predict turns remaining before compaction.
 
-<p align="center"><img src="../assets/math/allay-forecast.svg" alt="mu_hat = mean of tokens; runway = floor(remaining / mu_hat)"></p>
+<p align="center"><img src="../assets/math/fae-forecast.svg" alt="mu_hat = mean of tokens; runway = floor(remaining / mu_hat)"></p>
 
-<p align="center"><img src="../assets/math/allay-ci.svg" alt="CI = t_{alpha/2} · s / sqrt(N)"></p>
+<p align="center"><img src="../assets/math/fae-ci.svg" alt="CI = t_{alpha/2} · s / sqrt(N)"></p>
 
 | Runway | Action |
 |--------|--------|
@@ -150,7 +150,7 @@ Cooldown:
 
 **Problem:** Reduce token consumption while preserving semantic content.
 
-<p align="center"><img src="../assets/math/allay-compression.svg" alt="O -> O' subject to H(O') >= theta · H(O) AND |O'| < |O|"></p>
+<p align="center"><img src="../assets/math/fae-compression.svg" alt="O -> O' subject to H(O') >= theta · H(O) AND |O'| < |O|"></p>
 
 | Content | θ | Compression |
 |---------|-----|-------------|
@@ -158,7 +158,7 @@ Cooldown:
 | Tests | 0.7 | Pass/fail + first error |
 | Logs | 0.3 | Summary only |
 
-<p align="center"><img src="../assets/math/allay-cr.svg" alt="CR(O) = 1 - |O'| / |O|"></p>
+<p align="center"><img src="../assets/math/fae-cr.svg" alt="CR(O) = 1 - |O'| / |O|"></p>
 
 **Implementation:** `plugins/token-saver/hooks/pre-tool-use/compress-bash.sh`
 
@@ -168,9 +168,9 @@ Cooldown:
 
 **Problem:** Persist session state to survive compaction.
 
-<p align="center"><img src="../assets/math/allay-checkpoint-size.svg" alt="|Checkpoint(t)| <= 50 KB"></p>
+<p align="center"><img src="../assets/math/fae-checkpoint-size.svg" alt="|Checkpoint(t)| <= 50 KB"></p>
 
-<p align="center"><img src="../assets/math/allay-atomic.svg" alt="write(f.tmp) -> validate(f.tmp) -> rename(f.tmp, f)"></p>
+<p align="center"><img src="../assets/math/fae-atomic.svg" alt="write(f.tmp) -> validate(f.tmp) -> rename(f.tmp, f)"></p>
 
 Locking: `acquire = mkdir(lock)` (atomic on all filesystems)
 
@@ -182,9 +182,9 @@ Locking: `acquire = mkdir(lock)` (atomic on all filesystems)
 
 **Problem:** Prevent re-reading unchanged files.
 
-<p align="center"><img src="../assets/math/allay-sha.svg" alt="h_t = SHA256(content(f, t))"></p>
+<p align="center"><img src="../assets/math/fae-sha.svg" alt="h_t = SHA256(content(f, t))"></p>
 
-<p align="center"><img src="../assets/math/allay-decision.svg" alt="Decision(f, t) = BLOCK if cache hash matches; ALLOW if hash differs; ALLOW if cache entry older than TTL"></p>
+<p align="center"><img src="../assets/math/fae-decision.svg" alt="Decision(f, t) = BLOCK if cache hash matches; ALLOW if hash differs; ALLOW if cache entry older than TTL"></p>
 
 **Implementation:** `plugins/token-saver/hooks/pre-tool-use/block-duplicates.sh`
 

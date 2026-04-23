@@ -1,5 +1,5 @@
 {
-  "description": "Flux prompt-crafter hooks — auto-run convergence after prompt file writes",
+  "description": "Wixie prompt-crafter hooks — auto-run convergence after prompt file writes",
   "hooks": {
     "PostToolUse": [
       {
@@ -7,7 +7,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "bash -c 'FILE=\"$CLAUDE_TOOL_ARG_FILE_PATH\"; if echo \"$FILE\" | grep -q \"prompts/.*/prompt\\.\"; then echo \"[Flux] Prompt saved: $FILE — convergence engine will optimize automatically\"; fi'",
+            "command": "bash -c 'FILE=\"$CLAUDE_TOOL_ARG_FILE_PATH\"; if echo \"$FILE\" | grep -q \"prompts/.*/prompt\\.\"; then echo \"[Wixie] Prompt saved: $FILE — convergence engine will optimize automatically\"; fi'",
             "timeout": 5
           }
         ]

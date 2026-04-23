@@ -5,9 +5,9 @@ description: >
   inference-engine catalog, filters elevated patterns tagged for the target
   plugin, writes state/briefings/<plugin>.md. Use before a session where
   the target plugin is about to do high-stakes work (e.g. /converge,
-  /mantis-review). Safe and cheap — rendering is a pure function of the
+  /lich-review). Safe and cheap — rendering is a pure function of the
   current catalog.
-  Auto-triggers on: "/inference-brief", "render the flux briefing",
+  Auto-triggers on: "/inference-brief", "render the wixie briefing",
   "refresh briefings", "prep the ufopedia brief for <plugin>".
 allowed-tools: Bash(python *) Read Agent
 ---
@@ -18,7 +18,7 @@ Emit `state/briefings/<plugin>.md` — a concise Markdown summary of elevated pa
 
 ## Usage
 
-The caller provides the plugin name. Defaults to `flux` at Phase 1. Pass `all` to include every elevated pattern regardless of tag.
+The caller provides the plugin name. Defaults to `wixie` at Phase 1. Pass `all` to include every elevated pattern regardless of tag.
 
 ## Pipeline
 
@@ -29,7 +29,7 @@ Delegate to the Haiku-tier briefer for a shape-check pass:
 ```
 Agent(subagent_type="general-purpose", model="haiku",
       prompt="Run the briefer agent defined at
-              flux/plugins/inference-engine/agents/briefer.md
+              wixie/plugins/inference-engine/agents/briefer.md
               with plugin='<target>'.")
 ```
 
@@ -56,4 +56,4 @@ If `N == 0`, the briefing file contains a placeholder explaining that no cross-s
 - Do NOT render a briefing from a stale catalog. If the caller is about to do high-stakes work, run `/inference-reconcile` first. If unclear, ask.
 - Do NOT fabricate elevated patterns. If the catalog is empty, the briefing says so.
 - Do NOT filter or sort differently from the renderer. Consistency across plugins is load-bearing.
-- One briefing per file per plugin. `briefings/flux.md` is the only briefing a Flux skill reads.
+- One briefing per file per plugin. `briefings/wixie.md` is the only briefing a Wixie skill reads.

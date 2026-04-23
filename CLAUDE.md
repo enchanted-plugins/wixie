@@ -1,6 +1,6 @@
-# Flux — Agent Contract
+# Wixie — Agent Contract
 
-Audience: Claude. Flux engineers prompts — crafts, converges, tests, hardens, translates — via a managed Opus/Sonnet/Haiku network across 64 target models.
+Audience: Claude. Wixie engineers prompts — crafts, converges, tests, hardens, translates — via a managed Opus/Sonnet/Haiku network across 64 target models.
 
 ## Shared behavioral modules
 
@@ -21,7 +21,7 @@ When a module conflicts with a plugin-local instruction, the plugin wins — but
 
 ## Lifecycle
 
-Flux is skill-invoked, not hook-driven. The single hook is advisory (prompt-save notification). Each skill hands artifacts to the next.
+Wixie is skill-invoked, not hook-driven. The single hook is advisory (prompt-save notification). Each skill hands artifacts to the next.
 
 | Stage | Skill | Agent tier | Artifact produced |
 |-------|-------|-----------|-------------------|
@@ -53,7 +53,7 @@ E1 Gauss Convergence · E2 Boolean Satisfiability Overlay · E3 Cross-Domain Ada
 3. **YOU MUST respect the no-regression contract.** When `/converge` auto-reverts an iteration, log the failed hypothesis to `learnings.md` and pick a different axis. Do not override.
 4. **YOU MUST NOT inflate scores.** The honest-numbers contract is the product. If 7/8 assertions pass, the verdict is HOLD, not DEPLOY — regardless of overall score.
 5. **Ask, don't guess.** If a metadata field is unknown, ask the developer or run the engine. Never fabricate scores, costs, or technique lists.
-6. **ESCALATE on image prompts.** DALL-E, Midjourney, SD, Flux, Nano Banana, etc. are collaborative — wait for the developer's 1–10 rating and visual feedback each round. After 5+ rounds without progress, recommend a different image model.
+6. **ESCALATE on image prompts.** DALL-E, Midjourney, SD, Wixie, Nano Banana, etc. are collaborative — wait for the developer's 1–10 rating and visual feedback each round. After 5+ rounds without progress, recommend a different image model.
 7. **ESCALATE on unknown target model.** If the target model ID is not in `shared/models-registry.json`, stop and ask. The registry is the capability source of truth.
 
 ## Artifacts per prompt

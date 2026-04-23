@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Flux Report Generator — single-page prompt audit report with dark/light modes.
+"""Wixie Report Generator — single-page prompt audit report with dark/light modes.
 
 Usage:
     python report-gen.py <prompt-folder-path>          # light mode (default)
@@ -558,7 +558,7 @@ td{{padding:5px 8px;border-bottom:1px solid var(--bd);}}
   </div>
 
 </div>
-  <div class="ft">Flux Prompt Audit &middot; {datetime.now().strftime('%Y-%m-%d %H:%M')}{f' &middot; ~{monthly} at 1K calls' if monthly else ''}</div>
+  <div class="ft">Wixie Prompt Audit &middot; {datetime.now().strftime('%Y-%m-%d %H:%M')}{f' &middot; ~{monthly} at 1K calls' if monthly else ''}</div>
 </div>
 </body>
 </html>"""

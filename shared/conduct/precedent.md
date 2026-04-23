@@ -2,7 +2,7 @@
 
 Audience: Claude. How plugins avoid re-running commands, patterns, or approaches that have already failed. The twin of `failure-modes.md` — that one tags domain-level failures in the scoring loop; this one tracks *operational* failures in shell, file, and tool commands across sessions.
 
-> **Relationship to the inference-engine (Ufopedia, 2026-04).** `flux/state/precedent.jsonl` is now the **archival seed** — the human-written, git-committed ancestry of self-caught failures. New entries flow into the inference-engine's append-only stream at `flux/plugins/inference-engine/state/artifacts.jsonl` via `/inference-emit` (or the `inference-engine.py emit` CLI). The engine runs Wald SPRT + Beta-Binomial over those artifacts and promotes the load-bearing ones into per-plugin briefings consumed at session start. Read `shared/conduct/inference-substrate.md` for the emission contract. The archival precedent.jsonl rows stay visible in git history; they're not deleted or migrated — they *seeded* the substrate via backfill.
+> **Relationship to the inference-engine (Ufopedia, 2026-04).** `wixie/state/precedent.jsonl` is now the **archival seed** — the human-written, git-committed ancestry of self-caught failures. New entries flow into the inference-engine's append-only stream at `wixie/plugins/inference-engine/state/artifacts.jsonl` via `/inference-emit` (or the `inference-engine.py emit` CLI). The engine runs Wald SPRT + Beta-Binomial over those artifacts and promotes the load-bearing ones into per-plugin briefings consumed at session start. Read `shared/conduct/inference-substrate.md` for the emission contract. The archival precedent.jsonl rows stay visible in git history; they're not deleted or migrated — they *seeded* the substrate via backfill.
 
 ## The problem
 
@@ -41,13 +41,13 @@ Append to `state/precedent-log.md`. Each entry is a self-contained block:
 ## 2026-04-17 — Windows path quoting in Bash tool
 
 **Command that failed:**
-`python c:/git/flux/shared/scripts/score.py`
+`python c:/git/wixie/shared/scripts/score.py`
 
 **Why it failed:**
 Windows path with no quotes; shell split on the colon in `c:/`.
 
 **What worked:**
-`python "c:/git/flux/shared/scripts/score.py"` — always quote Windows paths.
+`python "c:/git/wixie/shared/scripts/score.py"` — always quote Windows paths.
 
 **Signal:** next time you see `c:/` or a space in a path, reach for quotes.
 

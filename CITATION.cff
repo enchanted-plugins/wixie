@@ -1,12 +1,12 @@
 cff-version: 1.2.0
-title: "Flux"
+title: "Wixie"
 message: "If you use this software, please cite it as below."
 type: software
 authors:
   - alias: klaiderman
     affiliation: "enchanted-plugins"
-repository-code: "https://github.com/enchanted-plugins/flux"
-url: "https://github.com/enchanted-plugins/flux"
+repository-code: "https://github.com/enchanted-plugins/wixie"
+url: "https://github.com/enchanted-plugins/wixie"
 license: MIT
 version: "3.0.0"
 date-released: "2026-04-20"

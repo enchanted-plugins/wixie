@@ -5,14 +5,14 @@
 #
 # Usage:
 #   inference-emit.sh --code F07 --category process-discipline \
-#     --title "..." --signal "..." --counter "..." --tags "flux,lifecycle"
+#     --title "..." --signal "..." --counter "..." --tags "wixie,lifecycle"
 #   echo '{"code":"F07",...}' | inference-emit.sh -
 #
-# Requires: bash, jq, python3. Respects FLUX_INFERENCE_ENABLED=1.
+# Requires: bash, jq, python3. Respects WIXIE_INFERENCE_ENABLED=1.
 
 set -uo pipefail
 
-if [ "${FLUX_INFERENCE_ENABLED:-0}" != "1" ]; then
+if [ "${WIXIE_INFERENCE_ENABLED:-0}" != "1" ]; then
   exit 0  # silent no-op (brand contract: hooks fail open)
 fi
 

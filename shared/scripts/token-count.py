@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Flux Token Counter — estimate prompt token usage and context window fit.
+"""Wixie Token Counter — estimate prompt token usage and context window fit.
 
 Stdlib only. Reads model specs from models-registry.json (single source of truth).
 
@@ -98,7 +98,7 @@ def main():
 
     print()
     print("=" * 50)
-    print("  FLUX TOKEN COUNT")
+    print("  WIXIE TOKEN COUNT")
     print("=" * 50)
     print(f"  Registry:        {registry_date}")
     print()

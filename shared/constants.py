@@ -1,4 +1,4 @@
-"""Flux shared constants — used by all scripts."""
+"""Wixie shared constants — used by all scripts."""
 
 AXES = ["Clarity", "Completeness", "Efficiency", "Model Fit", "Failure Resilience"]
 

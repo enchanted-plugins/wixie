@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Flux HTML-to-PDF — converts HTML reports to PDF using browser headless print.
+"""Wixie HTML-to-PDF — converts HTML reports to PDF using browser headless print.
 
 Usage:
     python html-to-pdf.py <html-file-or-prompt-folder>

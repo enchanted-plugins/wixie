@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Flux Output Simulator — dry-run prediction of LLM output structure. Stdlib only.
+"""Wixie Output Simulator — dry-run prediction of LLM output structure. Stdlib only.
 
 Parses a prompt folder to extract expected output structure, estimates token usage,
 checks budget fit, and predicts quality — all without calling any API.
@@ -409,7 +409,7 @@ def render(prompt_name, model, num_layers, num_closing, per_layer_elements,
 
     lines.append("")
     lines.append("=" * w)
-    lines.append("  FLUX OUTPUT SIMULATOR")
+    lines.append("  WIXIE OUTPUT SIMULATOR")
     model_display = model or "unknown"
     lines.append(f"  Prompt: {prompt_name} | Model: {model_display}")
     lines.append("=" * w)

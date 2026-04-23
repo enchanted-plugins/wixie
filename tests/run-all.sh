@@ -21,7 +21,7 @@ run_test() {
 
 echo ""
 echo "================================================"
-echo "  FLUX TEST SUITE"
+echo "  WIXIE TEST SUITE"
 echo "================================================"
 echo ""
 

@@ -5,7 +5,7 @@ description: >
   inference-engine's append-only stream. Use when a cross-session-relevant
   event occurs — a self-caught failure mode, a corrected misunderstanding, a
   precedent worth compounding. The emit is a no-op unless
-  FLUX_INFERENCE_ENABLED=1 is set.
+  WIXIE_INFERENCE_ENABLED=1 is set.
   Auto-triggers on: "/inference-emit", "emit this to ufopedia", "log this
   as a precedent for future sessions", "record this failure pattern".
 allowed-tools: Bash(python *) Read Write
@@ -13,7 +13,7 @@ allowed-tools: Bash(python *) Read Write
 
 # Inference Emit
 
-Append one artifact to `flux/plugins/inference-engine/state/artifacts.jsonl`.
+Append one artifact to `wixie/plugins/inference-engine/state/artifacts.jsonl`.
 
 ## Usage
 
@@ -62,7 +62,7 @@ If the caller gave you a JSON record, use it. If they gave structured text, buil
 ### Step 2: Emit
 
 ```bash
-FLUX_INFERENCE_ENABLED=1 python ${CLAUDE_PLUGIN_ROOT}/../../shared/scripts/inference-engine.py emit <(cat <<'EOF'
+WIXIE_INFERENCE_ENABLED=1 python ${CLAUDE_PLUGIN_ROOT}/../../shared/scripts/inference-engine.py emit <(cat <<'EOF'
 <your JSON record>
 EOF
 )
@@ -86,6 +86,6 @@ Next: /inference-reconcile when ready to update the catalog.
 
 ## Rules
 
-- Do NOT emit without `FLUX_INFERENCE_ENABLED=1`. The engine's emit path short-circuits anyway; the skill reports the no-op honestly.
+- Do NOT emit without `WIXIE_INFERENCE_ENABLED=1`. The engine's emit path short-circuits anyway; the skill reports the no-op honestly.
 - Do NOT fabricate fields. If the caller's text is missing `signal` or `counter`, ask.
 - Do NOT overwrite an existing artifact. The stream is append-only by design.

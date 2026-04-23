@@ -1,4 +1,4 @@
-"""Flux shared tokenizer — heuristic token estimation. Stdlib only."""
+"""Wixie shared tokenizer — heuristic token estimation. Stdlib only."""
 import re
 
 

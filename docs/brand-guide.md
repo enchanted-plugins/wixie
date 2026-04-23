@@ -12,7 +12,7 @@
 ## Naming Rules
 
 1. Every plugin is named after a game entity
-2. The metaphor must be immediately obvious (Allay collects, Reaper hunts threats)
+2. The metaphor must be immediately obvious (Fae collects, Hydra hunts threats)
 3. One game per plugin — no repeats except Minecraft (max 2)
 4. The name must be short (1-2 syllables preferred), pronounceable, and memorable
 5. The game must be well-known (>1M copies sold or cultural impact)

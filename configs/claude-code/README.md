@@ -1,6 +1,6 @@
 # Claude Code Configuration
 
-Recommended settings for zero-friction Flux usage. The 6-plugin multi-agent pipeline runs autonomously — these permissions prevent pausing for approval.
+Recommended settings for zero-friction Wixie usage. The 6-plugin multi-agent pipeline runs autonomously — these permissions prevent pausing for approval.
 
 Place in your project's `.claude/settings.json` or `~/.claude/settings.json`.
 

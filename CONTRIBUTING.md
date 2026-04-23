@@ -1,4 +1,4 @@
-# Contributing to Flux
+# Contributing to Wixie
 
 ## Stack
 
@@ -20,7 +20,7 @@ Before submitting a PR, verify:
 ## Structure
 
 ```
-flux/
+wixie/
 ├── .claude-plugin/marketplace.json    Marketplace (6 plugins)
 ├── plugins/
 │   ├── prompt-crafter/                Creates prompts (/create)
@@ -67,7 +67,7 @@ flux/
 
 ## Adding a Plugin
 
-Follow the Allay pattern:
+Follow the Fae pattern:
 ```
 plugins/<name>/
 ├── .claude-plugin/plugin.json

@@ -1,10 +1,12 @@
 # Changelog
 
-All notable changes to `flux` are documented in this file.
+All notable changes to `wixie` are documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+
+## [4.0.0] — rename: wixie identity, standardized origin format
 
 ### Added
 - Tier-1 governance docs: `SECURITY.md`, `SUPPORT.md`, `CODE_OF_CONDUCT.md`, `CHANGELOG.md`.
@@ -25,5 +27,5 @@ The current shipped release. See [README.md](README.md) for the complete feature
 - Self-learning across sessions via `learnings.md` (E6).
 - Dark-themed single-page PDF audit report per prompt.
 
-[Unreleased]: https://github.com/enchanted-plugins/flux/compare/v3.0.0...HEAD
-[3.0.0]: https://github.com/enchanted-plugins/flux/releases/tag/v3.0.0
+[Unreleased]: https://github.com/enchanted-plugins/wixie/compare/v3.0.0...HEAD
+[3.0.0]: https://github.com/enchanted-plugins/wixie/releases/tag/v3.0.0

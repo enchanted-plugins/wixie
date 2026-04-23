@@ -19,12 +19,12 @@ The user provides a prompt file path or a prompt folder. Run the full pipeline.
 
 ## Pipeline
 
-### Step 0: Read the Flux briefing (top-of-context)
+### Step 0: Read the Wixie briefing (top-of-context)
 
-Before iteration 1, read the inference-engine's Flux briefing if present:
+Before iteration 1, read the inference-engine's Wixie briefing if present:
 
 ```bash
-BRIEF="${CLAUDE_PLUGIN_ROOT}/../inference-engine/state/briefings/flux.md"
+BRIEF="${CLAUDE_PLUGIN_ROOT}/../inference-engine/state/briefings/wixie.md"
 [ -f "$BRIEF" ] && cat "$BRIEF"
 ```
 

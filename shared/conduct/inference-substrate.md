@@ -4,7 +4,7 @@ Audience: Claude. How to write to, read from, and reason about the inference-eng
 
 ## What the substrate is
 
-`flux/plugins/inference-engine/` is the ecosystem-wide learning surface. It accumulates evidence of recurring failures and elevates them to per-plugin briefings consumed at session start. It complements — never replaces — each plugin's local learning engine (F6, H6, M6, A7, W5, L5, R8).
+`wixie/plugins/inference-engine/` is the ecosystem-wide learning surface. It accumulates evidence of recurring failures and elevates them to per-plugin briefings consumed at session start. It complements — never replaces — each plugin's local learning engine (F6, H6, M6, A7, W5, L5, R8).
 
 Five file surfaces:
 
@@ -42,8 +42,8 @@ Do not emit for every local slip. Emit for patterns worth compounding.
   "cause": "one to three sentences",
   "counter": "the rule that prevents recurrence",
   "signal": "one sentence a reader applies next time",
-  "tags": ["flux", "lifecycle", "convergence"],
-  "scope": "flux | reaper | ...",
+  "tags": ["wixie", "lifecycle", "convergence"],
+  "scope": "wixie | hydra | ...",
   "evidence": { "iterations": 7, "user_rounds_of_pushback": 5 }
 }
 ```
@@ -53,7 +53,7 @@ Timestamps and `session_id` are stamped by the engine. Do not set them by hand.
 ## When to reconcile
 
 - After a meaningful emit burst (more than one artifact in a session).
-- Before a high-stakes consumer reads a briefing (`/converge`, `/mantis-review`, `/harden`).
+- Before a high-stakes consumer reads a briefing (`/converge`, `/lich-review`, `/harden`).
 - Weekly, as a cron — reconcile is idempotent on identical streams.
 
 Do not reconcile on every emit — SPRT needs multiple observations to elevate a pattern, and single-observation reconcile churn is noise.
@@ -78,7 +78,7 @@ When a pattern's LLR falls below `-2.25` over multiple reconciles, the engine ma
 
 ## Opt-in gate
 
-`FLUX_INFERENCE_ENABLED=1` is the rollout switch. When unset:
+`WIXIE_INFERENCE_ENABLED=1` is the rollout switch. When unset:
 
 - `emit` is a no-op.
 - `reconcile` still runs (safe on empty state).
@@ -96,4 +96,4 @@ Flip the gate only after Phase 1 backfill has been validated locally — running
 - **Skipping reconcile before a high-stakes briefing read** — stale briefings lie to the consumer. Cheap to refresh; expensive to miss.
 - **Claiming elevation for a pattern with LLR < 2.89** — DEPLOY-bar style honest-numbers violation.
 - **Ignoring retirement** — a retired pattern's signal is a historical artifact, not current guidance.
-- **Feeding the substrate synthetic or test artifacts from production runs** — use a disposable state dir (env override `FLUX_INFERENCE_STATE=/tmp/...`) for tests; never pollute `plugins/inference-engine/state/` from a test.
+- **Feeding the substrate synthetic or test artifacts from production runs** — use a disposable state dir (env override `WIXIE_INFERENCE_STATE=/tmp/...`) for tests; never pollute `plugins/inference-engine/state/` from a test.

@@ -2,29 +2,29 @@
 
 Quick answers to questions that don't yet have their own doc. For anything deeper, follow the links — the full answer usually lives in a neighboring file.
 
-## What's the difference between Flux and the other siblings?
+## What's the difference between Wixie and the other siblings?
 
-Flux answers *"what did I say?"* — it engineers the prompt you send to a model. Sibling plugins answer different questions in the same session: Allay tracks token spend, Hornet watches change trust, Reaper scans for security surface, Weaver coordinates git workflow. All are independent installs; none require the others. See [docs/ecosystem.md](ecosystem.md) for the full map.
+Wixie answers *"what did I say?"* — it engineers the prompt you send to a model. Sibling plugins answer different questions in the same session: Fae tracks token spend, Raven watches change trust, Hydra scans for security surface, Sylph coordinates git workflow. All are independent installs; none require the others. See [docs/ecosystem.md](ecosystem.md) for the full map.
 
-## Do I need the other siblings to use Flux?
+## Do I need the other siblings to use Wixie?
 
-No. Flux is self-contained — install `full@flux` and every command works standalone. The siblings compose if you install them, but nothing in Flux depends on another repo being present.
+No. Wixie is self-contained — install `full@wixie` and every command works standalone. The siblings compose if you install them, but nothing in Wixie depends on another repo being present.
 
 ## How do I report a bug vs. ask a question vs. disclose a security issue?
 
 - **Security vulnerability** — private advisory, never a public issue. See [SECURITY.md](../SECURITY.md).
 - **Reproducible bug** — a bug report issue with repro steps + exact versions.
-- **Usage question or half-formed idea** — [Discussions](https://github.com/enchanted-plugins/flux/discussions).
+- **Usage question or half-formed idea** — [Discussions](https://github.com/enchanted-plugins/wixie/discussions).
 
 The [SUPPORT.md](../SUPPORT.md) page has the exact links for each.
 
-## Is Flux an official Anthropic product?
+## Is Wixie an official Anthropic product?
 
-No. Flux is an independent open-source plugin for [Claude Code](https://github.com/anthropics/claude-code) (Anthropic's CLI). It's published by [enchanted-plugins](https://github.com/enchanted-plugins) under the MIT license and is not affiliated with, endorsed by, or supported by Anthropic.
+No. Wixie is an independent open-source plugin for [Claude Code](https://github.com/anthropics/claude-code) (Anthropic's CLI). It's published by [enchanted-plugins](https://github.com/enchanted-plugins) under the MIT license and is not affiliated with, endorsed by, or supported by Anthropic.
 
-## Can I use Flux with models outside the 64-model registry?
+## Can I use Wixie with models outside the 64-model registry?
 
-Partially. The convergence engine and SAT assertions work on any prompt text, but format adaptation (XML for Claude, Markdown-sandwich for GPT, minimal for o-series, always-few-shot for Gemini) relies on the registry entry. If your target model is not listed in `shared/models-registry.json`, Flux will stop and ask rather than guess — see the "ESCALATE on unknown target model" rule in [CLAUDE.md](../CLAUDE.md). Adding a new registry entry is a normal contribution path; the schema lives alongside the existing entries.
+Partially. The convergence engine and SAT assertions work on any prompt text, but format adaptation (XML for Claude, Markdown-sandwich for GPT, minimal for o-series, always-few-shot for Gemini) relies on the registry entry. If your target model is not listed in `shared/models-registry.json`, Wixie will stop and ask rather than guess — see the "ESCALATE on unknown target model" rule in [CLAUDE.md](../CLAUDE.md). Adding a new registry entry is a normal contribution path; the schema lives alongside the existing entries.
 
 ## Why does `/converge` sometimes end in HOLD instead of DEPLOY?
 

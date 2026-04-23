@@ -6,14 +6,14 @@ Like gradient descent for prompts. Each iteration scores the prompt, identifies 
 
 ## Install
 
-Part of the [Flux](../..) bundle. The simplest install is the `full` meta-plugin, which pulls in all 6 Flux plugins via dependency resolution:
+Part of the [Wixie](../..) bundle. The simplest install is the `full` meta-plugin, which pulls in all 6 Wixie plugins via dependency resolution:
 
 ```
-/plugin marketplace add enchanted-plugins/flux
-/plugin install full@flux
+/plugin marketplace add enchanted-plugins/wixie
+/plugin install full@wixie
 ```
 
-To install this plugin on its own: `/plugin install convergence-engine@flux`. `convergence-engine` is called by `prompt-crafter` and `prompt-refiner`, and its output feeds `prompt-tester` and `prompt-harden` — so on its own it has no callers and no consumers.
+To install this plugin on its own: `/plugin install convergence-engine@wixie`. `convergence-engine` is called by `prompt-crafter` and `prompt-refiner`, and its output feeds `prompt-tester` and `prompt-harden` — so on its own it has no callers and no consumers.
 
 ## How It Works
 

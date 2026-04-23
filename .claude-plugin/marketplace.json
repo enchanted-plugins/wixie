@@ -1,17 +1,17 @@
 {
-  "name": "flux",
+  "name": "wixie",
   "owner": {
     "name": "enchanted-plugins"
   },
   "metadata": {
     "description": "End-to-end prompt engineering platform. Create, optimize, test, harden, and translate prompts across 64 models with multi-agent pipelines.",
-    "version": "3.0.0"
+    "version": "4.0.0"
   },
   "plugins": [
     {
       "name": "full",
       "source": "./plugins/full",
-      "description": "Meta-plugin. One install pulls in all 6 Flux plugins via dependency resolution.",
+      "description": "Meta-plugin. One install pulls in all 6 Wixie plugins via dependency resolution.",
       "category": "meta"
     },
     {

@@ -6,14 +6,14 @@ Load a saved prompt or paste one in. It diagnoses weaknesses, checks model fit, 
 
 ## Install
 
-Part of the [Flux](../..) bundle. The simplest install is the `full` meta-plugin, which pulls in all 6 Flux plugins via dependency resolution:
+Part of the [Wixie](../..) bundle. The simplest install is the `full` meta-plugin, which pulls in all 6 Wixie plugins via dependency resolution:
 
 ```
-/plugin marketplace add enchanted-plugins/flux
-/plugin install full@flux
+/plugin marketplace add enchanted-plugins/wixie
+/plugin install full@wixie
 ```
 
-To install this plugin on its own: `/plugin install prompt-refiner@flux`. `prompt-refiner` operates on artifacts produced by `prompt-crafter`, spawns `convergence-engine`, and leans on `prompt-tester` / `prompt-harden` / `prompt-translate` for the handoffs after refinement — so on its own it has nothing to refine and nowhere to hand off to.
+To install this plugin on its own: `/plugin install prompt-refiner@wixie`. `prompt-refiner` operates on artifacts produced by `prompt-crafter`, spawns `convergence-engine`, and leans on `prompt-tester` / `prompt-harden` / `prompt-translate` for the handoffs after refinement — so on its own it has nothing to refine and nowhere to hand off to.
 
 ## Pipeline
 

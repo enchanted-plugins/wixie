@@ -241,7 +241,7 @@
       "beta": 1.0,
       "category": "operational-discipline",
       "code": "OP01",
-      "counter": "After generating a Flux PDF, sweep the prompt folder for *.html and move or delete. Only prompt.<ext>, metadata.json, tests.json, learnings.{md,json}, output-schema.json, and report.pdf belong in prompts/<name>/. Intermediate files go in plugins/prompt-crafter/state/.",
+      "counter": "After generating a Wixie PDF, sweep the prompt folder for *.html and move or delete. Only prompt.<ext>, metadata.json, tests.json, learnings.{md,json}, output-schema.json, and report.pdf belong in prompts/<name>/. Intermediate files go in plugins/prompt-crafter/state/.",
       "days_since_last_seen": 10.458,
       "first_seen": "2026-04-12",
       "last_seen": "2026-04-12",
@@ -265,7 +265,7 @@
       ],
       "signal": "If you see a .html or ._tmp_* file next to prompt.xml, you skipped cleanup. Sweep before declaring done.",
       "tags": [
-        "flux",
+        "wixie",
         "file-hygiene",
         "report-generation",
         "prompt-folder"
@@ -552,7 +552,7 @@
       "beta": 1.0,
       "category": "branding-drift",
       "code": "OP05",
-      "counter": "Honest naming contract: every algorithm name must match what the code does, not what the roadmap aspires to. When declaring an engine 'Bayesian / Gauss / Thompson / Beta-Binomial,' verify prior and posterior update steps exist in code. If only a decay rule exists, call it EMA / exponential smoothing / posture decay. Taxonomy across enchanted-plugins: EMA-class (Reaper R8, Nook L1, Allay A2), Beta-Binomial-class (Mantis M6), Prose-log-class (Flux F6 learnings.json, precedent.jsonl).",
+      "counter": "Honest naming contract: every algorithm name must match what the code does, not what the roadmap aspires to. When declaring an engine 'Bayesian / Gauss / Thompson / Beta-Binomial,' verify prior and posterior update steps exist in code. If only a decay rule exists, call it EMA / exponential smoothing / posture decay. Taxonomy across enchanted-plugins: EMA-class (Hydra R8, Pech L1, Fae A2), Beta-Binomial-class (Lich M6), Prose-log-class (Wixie F6 learnings.json, precedent.jsonl).",
       "days_since_last_seen": 0.458,
       "first_seen": "2026-04-22",
       "last_seen": "2026-04-22",
@@ -576,7 +576,7 @@
       ],
       "signal": "Before shipping any engine with 'Bayesian' in its name, grep the implementation for actual prior/posterior usage. If the only parameter is a learning rate alpha, the honest name is EMA. Apply to future ecosystem engines the same test the research caught here.",
       "tags": [
-        "reaper",
+        "hydra",
         "naming-discipline",
         "casting-doubt",
         "branding-drift",
@@ -620,7 +620,7 @@
         "meta",
         "lifecycle",
         "process-discipline",
-        "flux"
+        "wixie"
       ],
       "title": "Skipped lifecycle — agent ships artifact before running its own verification stages",
       "verdict": "elevated",
@@ -1082,7 +1082,7 @@
       "sessions_seen": [
         "scaffolding passes 2026-04-17"
       ],
-      "signal": "Cross-repo rule: applies to flux, allay, hornet, reaper, weaver, mantis, nook, schematic, and every future sibling.",
+      "signal": "Cross-repo rule: applies to wixie, fae, raven, hydra, sylph, lich, pech, schematic, and every future sibling.",
       "tags": [
         "enchanted-plugins",
         "git-hygiene",
@@ -1137,7 +1137,7 @@
       "beta": 1.0,
       "category": "process-discipline",
       "code": "F07",
-      "counter": "Run the full Flux lifecycle in one pass before handing over: /create → /converge (Sonnet optimizer + Haiku reviewer, not heuristic loops) → /test-prompt (surfaces tests.json + metadata shape + format/registry mismatch) → /harden (red-team audit on high-stakes prompts) → hand over with honest verdict. Heuristic self-eval is a sanity check, not convergence.",
+      "counter": "Run the full Wixie lifecycle in one pass before handing over: /create → /converge (Sonnet optimizer + Haiku reviewer, not heuristic loops) → /test-prompt (surfaces tests.json + metadata shape + format/registry mismatch) → /harden (red-team audit on high-stakes prompts) → hand over with honest verdict. Heuristic self-eval is a sanity check, not convergence.",
       "days_since_last_seen": 1.458,
       "elevated_at": "2026-04-22T10:20:32Z",
       "first_seen": "2026-04-21",
@@ -1153,22 +1153,22 @@
       "reservoir": [
         {
           "session": "ten-golden-circle-research v1-v7",
-          "title": "Ran seven reactive iterations instead of one-pass Flux lifecycle",
+          "title": "Ran seven reactive iterations instead of one-pass Wixie lifecycle",
           "ts": "2026-04-21"
         }
       ],
       "sessions_seen": [
         "ten-golden-circle-research v1-v7"
       ],
-      "signal": "When generating any prompt artifact for Flux, walk the four lifecycle stages in order before the user sees the result. If you find yourself applying a schema fix because the user flagged a warning, the lifecycle was skipped.",
+      "signal": "When generating any prompt artifact for Wixie, walk the four lifecycle stages in order before the user sees the result. If you find yourself applying a schema fix because the user flagged a warning, the lifecycle was skipped.",
       "tags": [
-        "flux",
+        "wixie",
         "lifecycle",
         "convergence",
         "prompt-engineering",
         "process-discipline"
       ],
-      "title": "Ran seven reactive iterations instead of one-pass Flux lifecycle",
+      "title": "Ran seven reactive iterations instead of one-pass Wixie lifecycle",
       "verdict": "elevated",
       "weight": 0.9669
     },
@@ -1177,7 +1177,7 @@
       "beta": 1.0,
       "category": "operational-discipline",
       "code": "OP02",
-      "counter": "Pre-run minimum on every new prompt folder: prompt.<ext>, metadata.json, tests.json, learnings.md, learnings.json (sessions/hypotheses/axis-progressions shape), output-schema.json. Post-run additions: output-reference.md, output-test-results.json, report.pdf. Diff against reaper/, reaper-patterns/, redteam-ops-architecture/ before declaring ready.",
+      "counter": "Pre-run minimum on every new prompt folder: prompt.<ext>, metadata.json, tests.json, learnings.md, learnings.json (sessions/hypotheses/axis-progressions shape), output-schema.json. Post-run additions: output-reference.md, output-test-results.json, report.pdf. Diff against hydra/, hydra-patterns/, redteam-ops-architecture/ before declaring ready.",
       "days_since_last_seen": 5.458,
       "first_seen": "2026-04-17",
       "last_seen": "2026-04-17",
@@ -1192,7 +1192,7 @@
       "reservoir": [
         {
           "session": "multiple prompt crafts 2026-04-12 to 2026-04-17",
-          "title": "Every new Flux prompt folder ships the full canonical file set pre-run",
+          "title": "Every new Wixie prompt folder ships the full canonical file set pre-run",
           "ts": "2026-04-17"
         }
       ],
@@ -1201,12 +1201,12 @@
       ],
       "signal": "Before handing a prompt over, enumerate files in the folder. If count < 6 pre-run or < 8 post-run, the set is incomplete.",
       "tags": [
-        "flux",
+        "wixie",
         "prompt-folder",
         "canonical-shape",
         "deliverables"
       ],
-      "title": "Every new Flux prompt folder ships the full canonical file set pre-run",
+      "title": "Every new Wixie prompt folder ships the full canonical file set pre-run",
       "verdict": "noise",
       "weight": 0.8815
     },
@@ -1321,7 +1321,7 @@
         "meta",
         "honest-numbers",
         "verdict",
-        "flux"
+        "wixie"
       ],
       "title": "Honest-numbers violation — DEPLOY claimed on stale or self-reported scores",
       "verdict": "elevated",
@@ -1332,7 +1332,7 @@
       "beta": 1.0,
       "category": "operational-discipline",
       "code": "OP06",
-      "counter": "When a subagent writes investigative scripts to probe what-if score responses, write to /tmp/<plugin>-<task>-NNN.py or a plugin-scoped state/<plugin>/scratch/ dir with .gitignore coverage. flux/state/ is reserved for tracked cross-plugin artifacts (precedent.jsonl, learning-substrate state). Sweep and delete scratch before agent return. If the scratch hardcodes an absolute UNC path, it is definitionally not reusable and therefore always scratch.",
+      "counter": "When a subagent writes investigative scripts to probe what-if score responses, write to /tmp/<plugin>-<task>-NNN.py or a plugin-scoped state/<plugin>/scratch/ dir with .gitignore coverage. wixie/state/ is reserved for tracked cross-plugin artifacts (precedent.jsonl, learning-substrate state). Sweep and delete scratch before agent return. If the scratch hardcodes an absolute UNC path, it is definitionally not reusable and therefore always scratch.",
       "days_since_last_seen": 0.0,
       "elevated_at": "2026-04-22T11:00:00Z",
       "first_seen": "2026-04-22T10:59:31Z",
@@ -1355,9 +1355,9 @@
       "sessions_seen": [
         "unknown"
       ],
-      "signal": "Untracked .py or .sh file appears at repo root or in flux/state/ after an agent run and contains an open() call with a hardcoded c:/git/enchanted-skills/ absolute path.",
+      "signal": "Untracked .py or .sh file appears at repo root or in wixie/state/ after an agent run and contains an open() call with a hardcoded c:/git/enchanted-skills/ absolute path.",
       "tags": [
-        "flux",
+        "wixie",
         "agent-hygiene",
         "scratch-residue",
         "convergence-engine",
@@ -1804,7 +1804,7 @@
       "beta": 1.0,
       "category": "process-discipline",
       "code": "OP04",
-      "counter": "For ecosystem facts (plugin list, roadmap, naming, status) always read the live docs first: flux/docs/ROADMAP.md, flux/docs/ecosystem.md, flux/docs/brand-guide.md, and the filesystem under c:/git/enchanted-skills/. Auto-memory is for user preferences, not ecosystem state.",
+      "counter": "For ecosystem facts (plugin list, roadmap, naming, status) always read the live docs first: wixie/docs/ROADMAP.md, wixie/docs/ecosystem.md, wixie/docs/brand-guide.md, and the filesystem under c:/git/enchanted-skills/. Auto-memory is for user preferences, not ecosystem state.",
       "days_since_last_seen": 4.458,
       "first_seen": "2026-04-18",
       "last_seen": "2026-04-18",
@@ -1819,7 +1819,7 @@
       "reservoir": [
         {
           "session": "plugin-survey conversation 2026-04-18",
-          "title": "Read flux/docs/* directly for ecosystem facts, not auto-memory",
+          "title": "Read wixie/docs/* directly for ecosystem facts, not auto-memory",
           "ts": "2026-04-18"
         }
       ],
@@ -1828,12 +1828,12 @@
       ],
       "signal": "When the user asks 'what plugins exist?' or 'what's next?' or 'what's the naming rule?', the first tool call should be Read on a docs file or Bash ls on the repo, not memory recall.",
       "tags": [
-        "flux",
+        "wixie",
         "ecosystem",
         "source-of-truth",
         "stale-memory"
       ],
-      "title": "Read flux/docs/* directly for ecosystem facts, not auto-memory",
+      "title": "Read wixie/docs/* directly for ecosystem facts, not auto-memory",
       "verdict": "noise",
       "weight": 0.9021
     },

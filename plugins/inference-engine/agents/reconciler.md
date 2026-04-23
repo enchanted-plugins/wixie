@@ -54,7 +54,7 @@ If any pattern's verdict changed in this reconcile (compare to previous `catalog
 python ${CLAUDE_PLUGIN_ROOT}/../../shared/scripts/inference-engine.py render-briefing <plugin>
 ```
 
-At Phase 1 only `flux` is wired; re-render `flux` unconditionally.
+At Phase 1 only `wixie` is wired; re-render `wixie` unconditionally.
 
 ### 4. Report
 
@@ -67,6 +67,6 @@ reconciled N artifacts -> P patterns (E elevated, R retired)
 ## Rules
 
 - Do NOT emit new artifacts from the reconciler. Emission is the caller's job.
-- Do NOT run if `FLUX_INFERENCE_ENABLED != 1`. The engine's emit path already checks; reconcile runs regardless but is harmless on empty state.
+- Do NOT run if `WIXIE_INFERENCE_ENABLED != 1`. The engine's emit path already checks; reconcile runs regardless but is harmless on empty state.
 - Do NOT edit `catalog.json` by hand — the atomic write path is the only supported mutation.
 - Honest numbers — every reported count comes from the engine's summary line, never fabricated.

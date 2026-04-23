@@ -2,7 +2,7 @@
 name: inference-query
 description: >
   Search the inference-engine catalog. Accepts a code (F07, OP05, …), a tag
-  (flux, lifecycle, …), or a 16-char pattern_id. Returns the full pattern
+  (wixie, lifecycle, …), or a 16-char pattern_id. Returns the full pattern
   records as JSON. Read-only; cheap; safe to call ad-hoc.
   Auto-triggers on: "/inference-query", "what does F07 say", "show patterns
   tagged lifecycle", "search ufopedia for …".
@@ -34,10 +34,10 @@ Parse the JSON and present a compact summary:
 ```
 <N> pattern(s) matching '<term>':
 
-[elevated]  F07 — Ran seven reactive iterations instead of one-pass Flux lifecycle
+[elevated]  F07 — Ran seven reactive iterations instead of one-pass Wixie lifecycle
             weight 0.94 · posterior 0.83 (CI 0.55–0.98) · LLR 8.95
             last seen 2026-04-21 (1d ago) · 5 observations across 1 session
-            tags: flux, lifecycle, convergence, prompt-engineering, process-discipline
+            tags: wixie, lifecycle, convergence, prompt-engineering, process-discipline
 ```
 
 ### Step 3: Offer follow-ups
@@ -45,7 +45,7 @@ Parse the JSON and present a compact summary:
 If the caller's intent is to understand a pattern they're about to trip over, offer:
 
 - `/inference-brief <plugin>` to see the full briefing the target plugin is consuming.
-- Full JSON via a Read on `flux/plugins/inference-engine/state/catalog.json`.
+- Full JSON via a Read on `wixie/plugins/inference-engine/state/catalog.json`.
 
 ## Rules
 
