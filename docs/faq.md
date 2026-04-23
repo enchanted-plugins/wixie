@@ -4,7 +4,7 @@ Quick answers to questions that don't yet have their own doc. For anything deepe
 
 ## What's the difference between Wixie and the other siblings?
 
-Wixie answers *"what did I say?"* — it engineers the prompt you send to a model. Sibling plugins answer different questions in the same session: Fae tracks token spend, Raven watches change trust, Hydra scans for security surface, Sylph coordinates git workflow. All are independent installs; none require the others. See [docs/ecosystem.md](ecosystem.md) for the full map.
+Wixie answers *"what did I say?"* — it engineers the prompt you send to a model. Sibling plugins answer different questions in the same session: Emu tracks token spend, Crow watches change trust, Hydra scans for security surface, Sylph coordinates git workflow. All are independent installs; none require the others. See [docs/ecosystem.md](ecosystem.md) for the full map.
 
 ## Do I need the other siblings to use Wixie?
 

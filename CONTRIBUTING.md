@@ -67,7 +67,7 @@ wixie/
 
 ## Adding a Plugin
 
-Follow the Fae pattern:
+Follow the Emu pattern:
 ```
 plugins/<name>/
 ├── .claude-plugin/plugin.json

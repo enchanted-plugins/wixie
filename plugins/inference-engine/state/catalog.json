@@ -552,7 +552,7 @@
       "beta": 1.0,
       "category": "branding-drift",
       "code": "OP05",
-      "counter": "Honest naming contract: every algorithm name must match what the code does, not what the roadmap aspires to. When declaring an engine 'Bayesian / Gauss / Thompson / Beta-Binomial,' verify prior and posterior update steps exist in code. If only a decay rule exists, call it EMA / exponential smoothing / posture decay. Taxonomy across enchanted-plugins: EMA-class (Hydra R8, Pech L1, Fae A2), Beta-Binomial-class (Lich M6), Prose-log-class (Wixie F6 learnings.json, precedent.jsonl).",
+      "counter": "Honest naming contract: every algorithm name must match what the code does, not what the roadmap aspires to. When declaring an engine 'Bayesian / Gauss / Thompson / Beta-Binomial,' verify prior and posterior update steps exist in code. If only a decay rule exists, call it EMA / exponential smoothing / posture decay. Taxonomy across enchanted-plugins: EMA-class (Hydra R8, Pech L1, Emu A2), Beta-Binomial-class (Lich M6), Prose-log-class (Wixie F6 learnings.json, precedent.jsonl).",
       "days_since_last_seen": 0.458,
       "first_seen": "2026-04-22",
       "last_seen": "2026-04-22",
@@ -1082,7 +1082,7 @@
       "sessions_seen": [
         "scaffolding passes 2026-04-17"
       ],
-      "signal": "Cross-repo rule: applies to wixie, fae, raven, hydra, sylph, lich, pech, schematic, and every future sibling.",
+      "signal": "Cross-repo rule: applies to wixie, emu, crow, hydra, sylph, lich, pech, schematic, and every future sibling.",
       "tags": [
         "enchanted-plugins",
         "git-hygiene",

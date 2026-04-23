@@ -416,8 +416,8 @@ MIT
 
 ## Role in the ecosystem
 
-Wixie is the **prompt-engineering layer** of the @enchanted-plugins stack — it crafts what gets said to a model. Its upstream dependency is Hydra's `config-shield`, which scans the repo at SessionStart so Wixie operates on a trusted config surface. Its downstream neighbors observe what Wixie produces: Fae measures the tokens Wixie's dispatches consume, Raven scores the changes Wixie's prompts induce, and Pech attributes the dollar cost per engine (E1–E6).
+Wixie is the **prompt-engineering layer** of the @enchanted-plugins stack — it crafts what gets said to a model. Its upstream dependency is Hydra's `config-shield`, which scans the repo at SessionStart so Wixie operates on a trusted config surface. Its downstream neighbors observe what Wixie produces: Emu measures the tokens Wixie's dispatches consume, Crow scores the changes Wixie's prompts induce, and Pech attributes the dollar cost per engine (E1–E6).
 
-Wixie does not track tokens (Fae's lane), score change trust (Raven's lane), review code correctness (Lich's lane), orchestrate git (Sylph's lane), scan security surfaces (Hydra's lane), or price dispatches (Pech's lane). It engineers the prompt — nothing more.
+Wixie does not track tokens (Emu's lane), score change trust (Crow's lane), review code correctness (Lich's lane), orchestrate git (Sylph's lane), scan security surfaces (Hydra's lane), or price dispatches (Pech's lane). It engineers the prompt — nothing more.
 
 See [docs/ecosystem.md § Data Flow Between Plugins](docs/ecosystem.md#data-flow-between-plugins) for the full map.

@@ -9,17 +9,17 @@ Every developer asks these during an AI-assisted session. Each question maps to 
 │                   Developer Session                       │
 │                                                          │
 │   "What did I say?"        → Wixie     (prompts)          │
-│   "What did I spend?"      → Fae    (tokens)           │
-│   "What just happened?"    → Raven   (changes)          │
+│   "What did I spend?"      → Emu    (tokens)           │
+│   "What just happened?"    → Crow   (changes)          │
 │   "Is it safe?"            → Hydra   (security)         │
 │   "What did it cost?"      → Pech     (spend)            │
 │                                                          │
 └──────────────────────────────────────────────────────────┘
 ```
 
-## Plugin Ecosystem (9 games, Hollow Knight shared by Raven + Sylph)
+## Plugin Ecosystem (9 games, Hollow Knight shared by Crow + Sylph)
 
-Shipped today: Wixie, Fae, Raven, Hydra, Sylph. Planned: Pech, Athena, Crucible, Assembler, + 11 more in Phase 3–4.
+Shipped today: Wixie, Emu, Crow, Hydra, Sylph. Planned: Pech, Athena, Crucible, Assembler, + 11 more in Phase 3–4.
 
 ```
                           ┌─────────────────┐
@@ -30,13 +30,13 @@ Shipped today: Wixie, Fae, Raven, Hydra, Sylph. Planned: Pech, Athena, Crucible,
     ┌──────────┬──────────┬────────┼────────┬──────────┬──────────┐
     │          │          │        │        │          │          │
 ┌───▼────┐ ┌──▼───┐ ┌────▼────┐ ┌─▼────┐ ┌─▼──────┐ ┌─▼────┐ ┌───▼──────┐
-│  Wixie  │ │Fae │ │ Raven  │ │Hydra│ │ Sylph │ │ Pech │ │  + Phase │
+│  Wixie  │ │Emu │ │ Crow  │ │Hydra│ │ Sylph │ │ Pech │ │  + Phase │
 │ prompt │ │token │ │ change  │ │sec-  │ │ git    │ │ cost │ │   3-4    │
 │ craft  │ │health│ │ trust   │ │urity │ │ flow   │ │track │ │ plugins  │
 │  v3.0  │ │ v2.0 │ │  v1.0   │ │ v1.0 │ │ v0.0.1 │ │ n/a  │ │          │
 └────────┘ └──────┘ └─────────┘ └──────┘ └────────┘ └──────┘ └──────────┘
  Minecraft  Minecraft  Hollow    Subnautica Hollow   Animal   Hades, Terraria,
- enchant.    fae     Knight               Knight   Crossing Factorio, ...
+ enchant.    emu     Knight               Knight   Crossing Factorio, ...
 
   Shipped     Shipped     Shipped    Shipped  Shipped   Planned    Planned
 ```
@@ -48,13 +48,13 @@ Session Start
      │
      ▼
 ┌─────────┐    ┌─────────┐    ┌─────────┐
-│ Hydra  │───▶│  Wixie   │───▶│  Fae  │
+│ Hydra  │───▶│  Wixie   │───▶│  Emu  │
 │ scans   │    │ crafts  │    │ tracks  │
 │ configs │    │ prompt  │    │ tokens  │
 └────┬────┘    └────┬────┘    └────┬────┘
      │              │              │
      │         ┌────▼────┐         │
-     │         │ Raven  │         │
+     │         │ Crow  │         │
      │         │ watches │         │
      │         │ changes │         │
      │         └────┬────┘         │
@@ -72,8 +72,8 @@ Total: 32 named algorithms across 9 products (5 shipped + 4 planned)
 
 Shipped:
   Wixie   (6):   Gauss ─── SAT ─── Game Theory ─── Adaptation ─── Verification ─── Accumulation
-  Fae  (5):   Markov ─── Runway ─── Shannon ─── Atomic ─── Dedup
-  Raven (6):   Bayesian Trust ─── Semantic Diff ─── Info-Gain ─── Continuity ─── Adversarial ─── Learning
+  Emu  (5):   Markov ─── Runway ─── Shannon ─── Atomic ─── Dedup
+  Crow (6):   Bayesian Trust ─── Semantic Diff ─── Info-Gain ─── Continuity ─── Adversarial ─── Learning
   Hydra (8):   Aho-Corasick ─── Entropy ─── OWASP ─── Action ─── Config ─── Phantom ─── Overflow ─── Threat
   Sylph (5):   Myers-Diff ─── Jaccard-Cosine ─── Workflow Classifier ─── Path-History ─── Gauss Learning (W5)
 
@@ -90,17 +90,17 @@ Planned:
 SessionStart  ──▶  Hydra (config-shield: scan for repo-level attacks)
               ──▶  Sylph (capability-memory: provider registry, GitLab probe)
 
-PreToolUse    ──▶  Fae  (token-saver: compress output, block dupes)
+PreToolUse    ──▶  Emu  (token-saver: compress output, block dupes)
               ──▶  Hydra (action-guard: block dangerous commands)
               ──▶  Sylph (sylph-gate: destructive-op decision gate)
 
-PostToolUse   ──▶  Fae  (context-guard: drift detection, runway)
-              ──▶  Raven (change-tracker: semantic diff, trust scoring)
+PostToolUse   ──▶  Emu  (context-guard: drift detection, runway)
+              ──▶  Crow (change-tracker: semantic diff, trust scoring)
               ──▶  Hydra (secret-scanner, vuln-detector, audit-trail)
               ──▶  Sylph (boundary-segmenter: task-boundary clustering)
 
-PreCompact    ──▶  Fae  (state-keeper: checkpoint before compaction)
-              ──▶  Raven (session-memory: save continuity graph)
+PreCompact    ──▶  Emu  (state-keeper: checkpoint before compaction)
+              ──▶  Crow (session-memory: save continuity graph)
               ──▶  Sylph (sylph-learning: persist developer preferences)
 ```
 
@@ -108,14 +108,14 @@ PreCompact    ──▶  Fae  (state-keeper: checkpoint before compaction)
 
 | Game | Plugin | Why this game fits |
 |------|--------|-------------------|
-| Minecraft | Wixie, Fae | Crafting, enchanting, and collecting — the foundation of building something from nothing |
-| Hollow Knight | Raven | A game about exploration where every area hides secrets you must carefully observe to survive |
+| Minecraft | Wixie, Emu | Crafting, enchanting, and collecting — the foundation of building something from nothing |
+| Hollow Knight | Crow | A game about exploration where every area hides secrets you must carefully observe to survive |
 | Subnautica | Hydra | A game where the ocean is beautiful but the darkness hides creatures that hunt by sound — you're never truly safe |
 | Animal Crossing | Pech | A game where every transaction is tracked, every loan is remembered, and the economy is always watching |
 | Hades | Athena | A game where gods judge your performance and reward excellence with boons — quality is earned |
 | Terraria | Crucible | A game where you forge items in increasingly extreme conditions to prove their worth |
 | Factorio | Assembler | A game that IS automation — every machine connects to the next in an optimized pipeline |
-| Hollow Knight | Sylph | Sylphs are Raven's ancestral kin — silk-spinners who weave threads into coherent patterns. Branches are threads; merges stitch them into a coherent history. |
+| Hollow Knight | Sylph | Sylphs are Crow's ancestral kin — silk-spinners who weave threads into coherent patterns. Branches are threads; merges stitch them into a coherent history. |
 
 ## Infrastructure
 

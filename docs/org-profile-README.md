@@ -46,25 +46,25 @@ The math isn't documentation. It runs as code.
 
 [Repository](https://github.com/enchanted-plugins/wixie) · v3.0.0 · 7 plugins · [Science](https://github.com/enchanted-plugins/wixie/blob/main/docs/science/README.md)
 
-### Fae — Context Health Toolkit
+### Emu — Context Health Toolkit
 
 Token management, drift detection, compaction survival.
 
 ```
-/plugin marketplace add enchanted-plugins/fae
+/plugin marketplace add enchanted-plugins/emu
 ```
 
-[Repository](https://github.com/enchanted-plugins/fae) · v2.0.0 · 4 plugins
+[Repository](https://github.com/enchanted-plugins/emu) · v2.0.0 · 4 plugins
 
-### Raven — Change Comprehension
+### Crow — Change Comprehension
 
 Bayesian trust scoring, semantic-diff clustering, and information-gain decision support for Claude Code.
 
 ```
-/plugin marketplace add enchanted-plugins/raven
+/plugin marketplace add enchanted-plugins/crow
 ```
 
-[Repository](https://github.com/enchanted-plugins/raven) · v1.0.0 · 5 plugins
+[Repository](https://github.com/enchanted-plugins/crow) · v1.0.0 · 5 plugins
 
 ### Hydra — Security Guardrails
 

@@ -32,8 +32,8 @@ The first 5 plugins answer the 5 fundamental questions of AI-assisted developmen
 | # | Plugin | Question | Algorithms | Version | Status |
 |---|--------|----------|------------|---------|--------|
 | 1 | **Wixie** | What did I say? (prompt quality) | Gauss Convergence, Boolean SAT, Game Theory, Cross-Domain Adaptation | v3.0.0 | Shipped — 7 plugins |
-| 2 | **Fae** | What did I spend? (token health) | Markov Drift, Shannon Compression, Linear Runway, Atomic Serialization | v2.0.0 | Shipped — 4 plugins |
-| 3 | **Raven** | What just happened? (change comprehension) | Bayesian Trust, Semantic Diff, Information-Gain, Session Continuity | v1.0.0 | Shipped — 5 plugins |
+| 2 | **Emu** | What did I spend? (token health) | Markov Drift, Shannon Compression, Linear Runway, Atomic Serialization | v2.0.0 | Shipped — 4 plugins |
+| 3 | **Crow** | What just happened? (change comprehension) | Bayesian Trust, Semantic Diff, Information-Gain, Session Continuity | v1.0.0 | Shipped — 5 plugins |
 | 4 | **Hydra** | Is it safe? (security) | Aho-Corasick, Shannon Entropy, Config Poisoning, Phantom Dependency, EMA Posture Decay | v1.0.0 | Shipped — 6 plugins |
 | 5 | **Pech** | What did it cost? (spend tracking) | Exponential Smoothing, Budget Forecasting | — | Not started |
 
@@ -56,8 +56,8 @@ enchanted-mcp
 ├── Connects to all installed enchanted-plugins via MCP
 ├── Unified dashboard: prompts + tokens + changes + security + costs
 ├── Cross-plugin intelligence:
-│   ├── Wixie detects bad prompt → Fae shows token waste from it
-│   ├── Raven flags risky change → Hydra scans it for vulnerabilities
+│   ├── Wixie detects bad prompt → Emu shows token waste from it
+│   ├── Crow flags risky change → Hydra scans it for vulnerabilities
 │   ├── Pech shows cost spike → traces to which plugin/session caused it
 │   └── All learnings shared across plugins (Gauss Accumulation network)
 └── Single install: `npx enchanted-mcp` or Docker container
@@ -70,7 +70,7 @@ enchanted-mcp
 │              enchanted-mcp (client)           │
 │                                              │
 │  ┌─────────┐ ┌─────────┐ ┌─────────┐       │
-│  │  Wixie   │ │  Fae  │ │  Raven  │  ...  │
+│  │  Wixie   │ │  Emu  │ │  Crow  │  ...  │
 │  │  (MCP)  │ │  (MCP)  │ │  (MCP)  │       │
 │  └────┬────┘ └────┬────┘ └────┬────┘       │
 │       │           │           │              │
@@ -88,7 +88,7 @@ enchanted-mcp
 ```
 
 ### Milestone: POC MCP client
-- Connects to Wixie + Fae + Raven + Hydra + Pech
+- Connects to Wixie + Emu + Crow + Hydra + Pech
 - Shared event bus for cross-plugin signals
 - Basic web dashboard showing unified session view
 - Cross-plugin learnings (Gauss Accumulation network)
@@ -113,7 +113,7 @@ Add 5 more plugins covering code quality, testing, DevOps, documentation, and AP
 - All 10 plugins connected to enchanted-mcp
 - Dashboard shows full development lifecycle
 - Cross-plugin intelligence covers: prompt → code → test → security → deploy → docs
-- Plugin-to-plugin event triggers (Raven flags change → Lich auto-reviews → Crucible tests)
+- Plugin-to-plugin event triggers (Crow flags change → Lich auto-reviews → Crucible tests)
 
 ---
 
@@ -158,7 +158,7 @@ Add 5 more plugins covering code quality, testing, DevOps, documentation, and AP
 
 | Phase | Milestone | Plugins | Target |
 |-------|-----------|---------|--------|
-| 1 | Foundation | 5 (Wixie, Fae, Raven, Hydra, Pech) — 4/5 shipped (Pech not started) | Q2 2026 |
+| 1 | Foundation | 5 (Wixie, Emu, Crow, Hydra, Pech) — 4/5 shipped (Pech not started) | Q2 2026 |
 | 2 | MCP POC | 5 + MCP client | Q3 2026 |
 | 3 | Full Coverage | 10 + enhanced MCP | Q4 2026 |
 | 4 | Production | 21 + production MCP — Sylph (#21) shipped early | Q1 2027 |
@@ -172,14 +172,14 @@ Every plugin is named after a game entity that metaphorically describes its func
 | Plugin | Entity | Game | Why |
 |--------|--------|------|-----|
 | **Wixie** | Enchantment Orbs | Minecraft | XP orbs that power the enchantment table — enchanting prompts |
-| **Fae** | Fae Mob | Minecraft | Flying creature that collects items and brings them to you — collecting tokens |
-| **Raven** | Raven | Hollow Knight | Ravenant protector who watches, tests, and judges from the shadows — watching changes |
+| **Emu** | Emu Mob | Minecraft | Flying creature that collects items and brings them to you — collecting tokens |
+| **Crow** | Crow | Hollow Knight | Ravenant protector who watches, tests, and judges from the shadows — watching changes |
 | **Hydra** | Hydra Leviathan | Subnautica | You hear it before you see it. Hunts in the dark. Relentless. Nothing gets past it — security scanning |
 | **Pech** | Tom Pech | Animal Crossing | Merchant-banker who tracks every bell you owe — cost accounting |
 | **Athena** | Athena | Hades | Goddess of wisdom who judges your combat quality and grants boons for excellence — code review |
 | **Crucible** | Crucible | Terraria | Endgame crafting station forged in hellfire — tests things to destruction — mutation testing |
 | **Assembler** | Assembling Machine | Factorio | Takes parts in, produces artifacts out, chains into automated pipelines — CI/CD building |
-| **Sylph** | Sylphs | Hollow Knight | Silk-spinners and Raven's ancestral kin who weave threads into coherent patterns — weaving branches, commits, and PRs into one history |
+| **Sylph** | Sylphs | Hollow Knight | Silk-spinners and Crow's ancestral kin who weave threads into coherent patterns — weaving branches, commits, and PRs into one history |
 
 ## Brand Standard (All Plugins)
 
@@ -192,7 +192,7 @@ Every @enchanted-plugins product must:
 5. Use atomic operations and handle race conditions
 6. Maintain zero external dependencies (bash + jq for hooks, Python stdlib for scripts)
 7. Include tests, dark-themed PDF reports, and comprehensive documentation
-8. Follow the Fae-style plugin marketplace structure
+8. Follow the Emu-style plugin marketplace structure
 
 ---
 
@@ -208,17 +208,17 @@ Every named algorithm across the ecosystem:
 | F4 | Game-Theoretic Security | Wixie | Zero-sum adversarial robustness |
 | F5 | Static-Dynamic Verification | Wixie | Structure + behavior dual testing |
 | F6 | Gauss Accumulation | Wixie | Cross-session knowledge persistence |
-| A1 | Markov Drift Detection | Fae | Hidden state transition recognition |
-| A2 | Linear Runway Forecasting | Fae | Token consumption prediction |
-| A3 | Shannon Compression | Fae | Information-theoretic output reduction |
-| A4 | Atomic State Serialization | Fae | Bounded checkpoint persistence |
-| A5 | Content-Addressable Dedup | Fae | Hash-based read deduplication |
-| H1 | Semantic Diff Compression | Raven | Multi-file change clustering |
-| H2 | Bayesian Trust Scoring | Raven | Prior-posterior change risk assessment |
-| H3 | Information-Gain Decision | Raven | Review prioritization by uncertainty reduction |
-| H4 | Session Continuity Graph | Raven | Decision-causal relationship persistence |
-| H5 | Adversarial Self-Review | Raven | Specific concern generation for risky changes |
-| H6 | Gauss Learning (Raven) | Raven | Developer preference accumulation |
+| A1 | Markov Drift Detection | Emu | Hidden state transition recognition |
+| A2 | Linear Runway Forecasting | Emu | Token consumption prediction |
+| A3 | Shannon Compression | Emu | Information-theoretic output reduction |
+| A4 | Atomic State Serialization | Emu | Bounded checkpoint persistence |
+| A5 | Content-Addressable Dedup | Emu | Hash-based read deduplication |
+| H1 | Semantic Diff Compression | Crow | Multi-file change clustering |
+| H2 | Bayesian Trust Scoring | Crow | Prior-posterior change risk assessment |
+| H3 | Information-Gain Decision | Crow | Review prioritization by uncertainty reduction |
+| H4 | Session Continuity Graph | Crow | Decision-causal relationship persistence |
+| H5 | Adversarial Self-Review | Crow | Specific concern generation for risky changes |
+| H6 | Gauss Learning (Crow) | Crow | Developer preference accumulation |
 | R1 | Aho-Corasick Pattern | Hydra | Multi-pattern secret scanning |
 | R2 | Shannon Entropy Analysis | Hydra | High-entropy string detection |
 | R3 | OWASP Vulnerability Graph | Hydra | Vulnerability pattern detection |

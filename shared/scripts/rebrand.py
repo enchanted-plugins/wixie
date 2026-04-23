@@ -3,9 +3,9 @@
 rebrand.py — renames old plugin names to new modded-MC entity names across a repo.
 
 Old -> New:
-    Fae  -> Fae       (F)
+    Emu  -> Emu       (F)
     Wixie   -> Wixie     (W)
-    Raven -> Raven     (R)
+    Crow -> Crow     (R)
     Hydra -> Hydra     (H)
     Sylph -> Sylph     (S)
     Lich -> Lich      (L)
@@ -30,11 +30,11 @@ import sys
 from pathlib import Path
 
 MAPPING = {
-    "fae": "fae",
-    "faes": "fae",
+    "emu": "emu",
+    "faes": "emu",
     "wixie": "wixie",
     "wixiees": "wixies",
-    "raven": "raven",
+    "crow": "crow",
     "ravens": "ravens",
     "hydra": "hydra",
     "hydras": "hydras",

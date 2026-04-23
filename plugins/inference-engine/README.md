@@ -36,7 +36,7 @@ The question this plugin answers: *When the same mistake happens in a fourth ind
 ## Who this is for
 
 - Developers who've noticed their AI agent making the same mistake across weeks of sessions and want a principled way to make the correction stick without hard-coding it into every prompt.
-- Teams running multi-plugin workflows (Wixie + Raven + Hydra + Lich) who want cross-plugin failure patterns visible at session start, not buried in 9 separate per-plugin `learnings.json` files.
+- Teams running multi-plugin workflows (Wixie + Crow + Hydra + Lich) who want cross-plugin failure patterns visible at session start, not buried in 9 separate per-plugin `learnings.json` files.
 - Engineers who believe *honest numbers over blind compliance* — elevated patterns ship with posterior means, 95% credible intervals, and EMA-decayed weights, so a consumer can distinguish `LLR=2.9, 1 session` from `LLR=9.8, 6 sessions, weight 0.94`.
 
 Not for:
@@ -68,7 +68,7 @@ Not for:
 
 ## The Problem
 
-AI-assisted development sessions catch the same mistakes again and again. The plugin ecosystem already has *local* learning engines per plugin (F6 in Wixie, H6 in Raven, M6 in Lich, L5 in Pech, W5 in Sylph, R8 in Hydra, A7 in Fae) — but they **never talk to each other**. A failure Wixie catches during `/converge` never reaches Lich. A preference Sylph learns never informs Raven. Seven isolated learning loops.
+AI-assisted development sessions catch the same mistakes again and again. The plugin ecosystem already has *local* learning engines per plugin (F6 in Wixie, H6 in Crow, M6 in Lich, L5 in Pech, W5 in Sylph, R8 in Hydra, A7 in Emu) — but they **never talk to each other**. A failure Wixie catches during `/converge` never reaches Lich. A preference Sylph learns never informs Crow. Seven isolated learning loops.
 
 The literature on AI-era failure modes — Anthropic's Claude Code retrospectives, Shinn et al.'s Reflexion, Park et al.'s Generative Agents, MemGPT, Voyager — converges on one insight: **agents that remember** compound, **agents that rediscover** don't. Reflexion's mechanism (verbal reinforcement from failed trajectories) and Voyager's skill library (new skills build on old) both rely on a single shared memory surface.
 
@@ -133,7 +133,7 @@ Ufopedia wasn't a passive log in X-COM — it was the loop that made the next mi
 
 Five stages from failure to countermeasure:
 
-1. **Observation.** A plugin catches a failure (Wixie notices reactive iteration, Raven flags a silent revert, Hydra classifies a new attack pattern). The plugin composes a JSON artifact with `code`, `category`, `title`, `cause`, `counter`, `signal`, `tags`, and `evidence`.
+1. **Observation.** A plugin catches a failure (Wixie notices reactive iteration, Crow flags a silent revert, Hydra classifies a new attack pattern). The plugin composes a JSON artifact with `code`, `category`, `title`, `cause`, `counter`, `signal`, `tags`, and `evidence`.
 
 2. **Emission.** The plugin calls `inference-engine.py emit` (or the `inference-emit.sh` bash wrapper). The engine stamps `ts`, `session_id`, `plugin`, appends to `state/artifacts.jsonl`. Opt-in gate `WIXIE_INFERENCE_ENABLED=1` required; otherwise silent no-op.
 
@@ -362,8 +362,8 @@ Every existing per-plugin learning engine stays local. The substrate publishes *
 | Plugin   | Existing engine                                  | What stays local                               | What flows into substrate |
 |----------|--------------------------------------------------|------------------------------------------------|---------------------------|
 | Wixie     | F6 — learnings.json hypothesis log               | Per-prompt axis progressions, hypothesis log   | Cross-prompt F-codes (F01–F14) |
-| Fae    | A7 — Bayesian cross-session accumulation         | Per-strategy compression-success rates         | Drift patterns (A-codes)  |
-| Raven   | H6 — developer-preference accumulation           | Per-file Beta-Bernoulli posteriors             | Cross-session H-codes     |
+| Emu    | A7 — Bayesian cross-session accumulation         | Per-strategy compression-success rates         | Drift patterns (A-codes)  |
+| Crow   | H6 — developer-preference accumulation           | Per-file Beta-Bernoulli posteriors             | Cross-session H-codes     |
 | Hydra   | R8 — EMA Posture Decay                           | Per-threat EMA rates                           | Novel attack patterns (S-codes) |
 | Sylph   | W5 — workflow-preference accumulation            | Per-developer commit/branch preferences        | Cross-session W-codes     |
 | Lich   | M6 — Beta-Binomial per-(developer, rule)         | Per-(developer, rule) posteriors               | Novel rule families (M-codes) |
