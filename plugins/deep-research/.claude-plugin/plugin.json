@@ -1,0 +1,25 @@
+{
+  "name": "wixie-deep-research",
+  "display_name": "Deep Research",
+  "description": "E0 engine — produces a verified, cited claims artifact before prompts are engineered. Decomposes the query, fans out parallel Haiku fetchers, triangulates claims across independent sources, synthesizes, and verifies every claim traces to a fetched quote. Auto-fires inside /create when the topic depends on external or time-sensitive facts.",
+  "version": "0.1.0",
+  "author": {
+    "name": "enchanted-plugins"
+  },
+  "license": "MIT",
+  "keywords": [
+    "deep-research",
+    "triangulation",
+    "citation-grounding",
+    "hallucination-prevention",
+    "pre-prompt-research"
+  ],
+  "skills": [
+    "./skills/deep-research/",
+    "./skills/research-render/",
+    "./skills/research-query/",
+    "./skills/research-refresh/"
+  ],
+  "agents": "./agents/",
+  "dependencies": []
+}

@@ -128,6 +128,54 @@ Wait for the user's response. If they confirm the original model, proceed. If th
 
 ---
 
+## Phase 2.7: Research Check (E0, Do Not Skip)
+
+Before generating, check whether the prompt depends on external or time-sensitive facts. If yes, invoke the deep-research engine and fold its brief into the prompt's `<context>`.
+
+### Classify (Opus, one-shot)
+
+Does the task reference any of:
+- A specific model, API, library, framework, or tool by name
+- A date, version number, or "current" / "latest" / "as of <year>"
+- Competitive comparisons (X vs Y)
+- Benchmark results or rankings
+- Deprecation status, release notes, changelogs
+- Real-world facts about companies, products, people
+
+Any hit → research needed. Otherwise → skip to Phase 3 and record `"research_brief": null` in metadata. Do not narrate the classification to the user if no research is needed.
+
+### Reuse or regenerate
+
+1. Derive `<slug>` from the topic (kebab-case, ≤ 40 chars).
+2. Check if `${CLAUDE_PLUGIN_ROOT}/../../plugins/deep-research/state/briefs/<slug>/claims.json` exists.
+3. If yes, read its `freshness` field. If `today - freshness < 30 days`, reuse. Otherwise regenerate.
+
+### Invoke deep-research
+
+Invoke the `deep-research` skill with `<slug>`. Wait for `claims.json`. Do NOT proceed to Phase 3 until `verdict` is READY or PARTIAL. If FAIL, surface the failure to the user and ask how to proceed.
+
+### Fold into the prompt
+
+During Phase 3B generation, read `claims.json` and extract claims with `independent_count >= 2` (high-confidence, triangulated). Insert them as bullets into the prompt's `<context>` tag (Claude format) or Markdown context section (GPT format). Strip the `[S1]..[SN]` cite markers unless the prompt's own output should cite sources.
+
+If `verdict: PARTIAL`, add a one-line note to the prompt's `<constraints>`: *"When facts are time-sensitive, acknowledge uncertainty — triangulation was incomplete on: <list coverage_gaps from claims.json>."*
+
+Claims with `confidence: low` (single-source) are NOT folded into `<context>` by default — they belong in the prompt only if the developer confirms. Low-confidence triangulation is not shippable ground.
+
+### Metadata
+
+Update `metadata.json` (Phase 3 delivery step 5) with:
+
+```json
+"research_claims": "plugins/deep-research/state/briefs/<slug>/claims.json",
+"research_freshness": "<YYYY-MM-DD>",
+"triangulation_score": <0..1>
+```
+
+If no research was needed, all three fields are `null`.
+
+---
+
 ## Phase 3: Generation
 
 Three sub-steps, executed in order.
