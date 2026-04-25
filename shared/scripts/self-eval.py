@@ -16,6 +16,11 @@ def read_input():
     print("Usage: echo 'prompt' | python self-eval.py\n       python self-eval.py <file>", file=sys.stderr)
     sys.exit(2)
 
+# Size-aware imperative-bonus rationale: short prompts (<1000 words) can be written as
+# near-pure instruction lists (67% imperative target). Structured long-form prompts
+# (1000–2000 words) carry inherent prose for definitions and context (33% target).
+# Very long prompts (>2000 words) include schema explanations and narrative (20% target).
+# The bonus rewards *presence* of imperative voice, not its dominance in long prompts.
 def score_clarity(text):
     score = 7.0
     # Measure clarity on instructions, not on example model output
@@ -27,7 +32,13 @@ def score_clarity(text):
         score -= 2.0
     if sents:
         imp = sum(1 for s in sents if re.match(r'^(Write|Generate|Create|List|Explain|Analyze|Return|Output|Provide|Extract|Identify|Summarize|Compare|Evaluate|Include|Use|Do not|Always|Never|Focus|Think|Review|Classify|Limit|Describe|Respond|Check|Verify|Ensure|Apply|Report|Detect|Select|Assume|End|Start|Run|Read|Set|Add|Remove|Follow|Avoid|Handle|Define|Specify|Present|Show|Display)\b', s))
-        score += min((imp / len(sents)) * 3.0, 2.0)
+        word_count = len(text.split())
+        if word_count > 2000:
+            score += min((imp / len(sents)) * 10.0, 2.0)
+        elif word_count > 1000:
+            score += min((imp / len(sents)) * 6.0, 2.0)
+        else:
+            score += min((imp / len(sents)) * 3.0, 2.0)
     if re.search(r'(^#{1,3}\s|\n#{1,3}\s)', text_no_examples): score += 0.5
     if re.search(r'(<\w+>|```)', text_no_examples): score += 0.5
     if re.search(r'(\n\s*[-*]\s|\n\s*\d+[.)]\s)', text_no_examples): score += 0.5
