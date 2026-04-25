@@ -17,7 +17,7 @@ _Truncated to top 10 by weight. Full catalog at `state/catalog.json`; use `/infe
 - **Observations:** 10 across 1 session(s)   **Last seen:** 2026-04-22 (0d ago)
 - **Tags:** `wixie, agent-hygiene, scratch-residue, convergence-engine, enchanted-plugins, brand-standard, file-hygiene, operational-discipline`
 
-**Signal:** Untracked .py or .sh file appears at repo root or in wixie/state/ after an agent run and contains an open() call with a hardcoded c:/git/enchanted-skills/ absolute path.
+**Signal:** Untracked .py or .sh file appears at repo root or in wixie/state/ after an agent run and contains an open() call with a hardcoded <repo-root>/ absolute path.
 
 **Counter:** When a subagent writes investigative scripts to probe what-if score responses, write to /tmp/<plugin>-<task>-NNN.py or a plugin-scoped state/<plugin>/scratch/ dir with .gitignore coverage. wixie/state/ is reserved for tracked cross-plugin artifacts (precedent.jsonl, learning-substrate state). Sweep and delete scratch before agent return. If the scratch hardcodes an absolute UNC path, it is definitionally not reusable and therefore always scratch.
 

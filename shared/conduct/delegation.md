@@ -4,13 +4,15 @@ Audience: Claude. How plugins spawn subagents without poisoning the parent conte
 
 ## When to spawn a subagent
 
-Spawn one when **all three** hold:
+**Project default: delegate by default.** For any substantive task — build, refactor, research, multi-file edit, scaffold run — execute via the Agent tool, not inline. The friction of a subagent is lower than the cost of doing work the user expected to be agent-dispatched. Spawn parallel agents (one message, multiple Agent calls) when slices are independent.
 
-1. The raw material is large — logs, dozens of files, a test suite run.
-2. The answer back to the parent is small — a verdict, a list of paths, a score.
-3. The subtask is genuinely independent of the ongoing parent reasoning.
+**Exceptions — keep these inline:**
 
-If even one is false, stay in the parent context. Delegation for its own sake burns tokens and latency.
+1. Trivially small read-only ops the user can verify in one glance — reading a file they named, answering a direct factual question about repo state, confirming path existence.
+2. Integration glue after a subagent returns — joining outputs, applying small fixes caught post-return, propagating a single edit across repos.
+3. Cases where **all three** of these hold: raw material small, parent already has needed context, subtask not independent of ongoing reasoning. (Old default — now the exception, not the rule.)
+
+When in doubt, delegate. The cost asymmetry favors delegation: a wasted subagent costs tokens; a missed delegation costs user trust.
 
 ## The three non-negotiable clauses
 

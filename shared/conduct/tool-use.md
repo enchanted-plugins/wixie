@@ -58,6 +58,25 @@ The line-number prefix from Read (`   42\tfoo`) is not part of the file. Don't i
 4. **Chain with `&&` when order matters; parallel via multiple tool calls when it doesn't.**
 5. **Unix syntax on bash-on-Windows** — `/dev/null`, not `NUL`. Forward slashes in paths.
 
+## Cross-repo path references
+
+Documentation, conduct modules, learning entries, and any other tracked file that references a path inside the ecosystem MUST use one of two forms:
+
+- **Repo-relative** when the reference points inside a specific repo: `wixie/docs/ROADMAP.md`, `shared/conduct/precedent.md`. Always preferred — works for every developer regardless of where they cloned the repo.
+- **`<repo-root>/<plugin>/...`** when the reference must include the parent directory containing all sibling enchanted-plugins repos: `<repo-root>/wixie/plugins/inference-engine/state/artifacts.jsonl`. The placeholder `<repo-root>` is the developer's local parent — `~/git/enchanted-plugins`, `/Users/alice/code`, `D:/dev`, whatever fits their setup.
+
+**Never write absolute machine-specific paths** (`c:/git/enchanted-skills/...`, `/home/dan/repos/...`) in a tracked file. They leak the author's filesystem layout, break for every other developer, and trigger F02 Fabrication when an agent later tries to follow them. Caught violations: count as a F02 instance and fix in place.
+
+For runnable shell scripts that genuinely need a substitutable path, use `$REPO_ROOT` set by the developer's shell or by an `install.sh` — runtime variables, distinct from documentation placeholders.
+
+## Rename sweeps with sed
+
+When propagating a rename across SVGs, rendered HTML, or other artifacts that mix visible text and internal IDs:
+
+1. **Drop `\b` boundaries on SVG/HTML internal IDs.** GNU sed treats underscore as a word character, so `\bhornet\b` does NOT match `hornet_learning` — internal IDs slip through unchanged.
+2. **Run all three case variants in one pass:** `sed -i -e 's/Hornet/Crow/g' -e 's/hornet/crow/g' -e 's/HORNET/CROW/g'`. Rendered SVG output and node label conventions both use UPPER and lowercase forms; case-sensitive single-form sweep misses them.
+3. **Inline-rendered diagrams need a separate pass.** `docs/architecture/index.html` (and similar) often contains inline `<pre class="mermaid">` blocks that render via JS at runtime — neither the `.mmd` source files nor the `.svg` exports control them. After a rename, grep `index.html` independently for the old name.
+
 ## Semantic identifiers
 
 When tools return handles, prefer semantic over opaque.

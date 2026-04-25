@@ -6,20 +6,36 @@ Audience: Claude. How to read external web pages without burning budget, duplica
 
 Web fetches cost latency, tokens, and context attention. Treat them like calls against a paid API: cache, dedup, budget. Don't fetch what you can re-use; don't re-use what's stale; don't blow your share of a parallel budget.
 
-## Tier selection — by page shape, not URL origin
+## Tool ownership — WebFetch is Haiku-tier-only
 
-Pick the fetcher's model tier by what the caller needs back, not by where the page lives.
+**`WebFetch` is owned by Haiku-tier subagents.** The orchestrator (Opus) and decomposer/synth tiers do NOT call `WebFetch` directly — they delegate via the Agent tool to a Haiku fetcher subagent and consume the structured return.
 
-| Page shape | Tier | Why |
-|------------|------|-----|
-| Short structured (pricing, API ref, changelog, one-paragraph answer) | Haiku | Answer lives in the first 500 tokens; no synthesis |
-| Long doc needing cross-section summary | Sonnet | Mid-judgment — too much for Haiku, overkill for Opus |
-| Dense paper / benchmark PDF / technical spec | Opus | Technical judgment on what matters |
-| Unfetchable (paywalled, heavy JS, 404, login wall) | Return error | Don't spend a call producing hallucinated content |
+| Caller | May call `WebFetch` directly? |
+|--------|-------------------------------|
+| Opus orchestrator (e.g., `/create`, `/deep-research` Phase 1/4/5) | No — delegate to a Haiku fetcher |
+| Sonnet executor (triangulator, optimizer, red-team) | No — receive findings from Haiku, do not re-fetch |
+| Haiku fetcher (e.g., `plugins/deep-research/agents/fetcher.md`) | **Yes — this is the canonical owner** |
+| Haiku validator | No — read-only on artifacts, not the live web |
 
-The same URL can route differently depending on what the caller needs. Classify the *ask*, not the *source*.
+**Why this rule.**
+1. Cost — Haiku is the cheapest tier; bulk page-reading work belongs there, not at Opus prices.
+2. Context hygiene — fetched pages are large; a Haiku fork absorbs the page tokens, returns ≤ 400 words. The orchestrator's context never sees the raw HTML.
+3. Determinism — fetcher.md's mechanical paragraph-by-paragraph tests (A/B/C) work because the agent runs them literally; an Opus orchestrator running the same steps will skip ahead.
 
-Defaulting everything to Haiku saves tokens on easy pages but produces shallow extracts on dense ones. Defaulting to Opus wastes budget. Classify first.
+Permission requirement: project `.claude/settings.json` must allow `"WebFetch"` for Haiku subagents to actually run it. Domain-pinned WebFetch entries (`WebFetch(domain:foo.com)`) are insufficient when the fetcher hits diverse sources — allow `"WebFetch"` broadly so the fetcher can chase any URL its WebSearch returns.
+
+## Page-shape sizing — within Haiku, not across tiers
+
+The fetcher is always Haiku, but the *amount of work* per fetcher varies by page shape:
+
+| Page shape | Haiku fetcher behavior |
+|------------|------------------------|
+| Short structured (pricing, API ref, changelog) | Top 500 tokens; one finding |
+| Long doc needing cross-section summary | Walk top 3 sections; up to 3 findings; truncate at 8 KB |
+| Dense paper / benchmark PDF / technical spec | Walk abstract + key results section; flag with `low_coverage: true` if dense math defeats paragraph-by-paragraph extraction |
+| Unfetchable (paywalled, heavy JS, 404, login wall) | Return `{url, error: "unfetchable"}` — don't guess |
+
+For genuinely dense papers where Haiku struggles, the fix is *more fetchers in parallel* (each on a narrow query), not escalating to Sonnet/Opus for fetching. Synthesis is what scales up the tier — `WebFetch` itself stays at Haiku.
 
 ## Caching — don't re-fetch what you already have
 
