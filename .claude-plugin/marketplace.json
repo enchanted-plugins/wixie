@@ -49,6 +49,18 @@
       "source": "./plugins/prompt-translate",
       "description": "Converts prompts between models. Claude to GPT, GPT to Gemini, any to o-series. Preserves intent, adapts format.",
       "category": "portability"
+    },
+    {
+      "name": "inference-engine",
+      "source": "./plugins/inference-engine",
+      "description": "Evidence-accumulation substrate. Runs Wald SPRT + Beta-Binomial + EMA over an append-only artifact stream; elevates patterns that recur across sessions; renders per-plugin briefings consumed at session start.",
+      "category": "plugin"
+    },
+    {
+      "name": "deep-research",
+      "source": "./plugins/deep-research",
+      "description": "E0 engine — produces a verified, cited claims artifact before prompts are engineered. Decomposes the query, fans out parallel Haiku fetchers, triangulates claims across independent sources, synthesizes, and verifies every claim traces to a fetched quote.",
+      "category": "plugin"
     }
   ]
 }
