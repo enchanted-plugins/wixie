@@ -54,7 +54,7 @@ Not for:
 - [The Science Behind Wixie](#the-science-behind-wixie)
 - [Output Test Engine](#output-test-engine)
 - [vs Everything Else](#vs-everything-else)
-- [Agent Conduct (10 Modules)](#agent-conduct-10-modules)
+- [Agent Conduct (13 Modules)](#agent-conduct-13-modules)
 - [Architecture](#architecture)
 - [Acknowledgments](#acknowledgments)
 - [Versioning & release cadence](#versioning--release-cadence)
@@ -350,7 +350,7 @@ Five scoring axes (offline, zero cost): Structural Completeness, Specificity, Pr
 | Dependencies | Python stdlib only | Node.js | Python | SaaS | - |
 | Price | Free (MIT) | Free / Pro | Free | $$$ | Free |
 
-## Agent Conduct (10 Modules)
+## Agent Conduct (13 Modules)
 
 Every skill inherits a reusable behavioral contract from [shared/](shared/) — loaded once into [CLAUDE.md](CLAUDE.md), applied across all plugins. This is how Claude *acts* inside Wixie: deterministic, surgical, verifiable. Not a suggestion; a contract.
 
@@ -366,6 +366,9 @@ Every skill inherits a reusable behavioral contract from [shared/](shared/) — 
 | [skill-authoring.md](shared/conduct/skill-authoring.md) | SKILL.md frontmatter discipline, discovery test |
 | [hooks.md](shared/conduct/hooks.md) | Advisory-only hooks, injection over denial, fail-open |
 | [precedent.md](shared/conduct/precedent.md) | Log self-observed failures to `state/precedent-log.md`; consult before risky steps |
+| [tier-sizing.md](shared/conduct/tier-sizing.md) | Prompt verbosity scales inversely with model tier; Haiku needs mechanical steps, Opus runs on intent |
+| [web-fetch.md](shared/conduct/web-fetch.md) | External URL handling: cache, dedup, budget; WebFetch is Haiku-tier-only |
+| [inference-substrate.md](shared/conduct/inference-substrate.md) | Cross-session evidence accumulation; emit to and read from the inference-engine substrate without corrupting its honest-numbers contract |
 
 ## Architecture
 
