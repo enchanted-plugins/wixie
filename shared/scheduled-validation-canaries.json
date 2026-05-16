@@ -1,0 +1,65 @@
+{
+  "_doc": "Canary topics for /deep-research scheduled validation. Each canary is a stable-answer topic with a known τ and source-count baseline; drift from these baselines on a quick-depth run is an early-warning signal that something in the deep-research pipeline (fetcher routing, triangulator scoring, verifier re-fetch, schema versioning) has regressed. Authored: BG-23 (F4.3). Authorship: Enchanter Labs.",
+  "_schema_version": 1,
+  "_rotation_strategy": "round-robin via index_file (state/scheduled-validation-index.txt). Each run picks index, runs that canary, increments index modulo len(canaries). Random-pick was rejected because run-to-run comparability requires we hit each canary on a known cadence — a 5-canary list with random pick would mean some canaries get re-run before others get a first run, which hurts τ-drift detection.",
+  "_quick_depth_only": "All canaries run at --depth quick. Quick depth = ~6 fetchers, 1 round, 1 triangulator pass, 1 verifier pass. Cost envelope ~$1-3 per run. Full depth (~$5-15) is reserved for principal-initiated work, not validation.",
+  "_drift_definition": "A run is drift-flagged if any of: verdict != PARTIAL_QUICK; τ drifts by > 0.15 from baseline_tau (absolute); sources_count drops below baseline_sources_count_min; wall_clock_ms below 60_000 (quick-depth floor — under one minute means a phase short-circuited); claims_count below baseline_claims_min; schema parse failure on claims.json.",
+  "_operator_action_on_drift": "Read state/roadmaps/scheduled-validation-drift-YYYY-MM-DD.md, run the canary again manually in foreground at --depth quick, diff the new claims.json against the saved baseline brief, and if the regression reproduces, open a P1 against the offending phase.",
+  "canaries": [
+    {
+      "slug": "canary-claude-sonnet-context-window",
+      "topic": "What is the maximum context window of Claude Sonnet 4.5 as of the model's documented spec?",
+      "sub_question_shape": "model-capability",
+      "rationale": "Vendor-documented model spec. Answer is a single integer (1_000_000 tokens for the 1M-context variant; 200_000 for the standard variant). Triangulator should easily reach high τ; if it doesn't, fetcher routing or source-discipline weighting has regressed.",
+      "baseline_tau": 0.9,
+      "baseline_sources_count_min": 6,
+      "baseline_claims_min": 3,
+      "expected_verdict": "PARTIAL_QUICK",
+      "stable_until": "next model rev — re-baseline when Anthropic changes context-window numbers"
+    },
+    {
+      "slug": "canary-openai-completions-endpoint",
+      "topic": "What is the current REST endpoint path for OpenAI's chat completions API and what HTTP method does it require?",
+      "sub_question_shape": "api-behavior",
+      "rationale": "POST /v1/chat/completions. Stable for years. Multiple independent sources (OpenAI docs, SDK source, community refs). High-confidence fetch target — used as a ground-truth control.",
+      "baseline_tau": 0.92,
+      "baseline_sources_count_min": 6,
+      "baseline_claims_min": 3,
+      "expected_verdict": "PARTIAL_QUICK",
+      "stable_until": "OpenAI restructures the v1 routes (unlikely in 90d)"
+    },
+    {
+      "slug": "canary-mmlu-pro-benchmark",
+      "topic": "What is MMLU-Pro and how many multiple-choice questions does it contain in the standard release?",
+      "sub_question_shape": "benchmark",
+      "rationale": "MMLU-Pro is a well-documented benchmark with a known question count (~12_032). Tests benchmark-shape SQ decomposition. Should have high inter-source agreement.",
+      "baseline_tau": 0.85,
+      "baseline_sources_count_min": 6,
+      "baseline_claims_min": 3,
+      "expected_verdict": "PARTIAL_QUICK",
+      "stable_until": "benchmark sees a v2 release"
+    },
+    {
+      "slug": "canary-numpy-array-creation",
+      "topic": "What are the canonical ways to create a NumPy array from a Python list, and what dtype inference rule applies?",
+      "sub_question_shape": "library-usage",
+      "rationale": "Long-stable library API (numpy.array, numpy.asarray, np.fromiter). Tests library-shape SQ decomposition. Many independent tutorial sources — high redundancy is a feature for this canary, since it tests source-independence dedup.",
+      "baseline_tau": 0.88,
+      "baseline_sources_count_min": 6,
+      "baseline_claims_min": 3,
+      "expected_verdict": "PARTIAL_QUICK",
+      "stable_until": "NumPy makes a breaking 3.x release"
+    },
+    {
+      "slug": "canary-http-429-semantics",
+      "topic": "What does HTTP status code 429 mean and what header is conventionally used to communicate retry timing?",
+      "sub_question_shape": "protocol-spec",
+      "rationale": "RFC 6585 + the Retry-After header. Standards-track answer with multiple independent specifications. Tests spec-shape SQ decomposition and RFC-source recognition.",
+      "baseline_tau": 0.93,
+      "baseline_sources_count_min": 6,
+      "baseline_claims_min": 3,
+      "expected_verdict": "PARTIAL_QUICK",
+      "stable_until": "IETF retires RFC 6585 (effectively never on this cadence)"
+    }
+  ]
+}
