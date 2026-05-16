@@ -58,6 +58,7 @@ E0-specific wiring follows below.
 | 3 Triangulate | Sonnet | `Agent(general-purpose, sonnet, prompt="Run the triangulator at ${CLAUDE_PLUGIN_ROOT}/agents/triangulator.md with sources_path=<path> round=<N> sub_questions=<json> prior_claim_count=<N>")` |
 | 4 Gap-fill + adversarial | Opus decides, Haiku fetches | Consume triangulator's `negation_queries` for the adversarial family; generate gap-fill from `coverage_gaps`; re-enter Phase 2 |
 | 5 Synthesize | Opus (inline) | Codify triangulator's final claim graph into `claims.json` (schema below) |
+| 5.5 Synthesis-prose shape-check | Orchestrator inline (no agent dispatch) | `Bash(python ${CLAUDE_PLUGIN_ROOT}/../../shared/scripts/dossier-cite-validator.py --dossier <path> --sources <path> [--claims <path>])` — mechanical cite-to-source trace test on Phase 5 prose; **pre-flight check, advisory only**. Orchestrator rewrites flagged sentences (F02.4) before dispatching Phase 6. Phase 6 verifier remains the verdict gate. Per `@../vis/packages/web/conduct/citation-verification.md` § "Synthesis-prose validation (pre-Phase-6)". |
 | 6 Verify | Haiku | `Agent(general-purpose, haiku, prompt="Run the verifier at ${CLAUDE_PLUGIN_ROOT}/agents/verifier.md with target_path=<path> sources_path=<path> refetch_pct=<10\|0>")` |
 | 6c CIBER | Haiku | `Agent(general-purpose, haiku, prompt="Run the CIBER agent at ${CLAUDE_PLUGIN_ROOT}/agents/ciber.md with claims_path=<path> sources_path=<path> top_n=10 k_per_claim=3")` — full depth only; skipped at `--depth quick` |
 
@@ -65,7 +66,9 @@ All work-budget floors per `research-pipeline.md` — re-decompose / re-dispatch
 
 ## Phase 6c — Multi-aspect interrogation (CIBER)
 
-Phase 6c runs *after* Phase 6 verifier returns `verify_passed: true` (`violations` empty, `refetch_pass_rate ≥ 0.9`), and *before* the verdict is finalized. Per `@../vis/packages/web/conduct/citation-verification.md` § "Multi-aspect interrogation (CIBER)".
+**Mandatory at full depth; skipped at `--depth quick` (matches the Phase 6b re-fetch carve-out).** Phase 6c runs *after* Phase 6 verifier returns `verify_passed: true` (`violations` empty, `refetch_pass_rate ≥ 0.9`), and *before* the verdict is finalized. Per `@../vis/packages/web/conduct/citation-verification.md` § "Multi-aspect interrogation (CIBER)" and `@../vis/packages/web/conduct/research-pipeline.md` § "The six-phase shape" (Phase 6c row).
+
+A full-depth brief that ships without a `ciber_passed` field is an F12.3 floor violation — the verdict is HOLD until Phase 6c is dispatched. The Phase 6c agent is read-only over the existing `sources.jsonl`, so a re-dispatch costs Haiku-tier inference and no new web fetches.
 
 **Why it exists.** Trace check + re-fetch confirm a claim is *attributable* to its sources. CIBER confirms the claim is *stable* under re-framing. A `high`-confidence claim that collapses under paraphrase or negation has load-bearing wording that the sources don't actually back. The round-2 adversarial pass (Phase 4) hunts for *new* contradicting queries; Phase 6c re-frames the original claims against the *existing* corpus — orthogonal coverage.
 
@@ -78,10 +81,13 @@ Agent(general-purpose, haiku,
 
 Defaults: `top_n = 10`, `k_per_claim = 3` (1 negation + 1 verb-swap + 1 scope-shift, per the agent's mechanical patterns). Configurable upward — Haiku tier is cheap; raising `top_n` to 20–30 is a low-cost robustness bump for high-stakes briefs.
 
-**Skip conditions.**
-- `--depth quick` → skip entirely (matches Phase 6b re-fetch skip).
-- Fewer than 2 `confidence: high` claims in `claims.json` → skip; record `ciber_skipped: "insufficient-high-confidence-claims"` in `trace.json`.
-- Phase 6b returned `refetch_pass_rate < 0.7` → Phase 6c skipped; brief is already heading to FAIL/regenerate.
+**Skip conditions — Phase 6c is mandatory at full depth and may be skipped only when one of these holds.** Every skip MUST record an explicit `ciber_skipped: "<reason>"` in `trace.json#phase6c`. Absence of both `ciber_passed` and `ciber_skipped` at full depth is an F12.3 floor violation; the orchestrator re-dispatches Phase 6c rather than finalizing the verdict.
+
+- `--depth quick` → skip entirely (matches Phase 6b re-fetch skip); record `ciber_skipped: "depth-quick"`.
+- Fewer than 2 `confidence: high` claims in `claims.json` → skip; record `ciber_skipped: "insufficient-high-confidence-claims"`.
+- Phase 6b returned `refetch_pass_rate < 0.7` → Phase 6c skipped; brief is already heading to FAIL/regenerate; record `ciber_skipped: "refetch-hard-fail"`.
+
+No other skip is permitted at full depth. "Context budget" and "time pressure" are not skip conditions — Phase 6c is Haiku-tier and read-only, so it does not compete with adversarial-round budget.
 
 **Consuming the result.** The CIBER agent returns:
 
@@ -147,24 +153,27 @@ The `confidence`, `support_class`, and `dissemination_score` fields are defined 
 
 The vis `research-pipeline.md` defines the verdict criteria. E0's mapping is identical; the `verdict` field in `claims.json` carries it forward to `/create` and to the metadata layer.
 
-| Verdict | `/create` consumption |
-|---|---|
-| `READY` | Fold `support_class: Supported` + `confidence: high` claims directly into `<context>` |
-| `PARTIAL` | Same, but surface `medium-contested` and `Partially Supported` claims in `<constraints>` |
-| `PARTIAL_QUICK` | Consumable for time-sensitive lookups; never satisfies freshness-reuse (re-run on next ground-truth need) |
-| `HOLD` | Do not ship; orchestrator re-dispatches the offending phase |
-| `FAIL` | Regenerate `sources.jsonl` from a fresh Phase 2 |
+**Full-depth READY gate (composite):** `verify_passed: true` AND `ciber_passed: true` AND `τ ≥ 0.85` AND `refetch_pass_rate ≥ 0.9` AND no unresolved contradictions AND all work-budget floors met. Any of these failing routes to PARTIAL, HOLD, or FAIL per the precedence below.
+
+| Verdict | Gate composition (full depth) | `/create` consumption |
+|---|---|---|
+| `READY` | `verify_passed: true` AND `ciber_passed: true` AND `τ ≥ 0.85` AND `refetch_pass_rate ≥ 0.9` AND no unresolved contradictions AND floors met | Fold `support_class: Supported` + `confidence: high` claims directly into `<context>` |
+| `PARTIAL` | round ≥ 2 AND floors met AND (`τ < 0.85` OR contradictions remain OR `ciber_passed: false` OR `0.7 ≤ refetch_pass_rate < 0.9`) | Same, but surface `medium-contested` and `Partially Supported` claims in `<constraints>` |
+| `PARTIAL_QUICK` | quick depth completed; Phase 6c not run | Consumable for time-sensitive lookups; never satisfies freshness-reuse (re-run on next ground-truth need) |
+| `HOLD` | Any floor violated (wall-clock, query count, source count, re-fetch sample, missing Phase 6c at full depth — F12.3) | Do not ship; orchestrator re-dispatches the offending phase |
+| `FAIL` | `verify_passed: false` OR `refetch_pass_rate < 0.7` | Regenerate `sources.jsonl` from a fresh Phase 2 |
 
 **CIBER override on the verdict (Phase 6c).** A CIBER consistency failure on a `high`-confidence claim downgrades that claim to `medium-contested` AND forces the brief verdict to `PARTIAL` — even if every other gate passes (`τ ≥ 0.85`, `refetch_pass_rate ≥ 0.9`, all `verifier` violations empty). Rationale: a claim whose paraphrase splits its own source set is not READY-grade ground truth, regardless of how well the original phrasing traced.
 
 Mapping precedence (highest wins):
 1. `refetch_pass_rate < 0.7` → `FAIL` (Phase 6b hard fail)
 2. Any `verifier.violations` non-empty → `HOLD`
-3. `ciber_passed == false` (any consistency failure on a `high` claim) → `PARTIAL` (CIBER override)
-4. `0.7 ≤ refetch_pass_rate < 0.9` → `PARTIAL` (Phase 6b flagged)
-5. `τ < 0.85` OR unresolved contradictions present → `PARTIAL`
-6. All gates pass AND `--depth full` → `READY`
-7. `--depth quick` and all available gates pass → `PARTIAL_QUICK`
+3. Full depth AND Phase 6c was not run AND no valid `ciber_skipped` reason recorded → `HOLD` (F12.3); orchestrator re-dispatches Phase 6c
+4. `ciber_passed == false` (any consistency failure on a `high` claim) → `PARTIAL` (CIBER override)
+5. `0.7 ≤ refetch_pass_rate < 0.9` → `PARTIAL` (Phase 6b flagged)
+6. `τ < 0.85` OR unresolved contradictions present → `PARTIAL`
+7. All gates pass AND `--depth full` AND `ciber_passed: true` → `READY`
+8. `--depth quick` and all available gates pass → `PARTIAL_QUICK`
 
 ## Handoff to /create
 
