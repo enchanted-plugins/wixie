@@ -1,7 +1,7 @@
 # Wixie
 
 <p align="center">
-  <img src="docs/assets/social-preview.jpg" alt="Wixie mascot" width="1280">
+  <img src="docs/assets/hero.png" alt="Wixie mascot" width="1280">
 </p>
 
 <p>
